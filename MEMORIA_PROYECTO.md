@@ -83,9 +83,9 @@ incluyen [conceptos]. Prerrequisitos: [capítulos]. Caso de uso típico: [cuánd
 |---|---|
 | `Fuentes_nopCommerce.md` | Completo: 5 secciones con fechas de consulta |
 | `Manual de desarrollo V01 de nopCommerce.md` | Completo: 32 capítulos V01, 8 partes, 3 apéndices, índice (322.130 B, 5.781 líneas, LF sin BOM) |
-| `publicacion/imprimir/Manual_NopCommerce_Del_Desarrollador.pdf` | Completo: interior KDP 7×10", 272 páginas, 1.238.678 B |
+| `publicacion/imprimir/Manual_NopCommerce_Del_Desarrollador.pdf` | Completo: interior KDP 7×10", 274 páginas, 1.239.906 B, 127 cajas overfull (123 de tabla ≤3 mm, 4 de texto ≤8,7 mm) |
 | `publicacion/imprimir/Manual_NopCommerce_Del_Desarrollador.docx` | Completo: Word, 36 Heading2, 288 bookmarks, 14 imágenes |
-| `publicacion/imprimir/Manual_NopCommerce_Del_Usuario.pdf` | Completo: interior 7×10", 516 páginas, 42.013.304 B, 708 imágenes |
+| `publicacion/imprimir/Manual_NopCommerce_Del_Usuario.pdf` | Completo: interior 7×10", 516 páginas, 42.013.261 B, 708 imágenes, 21 cajas overfull (todas de tabla ≤2,8 mm) |
 | `publicacion/imprimir/Manual_NopCommerce_Del_Usuario.docx` | Completo: Word, 61 Heading2, 699 imágenes |
 | Hallazgos `find_01`…`find_06` (108) | 0 pendientes |
 | Reglas de corrección aplicadas | 169 (27 A + 27 B + 64 C + 17 mine + 13 mine2 + 12 p7fix + 9 final) |
@@ -135,7 +135,9 @@ Trampas resueltas (no re-descubrir):
 - El índice del manual es BulletList (no OrderedList) y se llama «Índice general»: el filtro debe
   saltarlo con `BulletList` y reconocer ambos títulos.
 - La verificación automática del build (pypdf) cuenta páginas, calcula el gutter KDP por tramo
-  (23 mm ≥ 12,7 mm para 252 pág.) y avisa de overfull hbox (0 en el build final).
+  (23 mm ≥ 12,7 mm para 274 pág.) y **mide** de verdad las cajas overfull hbox. Antes de corregir el
+  patrón de búsqueda informaba «0» sin medir; el build de desarrollo actual da **127** (123 de tabla
+  ≤3 mm y 4 de texto ≤8,7 mm), sin ninguna por encima de 20 mm.
 - `pdftoppm` (MiKTeX) sirve para revisar páginas concretas del PDF como imagen.
 
 ---

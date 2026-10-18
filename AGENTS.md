@@ -1,6 +1,7 @@
 # Agent.md - Documentación Profesional de Programación
 
-> Instrucciones globales en: ../AGENTS.md
+> **Nota**: las instrucciones globales residen en `AGENTS.md` de la raíz de `Documentacion/`,
+> que **no forma parte de este repositorio**. El presente fichero recoge las específicas de nopCommerce.
 
 ## Rol
 

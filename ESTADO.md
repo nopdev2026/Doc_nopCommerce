@@ -8,7 +8,7 @@
 **Dos manuales completos.** (1) El manual de desarrollo (plan v3, Fases 1-7) está cerrado y verificado
 contra el código fuente de nopCommerce 4.90.8; genera PDF (interior KDP) y DOCX. (2) El **manual de
 usuario** (V01, 57 capítulos en 12 partes + 3 apéndices) está completo, **con las 708 capturas oficiales
-de `nopCommerce-Docs` incrustadas** en los capítulos, y genera PDF (518 pp) y DOCX, para uso personal
+de `nopCommerce-Docs` incrustadas** en los capítulos, y genera PDF (516 pp) y DOCX, para uso personal
 /no comercial.
 
 **Ampliación 2026-10-18 (manual de desarrollo).** Se añadieron una **Parte I — Conceptos esenciales
@@ -16,7 +16,7 @@ de `nopCommerce-Docs` incrustadas** en los capítulos, y genera PDF (518 pp) y D
 y el **Capítulo 12** de profundidad sobre *Carga de ensamblados (.dll) y descubrimiento de plugins en
 runtime*. Los 28 capítulos previos se renumeraron: ahora hay **32 capítulos en 8 partes**. Se
 regeneraron y verificaron las 106 referencias cruzadas, las anclas `{#capitulo-N}` y el índice (44
-enlaces); PDF (272 pp) y DOCX reconstruidos. El dato de las fichas —`BaseEntity`, `IRepository<T>`,
+enlaces); PDF (274 pp) y DOCX reconstruidos. El dato de las fichas —`BaseEntity`, `IRepository<T>`,
 `INopStartup`, `*ModelFactory`, gestores de caché, `IStoreContext`/`IWorkContext`, `GenericAttribute`,
 `StandardPermission`— se verificó contra el código fuente de nopCommerce 4.90.8.
 
@@ -24,7 +24,7 @@ enlaces); PDF (272 pp) y DOCX reconstruidos. El dato de las fichas —`BaseEntit
 estático con una bandera que se cerraba al ver la **primera** lista; como pandoc recorre las listas
 anidadas **de dentro hacia fuera**, al añadir la Parte I al índice solo se eliminó su lista anidada
 y el resto se filtró al PDF (índice duplicado). Ahora la zona se cierra en el **siguiente
-encabezado** y se borran todas sus listas: PDF sin duplicado (272 pp) y TOC de LaTeX completa
+encabezado** y se borran todas sus listas: PDF sin duplicado (274 pp) y TOC de LaTeX completa
 con los 32 capítulos y las 8 partes.
 
 ## Entregables
@@ -32,9 +32,9 @@ con los 32 capítulos y las 8 partes.
 | Fichero | Estado | Notas |
 |---|---|---|
 | `Manual de desarrollo V01 de nopCommerce.md` | **Completo** | 322.130 B · 5.781 líneas (LF, sin BOM) · 32 capítulos V01 · 8 partes · 3 apéndices · portada e índice con 44 enlaces |
-| `publicacion/imprimir/Manual_NopCommerce_Del_Desarrollador.pdf` | **Completo** | Interior KDP 7×10": 272 páginas · 1.238.678 B · track LaTeX (pandoc + xelatex) · gutter 23 mm · 175 cajas overfull (123 de tabla ≤3 mm; 52 rutas largas en línea, ver §Hallazgo de desbordamiento) |
+| `publicacion/imprimir/Manual_NopCommerce_Del_Desarrollador.pdf` | **Completo** | Interior KDP 7×10": 274 páginas · 1.239.906 B · track LaTeX (pandoc + xelatex) · gutter 23 mm · 127 cajas overfull (123 de tabla ≤3 mm; 4 de texto ≤8,7 mm; ver §Hallazgo de desbordamiento) |
 | `Manual de usuario V01 de nopCommerce.md` | **Completo** | 241.610 B · 57 capítulos V01 · 12 partes · 3 apéndices · índice con 72 enlaces · **708 capturas oficiales incrustadas** (`img/usuario/`) · uso personal/no comercial |
-| `publicacion/imprimir/Manual_NopCommerce_Del_Usuario.pdf` | **Completo** | Interior 7×10": 516 páginas · 42.013.304 B · 708 imágenes XObject · track LaTeX propio · 21 cajas overfull, todas de tabla (≤2,8 mm) · copyright de uso personal con atribución a nop Solutions Ltd · sin ISBN |
+| `publicacion/imprimir/Manual_NopCommerce_Del_Usuario.pdf` | **Completo** | Interior 7×10": 516 páginas · 42.013.261 B · 708 imágenes XObject · track LaTeX propio · 21 cajas overfull, todas de tabla (≤2,8 mm), ninguna de texto · copyright de uso personal con atribución a nop Solutions Ltd · sin ISBN |
 | `publicacion/imprimir/Manual_NopCommerce_Del_Usuario.docx` | **Completo** | Word vía pandoc + reference · 35.844.675 B · 699 imágenes incrustadas · 61 Heading2 · índice interno clicable (72 enlaces) |
 | `publicacion/imprimir/Manual_NopCommerce_Del_Desarrollador.docx` | **Completo** | Word del manual de desarrollo vía pandoc + reference · 602.813 B · 14 imágenes · 36 Heading2 · índice interno clicable (288 bookmarks) |
 | `img/usuario/` | **Completo** | 699 capturas oficiales descargadas de `nopCommerce-Docs` (`_static/`), con atribución |
@@ -85,7 +85,7 @@ fichero correspondiente como `Manual de desarrollo V01 de nopCommerce.md`.
 ## Publicación KDP (interior PDF)
 
 El interior PDF **está generado y verificado** (`publicacion/imprimir/Manual_NopCommerce_Del_Desarrollador.pdf`,
-272 páginas · 1.238.678 B). Reproduce el track LaTeX de la colección (`MaquetaciónLibroGlobal.md`):
+274 páginas · 1.239.906 B). Reproduce el track LaTeX de la colección (`MaquetaciónLibroGlobal.md`):
 mismas tipografías (TeX Gyre Pagella + DejaVu Sans Mono), mismos márgenes 7×10" (gutter 23 mm) y
 misma plantilla de build.
 
@@ -125,30 +125,68 @@ nunca, de modo que **el build informaba siempre de «0 overfull» sin medir nada
 correcto es `-SimpleMatch -Pattern 'Overfull \hbox'`; el script del manual de usuario ya era
 correcto.
 
-Con la medición real, el interior del manual de desarrollo acumula **175 cajas overfull**:
+Con la medición real, el interior del manual de desarrollo acumulaba **175 cajas overfull**:
 
 | Tipo | Cantidad | Máximo | Efecto |
 |---|---|---|---|
 | Tabla (`in alignment`) | 123 | 3,0 mm | Desborde mínimo; el contenido queda dentro de la página |
 | Texto (`in paragraph`) | 52 | 125,0 mm | **21 líneas desbordan más de 20 mm** |
 
-El manual de usuario acumula **21 cajas**, todas de tabla (≤2,8 mm), sin desbordes de texto.
-
 **Causa**: rutas de archivo largas compuestas en DejaVu Sans Mono dentro de prosa, por ejemplo
 `Presentation/Nop.Web.Framework/Infrastructure/Extensions/ApplicationBuilderExtensions.cs`. La
-monoespaciada no admite quiebres, de modo que la línea se desborda hacia el margen y **queda
-recortada en el borde de la página** (verificado con `pdftoppm` en la página PDF 242, impresa 236,
-sección «28.6 Fuentes verificadas»).
+monoespaciada no admite quiebres, de modo que la línea se desbordaba hacia el margen y **quedaba
+recortada en el borde de la página** (verificado con `pdftoppm`, sección «28.6 Fuentes verificadas»).
+Era un defecto **preexistente en la fuente**, no introducido por el renombrado de entregables.
 
-**Estado**: defecto **preexistente** en el manual fuente, no introducido por el renombrado de
-entregables. Corregirlo obliga a permitir quiebres en el texto monoespaciado (por ejemplo en
-`fuentes_libro.tex`), lo que alteraría la paginación del interior. **Pendiente de decisión del
-autor.**
+### Corrección aplicada (2026-10-18)
+
+Se intervino **solo** el filtro `publicacion/script/filtro_libro_nopcommerce.lua`; se descartó
+tocar el `\XeTeXinterchartoks` global (reeflowearía todo el libro) y `header_libro.tex`. El filtro
+añade dos elementos:
+
+- **`Code()`**: los spans de código de 25 caracteres o más que contienen `/`, `.`, `_` o `-` se
+  rehacen en segmentos `\texttt{…}` separados por `\allowbreak{}`.
+- **`Str()`**: el mismo particionado se aplica a los tokens de **texto plano** de esa longitud.
+  Es imprescindible porque las rutas de las celdas de tabla (`Views/Home/Index.cshtml`) se escriben
+  sin acentos en la fuente y no son spans de código.
+
+Dos detalles no obvios de la implementación:
+
+- El `{}` de `\allowbreak{}` es obligatorio. Sin él, TeX leería `\allowbreakProduct` como **un
+  único control sequence indefinido** al ir seguido de texto plano (en prosa no fallaba porque lo
+  que venía después era `\texttt{`, y la llave cortaba la lectura).
+- El umbral de 25 caracteres acota el alcance: solo se tocan tokens largos, de modo que la
+  maquetación del resto del libro queda intacta.
+
+### Resultado tras la corrección
+
+Ambos interiores se reconstruyeron por completo:
+
+| Interior | Páginas | Cajas overfull | De texto | Desborde máx. | >20 mm |
+|---|---|---|---|---|---|
+| Desarrollo | 274 (antes 272) | 127 (antes 175) | 4 (antes 52) | 8,7 mm (antes 125,0) | **0** (antes 21) |
+| Usuario | 516 | 21 | 0 | 2,8 mm (tabla) | **0** |
+
+En el peor caso la línea llega a 166,5 mm sobre los 177,8 mm de la hoja: quedan **11,3 mm** hasta el
+borde, de modo que **ninguna línea sale de la página**. (El build solo verifica automáticamente el
+gutter interior; este margen exterior se ha medido a partir de la geometría `paperwidth=7in`,
+`outer=20mm`, `inner=23mm`.)
+
+TOC verificada contra la página impresa: **32/32** capítulos en el de desarrollo y **60/60** en el de
+usuario (desfazue de front matter = 6 en ambos).
+
+> **Importante**: corregir el defecto alteró la paginación, como se anticipaba. El interior de
+> desarrollo pasa de **272 a 274 páginas**; todas las cifras de este documento y de
+> `MEMORIA_PROYECTO.md` están actualizadas a ese valor.
+
+Verificación visual con `pdftoppm`: la ruta
+`Presentation/Nop.Web.Framework/Infrastructure/Extensions/ApplicationBuilderExtensions.cs` parte
+ahora a la segunda línea en lugar de cortarse en el margen.
 
 ## Próximos pasos (fuera del alcance actual)
 
 1. Cubierta KDP full-wrap (con `ensamblar_cubierta.py` de la colección) cuando se cierre el lomo
-   con las 272 páginas. **(Solo aplica al manual de desarrollo; el manual de usuario es de uso
+   con las 274 páginas. **(Solo aplica al manual de desarrollo; el manual de usuario es de uso
    personal y no se publica.)**
 2. Manual de usuario de nopCommerce: **COMPLETADO** (57 capítulos, **con las 708 capturas oficiales
    incrustadas**, PDF 516 pp y DOCX). Word del manual de desarrollo también generado.
@@ -164,7 +202,7 @@ Doc_nopCommerce/
 └── publicacion/
     ├── backups/                   Respaldos automáticos del fuente (backup_fuente.ps1)
     ├── imprimir/
-    │   ├── Manual_NopCommerce_Del_Desarrollador.pdf   ENTREGABLE: interior 272 págs
+    │   ├── Manual_NopCommerce_Del_Desarrollador.pdf   ENTREGABLE: interior 274 págs
     │   ├── Manual_NopCommerce_Del_Desarrollador.docx  ENTREGABLE: Word (36 Heading2)
     │   ├── Manual_NopCommerce_Del_Desarrollador.tex/.log/.toc/.aux   Artefactos del build
     │   ├── Manual_NopCommerce_Del_Usuario.pdf         ENTREGABLE: interior 516 págs
@@ -186,5 +224,11 @@ Doc_nopCommerce/
 
 ## Ámbito excluido
 
-`html5/`, `CSS3/`, `javascript/`, `webApi/`, el resto de la raíz de `Documentacion/` y el manual de
-usuario de nopCommerce. El manual fuente queda cerrado e intacto.
+`html5/`, `CSS3/`, `javascript/`, `webApi/` y el resto de la raíz de `Documentacion/`: otros
+proyectos que no forman parte de este repositorio. El manual fuente queda cerrado e intacto.
+
+El manual de usuario **no queda excluido**: es el segundo entregable y se publica junto a los
+demás. Su propia página de copyright lo define como «documento de uso personal y autoaprendizaje.
+No es un material editorial destinado a la venta», y sus 708 capturas proceden de la documentación
+oficial de nop Solutions Ltd, reproducidas con atribución. La cubierta full-wrap de KDP solo se
+prepara para el manual de desarrollo.

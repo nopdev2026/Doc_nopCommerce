@@ -82,6 +82,74 @@ local function split_fallback(text)
   return out
 end
 
+-- ===== Rutas largas: permitir el plegado de línea =====
+-- Tanto en código como en texto plano, un token largo con separadores ("/"
+-- "." "_" "-") es indivisible para TeX: xelatex no puede plegarlo y la línea
+-- se desborda fuera del margen (hasta 125 mm en el manual de desarrollo), con
+-- el texto RECORTADO en el borde de la página. La solución es rehacer el token
+-- en segmentos separados por \allowbreak.
+--
+-- El umbral MIN_RUTA acota el alcance: solo se tocan tokens largos, de modo
+-- que la maquetación y la paginación del resto del libro quedan intactas.
+-- 25 cubre rutas de tabla como "Admin/WidgetsSwiper/Configure" (28).
+local MIN_RUTA = 25
+
+local function es_separador(ch)
+  return ch == "/" or ch == "." or ch == "_" or ch == "-"
+end
+
+-- Devuelve la lista de segmentos si `s` es una ruta larga plegable; si no, nil.
+local function segmentos_de(s)
+  if #s < MIN_RUTA then return nil end
+  local segs, last, tiene_sep = {}, 1, false
+  for i = 1, #s do
+    if es_separador(s:sub(i, i)) then
+      -- El separador se queda al final del segmento: no se abre renglón
+      -- con "/" o "." en primera posición.
+      segs[#segs + 1] = s:sub(last, i)
+      last = i + 1
+      tiene_sep = true
+    end
+  end
+  if not tiene_sep then return nil end
+  if last <= #s then segs[#segs + 1] = s:sub(last) end
+  if #segs < 2 then return nil end
+  return segs
+end
+
+local function from_segs(segs, make)
+  local out = {}
+  for i, seg in ipairs(segs) do
+    if i > 1 then
+      -- El `{}` es imprescindible: sin él, TeX leería `\allowbreakProduct`
+      -- (en texto plano no hay llave que corte) como UN solo control sequence
+      -- undefined. En `\texttt{…}` no hacía falta porque lo cortaba la llave.
+      out[#out + 1] = pandoc.RawInline("latex", "\\allowbreak{}")
+    end
+    out[#out + 1] = make(seg)
+  end
+  return out
+end
+
+local function partir_token(inlines)
+  local out = {}
+  for _, inl in ipairs(inlines) do
+    if inl.tag == "Str" then
+      local segs = segmentos_de(inl.text)
+      if segs then
+        for _, x in ipairs(from_segs(segs, function(t) return pandoc.Str(t) end)) do
+          out[#out + 1] = x
+        end
+      else
+        out[#out + 1] = inl
+      end
+    else
+      out[#out + 1] = inl
+    end
+  end
+  return out
+end
+
 function Str(s)
   local out = {}
   for _, inline in ipairs(emoji.replace_str(s.text)) do
@@ -93,7 +161,15 @@ function Str(s)
       out[#out + 1] = inline
     end
   end
-  return out
+  -- Rutas largas escritas sin acentos en la fuente (típico en celdas de
+  -- tabla): se plegan igual que el código.
+  return partir_token(out)
+end
+
+function Code(c)
+  local segs = segmentos_de(c.text)
+  if not segs then return nil end
+  return from_segs(segs, function(t) return pandoc.Code(t) end)
 end
 
 -- ===== Tablas: longtable con maquetación unificada (MaquetaciónLibroGlobal.md) =====

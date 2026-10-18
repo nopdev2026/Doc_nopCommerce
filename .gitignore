@@ -12,6 +12,10 @@ publicacion/imprimir/_build/manual_tmp.md
 publicacion/backups/
 *.bak.md
 
+# Caché de Python (regenerable, específica de la versión de intérprete).
+__pycache__/
+*.pyc
+
 # Sistema
 Thumbs.db
 Desktop.ini
