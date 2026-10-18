@@ -1,0 +1,18 @@
+# Artefactos regenerables del build LaTeX (pandoc + xelatex).
+# Solo se versionan los entregables: PDF y DOCX.
+publicacion/imprimir/*.aux
+publicacion/imprimir/*.log
+publicacion/imprimir/*.toc
+publicacion/imprimir/*.tex
+
+# Copia temporal que genera preparar_fuente.py (regenerable).
+publicacion/imprimir/_build/manual_tmp.md
+
+# Backups del fuente manual (backup_fuente.ps1).
+publicacion/backups/
+*.bak.md
+
+# Sistema
+Thumbs.db
+Desktop.ini
+.DS_Store

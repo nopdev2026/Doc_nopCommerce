@@ -1,0 +1,43 @@
+% Ajustes adicionales para el manual de usuario (uso personal), 7"x10"
+% La página de título la genera pandoc por defecto con title/subtitle/author/date.
+\usepackage{graphicx}
+\usepackage{tikz}
+
+% Capturas: nunca desbordan la columna de 7"x10". Se limitan al ancho de
+% texto y a la altura de página conservando la proporción (keepaspectratio).
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>0.85\textheight0.85\textheight\else\Gin@nat@height\fi}
+\makeatother
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\fboxsep}{0pt}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\textit{Manual de usuario de nopCommerce}}
+\fancyhead[RO]{\small\textit{Manual de usuario de nopCommerce}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Tablas compactas: reducen el tamaño para que quepan en 7"x10"
+\AtBeginEnvironment{longtable}{\scriptsize}
+\AtBeginEnvironment{tabu}{\scriptsize}
+\setlength{\tabcolsep}{3pt}
+
+% Tablas: cabecera E8E8E8 centrada/negrita y rejilla completa 999999 0,5 pt
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{calc}
+\arrayrulecolor[HTML]{999999}
+\setlength{\arrayrulewidth}{0.5pt}
+
+% Permite partir URLs y cadenas largas (texttt) entre líneas
+\usepackage{xurl}
+\setlength{\emergencystretch}{3em}
+\sloppy
+
+% Evita que los bloques de código se corten al cambiar de página
+\usepackage{etoolbox}
+\BeforeBeginEnvironment{verbatim}{\par\small}

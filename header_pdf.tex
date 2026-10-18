@@ -1,0 +1,19 @@
+% Fuentes y caracteres especiales del interior PDF 7x10 (nopCommerce).
+%
+% SIN ucharclasses ni \newunicodechar:
+% - ucharclasses cambia de fuente al entrar en una clase Unicode (flechas,
+%   dibujos de caja, ...) y no vuelve a la fuente principal, por lo que el
+%   texto posterior a un carácter especial quedaba en Segoe UI Symbol.
+% - \newunicodechar crea caracteres activos que rompen microtype
+%   ("Argument of \MT@is@char has an extra }" en \begin{document}).
+% La sustitución de los glifos ausentes en TeX Gyre Pagella (→ ← ↓ ▼ ≤ ≥ y
+% dibujos de caja en prosa) la realiza el filtro filtro_libro_nopcommerce.lua
+% como RawInline {\symbolfont\char"XXXX"}, acotado a cada carácter.
+% Los bloques de código usan DejaVu Sans Mono, que sí incluye flechas y
+% dibujos de caja, y el filtro no toca los CodeBlock.
+\usepackage{fontspec}
+
+% Fuente de respaldo para glifos ausentes en Pagella (la usa el filtro).
+\IfFontExistsTF{Segoe UI Symbol}{%
+  \newfontfamily\symbolfont{Segoe UI Symbol}}{%
+  \newfontfamily\symbolfont{DejaVu Sans}}

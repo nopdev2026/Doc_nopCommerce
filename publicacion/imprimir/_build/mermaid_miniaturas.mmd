@@ -1,0 +1,7 @@
+flowchart LR
+    A[Subida] --> B{¿StoreInDB?}
+    B -- sí --> C[PictureBinary en BD]
+    B -- no --> D[Fichero en PicturePath]
+    C --> E[Picture con metadatos]
+    D --> E
+    E --> F[Miniaturas vía IThumbService]

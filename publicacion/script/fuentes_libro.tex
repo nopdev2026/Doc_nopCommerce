@@ -1,0 +1,23 @@
+% Fuentes del libro (idénticas en Windows y Linux): cargadas por ruta desde
+% publicacion/script/fonts para no depender de fuentes instaladas en el SO.
+% - Cuerpo: TeX Gyre Pagella (clon libre de Palatino).
+% - Código: DejaVu Sans Mono (libre, con variantes bold/oblique).
+% La ruta es relativa al .tex principal (publicacion/imprimir).
+\setmainfont[
+  Path=../script/fonts/,
+  Extension=.otf,
+  UprightFont=texgyrepagella-regular,
+  BoldFont=texgyrepagella-bold,
+  ItalicFont=texgyrepagella-italic,
+  BoldItalicFont=texgyrepagella-bolditalic,
+  Ligatures=TeX,
+  Scale=1
+]{TeX Gyre Pagella}
+\setmonofont[
+  Path=../script/fonts/,
+  Extension=.ttf,
+  UprightFont=DejaVuSansMono,
+  BoldFont=DejaVuSansMono-Bold,
+  ItalicFont=DejaVuSansMono-Oblique,
+  BoldItalicFont=DejaVuSansMono-BoldOblique
+]{DejaVu Sans Mono}

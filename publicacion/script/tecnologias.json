@@ -1,0 +1,47 @@
+{
+  "HTML5": {
+    "nombre": "HTML5",
+    "archivo": "Html5",
+    "volumen": "VOLUMEN I",
+    "subtitulo": "Manual de consulta rápida sobre el lenguaje de marcado HTML5.",
+    "running_head": "El Códice del Desarrollador de HTML5",
+    "legal": "HTML5 es un estándar del W3C/WHATWG. Las marcas comerciales y nombres citados en esta obra pertenecen a sus respectivos propietarios. Este manual es una recopilación original de referencia y no está afiliado al W3C ni al WHATWG.",
+    "descripcion_epub": "Manual de consulta rápida sobre HTML5: todas las etiquetas, atributos, entidades y ejemplos."
+  },
+  "CSS3": {
+    "nombre": "CSS3",
+    "archivo": "CSS3",
+    "volumen": "VOLUMEN II",
+    "subtitulo": "Manual de consulta rápida sobre el lenguaje de marcado CSS3.",
+    "running_head": "El Códice del Desarrollador de CSS3",
+    "legal": "CSS3 es una recomendación del W3C. Las marcas comerciales y nombres citados en esta obra pertenecen a sus respectivos propietarios. Este manual es una recopilación original de referencia y no está afiliado al W3C.",
+    "descripcion_epub": "Manual de consulta rápida sobre CSS3: todas las propiedades, selectores, reglas y ejemplos."
+  },
+  "JAVASCRIPT": {
+    "nombre": "JavaScript",
+    "archivo": "JavaScript",
+    "volumen": "VOLUMEN III",
+    "subtitulo": "Manual de consulta rápida sobre el lenguaje JavaScript.",
+    "running_head": "El Códice del Desarrollador de JavaScript",
+    "legal": "JavaScript es una marca comercial de Oracle Corporation (antes de Sun Microsystems); el lenguaje está estandarizado por ECMA International (ECMAScript). Las marcas comerciales y nombres citados en esta obra pertenecen a sus respectivos propietarios. Este manual es una recopilación original de referencia y no está afiliado a Oracle Corporation ni a ECMA International.",
+    "descripcion_epub": "Manual de consulta rápida sobre JavaScript: sintaxis, objetos, funciones y ejemplos."
+  },
+  "NOPCOMMERCE": {
+    "nombre": "nopCommerce",
+    "archivo": "NopCommerce_Del_Desarrollador",
+    "volumen": "VOLUMEN IV",
+    "subtitulo": "Manual de desarrollo sobre la plataforma de comercio electrónico nopCommerce.",
+    "running_head": "El Códice del Desarrollador de nopCommerce",
+    "legal": "nopCommerce es una marca comercial de nop Solutions Ltd. Las marcas comerciales y nombres citados en esta obra pertenecen a sus respectivos propietarios. Este manual es una recopilación original de referencia y no está afiliado a nop Solutions Ltd.",
+    "descripcion_epub": "Manual de desarrollo de nopCommerce: arquitectura, temas, plugins, eventos y buenas prácticas."
+  },
+  "NOPCOMMERCE_USUARIO": {
+    "nombre": "nopCommerce (usuario)",
+    "archivo": "NopCommerce_Del_Usuario",
+    "volumen": "Uso personal",
+    "subtitulo": "Manual de usuario de la plataforma de comercio electrónico nopCommerce 4.90.8.",
+    "running_head": "Manual de usuario de nopCommerce",
+    "legal": "Documento de uso personal y autoaprendizaje; no está destinado a la venta ni a la publicación. nopCommerce es una marca comercial de nop Solutions Ltd. Este manual se basa en la documentación oficial de nopCommerce 4.90.8; las capturas de pantalla y los contenidos de esa documentación pertenecen a nop Solutions Ltd y se reproducen con atribución. nopCommerce se distribuye bajo licencia de código abierto (ver licencia oficial en el repositorio). Este documento no está afiliado a nop Solutions Ltd.",
+    "descripcion_epub": "Manual de usuario de nopCommerce 4.90.8: instalación, configuración, catálogo, pedidos, clientes, contenido, marketing y administración del sistema."
+  }
+}
