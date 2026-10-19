@@ -1,7 +1,7 @@
 # Fuentes oficiales — Fuentes_nopCommerce.md
 
 > Registro de **fuentes oficiales obligatorias** de los dos documentos del proyecto.
-> **Última actualización:** 2026-10-18 · **Versión de referencia:** nopCommerce **4.90.8**
+> **Última actualización:** 2026-10-19 · **Versión de referencia:** nopCommerce **4.90.8**
 > **Documentos:** `Manual de desarrollo V01 de nopCommerce.md` · `Manual de usuario V01 de nopCommerce.md` (ambos completos; el de usuario con capturas oficiales incrustadas)
 
 > **Nota:** Fuente de consulta y de verdad. Toda referencia técnica incluida en los manuales debe constar aquí con su fecha de consulta. Si una afirmación no figura en una fuente de esta lista, no se escribe en el documento.
@@ -92,7 +92,8 @@
 | SQL Server / MySQL / PostgreSQL | 2012+ / 5.7+ / 9.2+ | `system-requirements-for-developing.md` | 2026-10-17 | Verificado |
 | Imágenes por defecto (Docker) | `mssql/server:2019-latest` | `docker-compose.yml` del repo local | 2026-10-17 | Verificado |
 | Licencia | nopCommerce Public License v3 (AGPL v3 + cláusula «powered by nopCommerce») | `LICENSE.md` del repo local | 2026-10-17 | Verificado |
-| Microsoft Learn (.NET, ASP.NET Core) | — | `https://learn.microsoft.com` | pendiente | **Pendiente de consultar** |
+| Microsoft Learn (.NET, ASP.NET Core) | Conceptos generales de C#/.NET/ASP.NET Core de la Parte I del manual de desarrollo | Servidor MCP de Microsoft Learn (`https://learn.microsoft.com/api/mcp`); artículos citados en el Apéndice A.7 del manual | 2026-10-19 | Verificado |
+| linq2db (documentación oficial del ORM) | Conceptos y API de linq2db de los capítulos 7 y 8 del manual de desarrollo | `https://linq2db.github.io/` (artículos citados en el Apéndice A.8 del manual) | 2026-10-19 | Verificado |
 
 ---
 

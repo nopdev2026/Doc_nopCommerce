@@ -3,7 +3,7 @@
 > **Versión del documento:** V01
 > **Versión de referencia de nopCommerce:** 4.90.8 (.NET 9)
 > **Fuente de verdad de las referencias:** `Fuentes_nopCommerce.md`
-> **Última revisión:** 17 de octubre de 2026
+> **Última revisión:** 19 de octubre de 2026
 
 ## Índice general {#indice}
 
@@ -15,38 +15,40 @@
   - [Capítulo 4 — Visión general](#capitulo-4)
   - [Capítulo 5 — Visión general de la arquitectura de nopCommerce](#capitulo-5)
   - [Capítulo 6 — Proyectos de la solución nopCommerce](#capitulo-6)
-  - [Capítulo 7 — UI Layer](#capitulo-7)
-  - [Capítulo 8 — Inyección de dependencias y desacoplamiento](#capitulo-8)
+  - [Capítulo 7 — linq2db: qué es y cómo se usa](#capitulo-7)
+  - [Capítulo 8 — linq2db en nopCommerce (capa Nop.Data)](#capitulo-8)
+  - [Capítulo 9 — UI Layer](#capitulo-9)
+  - [Capítulo 10 — Inyección de dependencias y desacoplamiento](#capitulo-10)
 - [Parte III — Temas y presentación](#parte-iii)
-  - [Capítulo 9 — Temas: alcance, estructura y personalización](#capitulo-9)
-  - [Capítulo 10 — Layouts y jerarquía de renderizado](#capitulo-10)
-  - [Capítulo 11 — Diferencia entre tienda pública y área de administración](#capitulo-11)
+  - [Capítulo 11 — Temas: alcance, estructura y personalización](#capitulo-11)
+  - [Capítulo 12 — Layouts y jerarquía de renderizado](#capitulo-12)
+  - [Capítulo 13 — Diferencia entre tienda pública y área de administración](#capitulo-13)
 - [Parte IV — Plugins](#parte-iv)
-  - [Capítulo 12 — Carga de ensamblados (.dll) y descubrimiento de plugins en runtime](#capitulo-12)
-  - [Capítulo 13 — Estructura completa de un plugin](#capitulo-13)
-  - [Capítulo 14 — Cómo crear un widget desde cero en nopCommerce](#capitulo-14)
-  - [Capítulo 15 — Diseño interno de un plugin: modelos, controladores y servicios](#capitulo-15)
-  - [Capítulo 16 — Ciclo de vida de un plugin](#capitulo-16)
+  - [Capítulo 14 — Carga de ensamblados (.dll) y descubrimiento de plugins en runtime](#capitulo-14)
+  - [Capítulo 15 — Estructura completa de un plugin](#capitulo-15)
+  - [Capítulo 16 — Cómo crear un widget desde cero en nopCommerce](#capitulo-16)
+  - [Capítulo 17 — Diseño interno de un plugin: modelos, controladores y servicios](#capitulo-17)
+  - [Capítulo 18 — Ciclo de vida de un plugin](#capitulo-18)
 - [Parte V — Caso práctico](#parte-v)
-  - [Capítulo 17 — Caso práctico: widget Swiper](#capitulo-17)
+  - [Capítulo 19 — Caso práctico: widget Swiper](#capitulo-19)
 - [Parte VI — Temas avanzados](#parte-vi)
-  - [Capítulo 18 — Sistema de eventos (pub-sub)](#capitulo-18)
-  - [Capítulo 19 — Widget Zones personalizadas](#capitulo-19)
-  - [Capítulo 20 — Change Tracker: EF Core y nopCommerce](#capitulo-20)
+  - [Capítulo 20 — Sistema de eventos (pub-sub)](#capitulo-20)
+  - [Capítulo 21 — Widget Zones personalizadas](#capitulo-21)
+  - [Capítulo 22 — Change Tracker: EF Core y nopCommerce](#capitulo-22)
 - [Parte VII — Calidad y buenas prácticas](#parte-vii)
-  - [Capítulo 21 — Estrategia de pruebas](#capitulo-21)
-  - [Capítulo 22 — Buenas prácticas y errores frecuentes](#capitulo-22)
+  - [Capítulo 23 — Estrategia de pruebas](#capitulo-23)
+  - [Capítulo 24 — Buenas prácticas y errores frecuentes](#capitulo-24)
 - [Parte VIII — Capacidades transversales](#parte-viii)
-  - [Capítulo 23 — Multi-tienda](#capitulo-23)
-  - [Capítulo 24 — Localización, monedas y regionalización](#capitulo-24)
-  - [Capítulo 25 — Caché e invalidación](#capitulo-25)
-  - [Capítulo 26 — Tareas programadas](#capitulo-26)
-  - [Capítulo 27 — Permisos, ACL y roles](#capitulo-27)
-  - [Capítulo 28 — Diagnóstico y registro](#capitulo-28)
-  - [Capítulo 29 — Correo electrónico y cola de mensajes](#capitulo-29)
-  - [Capítulo 30 — Gestión de medios](#capitulo-30)
-  - [Capítulo 31 — Búsqueda y SEO](#capitulo-31)
-  - [Capítulo 32 — Rendimiento, compresión y despliegue](#capitulo-32)
+  - [Capítulo 25 — Multi-tienda](#capitulo-25)
+  - [Capítulo 26 — Localización, monedas y regionalización](#capitulo-26)
+  - [Capítulo 27 — Caché e invalidación](#capitulo-27)
+  - [Capítulo 28 — Tareas programadas](#capitulo-28)
+  - [Capítulo 29 — Permisos, ACL y roles](#capitulo-29)
+  - [Capítulo 30 — Diagnóstico y registro](#capitulo-30)
+  - [Capítulo 31 — Correo electrónico y cola de mensajes](#capitulo-31)
+  - [Capítulo 32 — Gestión de medios](#capitulo-32)
+  - [Capítulo 33 — Búsqueda y SEO](#capitulo-33)
+  - [Capítulo 34 — Rendimiento, compresión y despliegue](#capitulo-34)
 - [Apéndices](#apendices)
   - [Apéndice A — Recursos y referencias](#apendice-a)
   - [Apéndice B — Glosario de términos](#apendice-b)
@@ -54,7 +56,7 @@
 
 # Parte I — Conceptos esenciales (recordatorio) {#parte-i}
 
-Esta parte reúne los conceptos que conviene retener antes de afrontar el resto del manual. Cada ficha explica primero el concepto en términos generales, válido para cualquier aplicación .NET, y después muestra cómo lo materializa nopCommerce con una clase o interfaz concreta: qué contiene y para qué sirve. El objetivo es disponer de un repaso rápido y de consulta; el desarrollo completo de cada tema se encuentra en los capítulos enlazados desde cada ficha.
+Esta parte reúne los conceptos que conviene retener antes de afrontar el resto del manual. Cada ficha explica primero el concepto en términos generales, válido para cualquier aplicación .NET, y después muestra cómo lo materializa nopCommerce con una clase o interfaz concreta: qué contiene y para qué sirve. El objetivo es disponer de un repaso rápido y de consulta; el desarrollo completo de cada tema se encuentra en los capítulos enlazados desde cada ficha. Los conceptos generales de C#, .NET y ASP.NET Core de esta parte se verificaron contra la documentación oficial de Microsoft Learn; sus fuentes se recogen en el Apéndice A.7.
 
 ## Capítulo 1 — Arquitectura, entidades y dependencias {#capitulo-1}
 
@@ -62,19 +64,32 @@ Repasa los conceptos fundacionales que sustentan el resto del manual: arquitectu
 
 **Parte I — Conceptos esenciales (recordatorio)** · Nivel: Básico
 
-Este capítulo consolida los conceptos estructurales sobre los que se apoya toda la plataforma; Sirve para tener presentes los cimientos antes de entrar en los capítulos profundos; Los conceptos clave incluyen la arquitectura por capas con dirección de dependencia hacia dentro, la inyección de dependencias con INopStartup, el patrón repositorio con IRepository<TEntity> y la clase BaseEntity; Prerrequisitos: nivel básico de C# y .NET; Caso de uso típico: repasar la base antes de leer los capítulos 5 a 8.
+- **Servicio:** consolida los conceptos estructurales sobre los que se apoya toda la plataforma.
+- **Utilidad:** tener presentes los cimientos antes de entrar en los capítulos profundos.
+- **Conceptos clave:** arquitectura por capas con dirección de dependencia hacia dentro; inyección de dependencias con `INopStartup`; patrón repositorio con `IRepository<TEntity>`; clase `BaseEntity`.
+- **Prerrequisitos:** nivel básico de C# y .NET.
+- **Caso de uso típico:** repasar la base antes de leer los capítulos 5 a 10.
 
 **Trampas frecuentes:**
 
 > - Invertir la dirección de dependencia (que un proyecto interior referencie uno exterior) rompe la arquitectura por capas y acopla el sistema.
-> - Elegir un ciclo de vida DI inadecuado: inyectar un servicio con ámbito (Scoped) dentro de uno singleton provoca una excepción de dependencia cautiva (captive dependency) cuando la validación de ámbitos está activada.
+> - Elegir un ciclo de vida DI inadecuado: inyectar un servicio con ámbito (Scoped) dentro de uno singleton convierte al primero en efectivamente singleton —dependencia cautiva o *captive dependency*—; con la validación de ámbitos activada, por defecto en el entorno de desarrollo, el contenedor lanza una excepción al detectarlo.
 > - Suponer que BaseEntity contiene fechas o borrado lógico: solo declara la propiedad Id; rasgos como el borrado lógico se añaden mediante interfaces separadas.
 
 ---
 
 ### Arquitectura por capas y dirección de dependencia
 
-**Concepto general.** La arquitectura por capas organiza un sistema en conjuntos de responsabilidades claras —presentación, lógica de negocio, persistencia y dominio— y establece una regla de dependencia: una capa solo puede depender de las situadas hacia dentro. Esa regla permite sustituir una implementación por otra, aislar las pruebas y comprender el sistema por partes. Un diseño que invierte la regla pierde esos beneficios y propaga los cambios hacia todo el proyecto.
+**Concepto general.** La arquitectura por capas organiza un sistema en conjuntos de responsabilidades claras —presentación, lógica de negocio, persistencia y dominio— y establece una regla de dependencia: una capa solo puede depender de las situadas hacia dentro. Un diseño que invierte la regla pierde esos beneficios y propaga los cambios hacia todo el proyecto.
+
+Las guías de arquitectura de aplicaciones web de .NET recomiendan separar incluso las aplicaciones monolíticas no triviales en capas lógicas: cada capa agrupa responsabilidades del mismo tipo y el resto del sistema no debe notar su sustitución. Los beneficios que las guías asocian a esa separación son:
+
+- Reutilizar funcionalidad de bajo nivel en distintas partes de la aplicación sin duplicarla.
+- Restringir qué capas pueden comunicarse entre sí, lo que refuerza el encapsulamiento.
+- Sustituir una capa completa siempre que solo trabaje con las capas que la rodean.
+- Limitar el impacto de los cambios: una modificación no debería salir de su capa si respeta su contrato.
+
+> Fuente: «Common web application architectures» y «Architectural principles» (Microsoft Learn; URL en el Apéndice A.7).
 
 **En nopCommerce.** La solución materializa la regla con proyectos separados y referencias estrictas entre ellos; cada proyecto solo referencia los situados hacia dentro:
 
@@ -90,9 +105,19 @@ Este capítulo consolida los conceptos estructurales sobre los que se apoya toda
 
 ### Inyección de dependencias
 
-**Concepto general.** La inyección de dependencias (DI) es una técnica por la que un objeto recibe sus dependencias de fuera, en lugar de crearlas internamente con `new`. Un contenedor (IoC) construye el objeto y le entrega lo que necesita. Sus ventajas son acoplar el código a interfaces en lugar de implementaciones, sustituir componentes sin tocar el resto y testear con sustitutos. El contenedor gestiona además el ciclo de vida de cada registro: transitorio (una instancia por resolución), con ámbito (una por petición o alcance) y singleton (una por la aplicación).
+**Concepto general.** La inyección de dependencias (DI) es una técnica por la que un objeto recibe sus dependencias de fuera, en lugar de crearlas internamente con `new`. Un contenedor —también llamado contenedor IoC— construye el objeto y le entrega lo que necesita. Sus ventajas son acoplar el código a interfaces en lugar de implementaciones, sustituir componentes sin tocar el resto y testear con sustitutos. En ASP.NET Core, el contenedor de servicios integrado es `IServiceProvider`: las dependencias se registran al arrancar, el framework crea las instancias de las dependencias y las libera cuando ya no las necesita.
 
-**En nopCommerce.** nopCommerce usa el contenedor de ASP.NET Core y organiza el registro en clases que implementan `INopStartup`:
+El contenedor gestiona el ciclo de vida de cada registro:
+
+| Ciclo de vida | Definición | Uso típico |
+|---------------|------------|------------|
+| Transitorio | crea una instancia nueva cada vez que se resuelve | servicios ligeros y sin estado |
+| Con ámbito (Scoped) | crea una instancia por petición HTTP —un ámbito por petición— | servicios con estado limitado a la petición |
+| Singleton | crea la instancia en la primera resolución y dura lo que la aplicación | servicios compartidos y sin estado |
+
+> Fuente: «Dependency injection in ASP.NET Core» y «Service lifetimes» (Microsoft Learn; URL en el Apéndice A.7).
+
+**En nopCommerce.** nopCommerce registra sus servicios con el contenedor de ASP.NET Core —con la opción de sustituirlo por Autofac mediante el ajuste `UseAutofac` de `appsettings.json`— y organiza el registro en clases que implementan `INopStartup`:
 
 | Miembro | Función |
 |---------|---------|
@@ -102,19 +127,54 @@ Este capítulo consolida los conceptos estructurales sobre los que se apoya toda
 
 Los servicios se declaran como interfaz con su implementación y se registran con `AddScoped`, `AddSingleton` o `AddTransient`; el ciclo de vida elegido es la principal fuente de errores de ámbito.
 
-**Enlace:** Capítulo 8.
+**Enlace:** Capítulo 10.
+
+Registro del servicio e inyección del constructor (ASP.NET Core):
+
+```csharp
+// Registro (Program.cs o Startup.cs)
+builder.Services.AddScoped<IMyDependency, MyDependency>();
+
+// Consumo por inyección en el constructor
+public class MyPlugin : BasePlugin
+{
+    private readonly IMyDependency _dependency;
+
+    public MyPlugin(IMyDependency dependency)
+    {
+        _dependency = dependency;
+    }
+}
+```
+
 
 ### Patrón repositorio y IRepository
 
-**Concepto general.** El patrón repositorio interpone una interfaz entre el dominio y el acceso a datos. El código de negocio pide altas, bajas y consultas a través de esa interfaz, sin conocer el ORM ni el motor de base de datos. La ventaja es poder cambiar de proveedor y probar el dominio con sustitutos en memoria.
+**Concepto general.** El patrón repositorio es un patrón del diseño dirigido por dominio que mantiene las preocupaciones de persistencia fuera del modelo de dominio: el modelo declara las interfaces y la infraestructura las implementa como adaptadores. El código de negocio pide altas, bajas y consultas a través de esa interfaz, sin conocer el ORM ni el motor de base de datos.
 
-**En nopCommerce.** `Nop.Data` declara la interfaz `IRepository<TEntity>`, restringida a entidades que heredan de `BaseEntity`. Ofrece operaciones asíncronas —por ejemplo `GetByIdAsync`— con opciones de caché y de borrado lógico; los servicios de `Nop.Services` la consumen para no acoplarse a EF Core ni a Linq2DB.
+Martin Fowler lo describe como un intermediario entre el modelo de dominio y las capas de mapeo de datos que se comporta como una colección en memoria: los clientes no escriben código de recuperación, sino que construyen las consultas de forma declarativa. Una implementación habitual es un repositorio por agregado de dominio —cada conjunto con identidad propia, su contrato—; las operaciones que abarcan varios repositorios las coordina el patrón Unidad de Trabajo.
 
-**Enlace:** Capítulo 6 y Apéndice C.
+Las ventajas prácticas son poder cambiar de proveedor sin tocar el dominio y probar el dominio con sustitutos en memoria.
+
+> Fuente: «Design the infrastructure persistence layer» (Microsoft Learn; URL en el Apéndice A.7).
+
+**En nopCommerce.** `Nop.Data` declara la interfaz `IRepository<TEntity>`, restringida a entidades que heredan de `BaseEntity`. Ofrece operaciones asíncronas de consulta —`GetByIdAsync`, `GetAllAsync` y consultas paginadas con `GetAllPagedAsync`— y de escritura —`InsertAsync`, `UpdateAsync` y `DeleteAsync`—. Las consultas aceptan una función de clave de caché para leer desde caché, y un indicador `includeDeleted` que incluye o excluye los elementos borrados lógicamente en las entidades que implementan `ISoftDeletedEntity`. Los servicios de `Nop.Services` la consumen para no acoplarse al ORM —linq2db— ni al motor de base de datos.
+
+**Enlace:** Capítulos 6 y 8, y Apéndice C.
 
 ### BaseEntity
 
-**Concepto general.** En un modelo de dominio conviene una clase base que dé identidad a cada entidad persistible, de modo que las operaciones genéricas —buscar por identificador o seguir los cambios— puedan tratarlas de forma uniforme.
+**Concepto general.** En un modelo de dominio, una entidad es un objeto definido primordialmente por su identidad, su continuidad y su persistencia en el tiempo, y no solo por los atributos que la componen; en palabras de Eric Evans citadas por Microsoft, «un objeto definido primordialmente por su identidad es una entidad».
+
+De esa definición se siguen decisiones de diseño concretas:
+
+- La identidad —el `Id`— es lo que permite seguir la historia de la entidad a lo largo del tiempo: dos objetos con los mismos atributos y distinta identidad son entidades distintas.
+- La misma identidad puede modelarse en varios contextos, pero cada contexto conserva solo los atributos y el comportamiento que necesita.
+- Una entidad no es solo datos: debe encapsular el comportamiento propio de su ciclo de vida.
+
+Una clase base de entidad aporta precisamente esa identidad uniforme —una propiedad `Id`— para que las operaciones genéricas, como buscar por identificador, traten todas las entidades de forma homogénea.
+
+> Fuente: «Design a microservice domain model» —sección «The Domain Entity pattern»— (Microsoft Learn; URL en el Apéndice A.7).
 
 **En nopCommerce.** `BaseEntity` es una clase abstracta de `Nop.Core` y la raíz del modelo de dominio; toda entidad que se persiste hereda de ella. Su contenido es mínimo a propósito:
 
@@ -122,7 +182,7 @@ Los servicios se declaran como interfaz con su implementación y se registran co
 |---------|------|-------------|
 | `Id` | `int` | identificador de la entidad |
 
-Rasgos adicionales no viven en esta clase, sino en interfaces que cada entidad declara si procede (por ejemplo, el borrado lógico).
+Rasgos adicionales no viven en esta clase, sino en interfaces que cada entidad declara si procede; por ejemplo, `ISoftDeletedEntity` habilita el borrado lógico.
 
 **Enlace:** Capítulo 6 y Apéndice C.
 
@@ -132,7 +192,11 @@ Repasa los conceptos de extensibilidad: cómo se compila y carga el código en e
 
 **Parte I — Conceptos esenciales (recordatorio)** · Nivel: Básico
 
-Este capítulo repasa los conceptos que permiten extender nopCommerce sin modificar su núcleo; Sirve para entender de entrada cómo se organizan y se cargan las piezas opcionales; Los conceptos clave incluyen el ensamblado y su carga por reflexión, el patrón fábrica con las Model Factory, el patrón plugin con IPlugin y la publicación-consumo de eventos; Prerrequisitos: capítulo 1; Caso de uso típico: comprender cómo se amplía la plataforma antes de crear un plugin.
+- **Servicio:** repasa los conceptos que permiten extender nopCommerce sin modificar su núcleo.
+- **Utilidad:** entender de entrada cómo se organizan y se cargan las piezas opcionales.
+- **Conceptos clave:** el ensamblado y su carga por reflexión; el patrón fábrica con las *Model Factory*; el patrón plugin con `IPlugin`; la publicación-consumo de eventos.
+- **Prerrequisitos:** capítulo 1.
+- **Caso de uso típico:** comprender cómo se amplía la plataforma antes de crear un plugin.
 
 **Trampas frecuentes:**
 
@@ -144,35 +208,88 @@ Este capítulo repasa los conceptos que permiten extender nopCommerce sin modifi
 
 ### Ensamblados (.dll) y carga en tiempo de ejecución
 
-**Concepto general.** En .NET el código se compila en ensamblados, normalmente archivos `.dll`. Además de cargarlos al arrancar, el runtime puede cargar ensamblados en tiempo de ejecución y, mediante reflexión, recorrer sus tipos para localizar los que implementan una interfaz determinada. Ese mecanismo es la base de cualquier sistema de extensiones: el núcleo no conoce de antemano las piezas opcionales, sino que las descubre mientras se ejecuta.
+**Concepto general.** En .NET el código se compila en ensamblados, normalmente archivos `.dll`, que contienen módulos, tipos y metadatos. Además de cargarlos al arrancar, el runtime puede cargarlos en tiempo de ejecución, personalizar cómo se resuelven y descargan —`AssemblyLoadContext`— o cargarlos desde una ruta concreta —`Assembly.LoadFrom`—.
 
-**En nopCommerce.** Cada proyecto de la solución compila su propio ensamblado. Un plugin es una biblioteca de clases independiente con sus archivos `.dll`; nopCommerce localiza sus descriptores, carga sus ensamblados al arrancar y registra los tipos que implementan `IPlugin`. El proceso completo se describe en el Capítulo 12.
+Mediante reflexión —las clases de `System.Reflection` junto con `System.Type`—, el código puede:
 
-**Enlace:** Capítulo 12.
+- Obtener información de los ensamblados cargados y de los tipos que definen: clases, interfaces y estructuras.
+- Crear instancias de esos tipos en tiempo de ejecución.
+- Invocar sus miembros sin referencia de compilación al tipo concreto.
+
+Ese doble movimiento —cargar y luego inspeccionar— es la base de cualquier sistema de extensiones: el núcleo no conoce de antemano las piezas opcionales, sino que las descubre mientras se ejecuta.
+
+> Fuente: «Reflection in .NET», «About System.Runtime.Loader.AssemblyLoadContext» y «Assembly.LoadFrom Method» (Microsoft Learn; URL en el Apéndice A.7).
+
+**En nopCommerce.** Cada proyecto de la solución compila su propio ensamblado. Un plugin es una biblioteca de clases independiente con sus archivos `.dll`; nopCommerce localiza sus descriptores, carga sus ensamblados al arrancar y registra los tipos que implementan `IPlugin`. El proceso completo se describe en el Capítulo 14.
+
+**Enlace:** Capítulo 14.
 
 ### Patrón fábrica (Factory)
 
-**Concepto general.** Una fábrica encapsula la construcción de objetos y separa el «qué se crea» del «cómo se crea». Evita acoplar el código a constructores concretos y centraliza la lógica de creación, por ejemplo cuando un objeto exige consultar datos o combinar varias fuentes.
+**Concepto general.** Una fábrica encapsula la construcción de objetos y separa el «qué se crea» del «cómo se crea». El patrón define una interfaz de creación y fábricas concretas que la implementan; su efecto es desacoplar el código cliente de las clases concretas que necesita instanciar, lo que hace el código más flexible y más fácil de mantener.
+
+Conviene usar una fábrica cuando la creación incluye lógica —consultar datos, combinar varias fuentes o decidir el tipo según una condición— o cuando la implementación concreta debe poder cambiarse sin modificar las llamadas. Cuando la creación no exige nada especial, el contenedor de inyección de dependencias de la ficha anterior asume esa tarea al resolver el objeto.
+
+> Fuente: «Lay the foundation for application modernization» —sección «Modernize monolithic applications using the Factory Design pattern»— (Microsoft Learn; URL en el Apéndice A.7).
 
 **En nopCommerce.** nopCommerce emplea de forma masiva el patrón en sus *Model Factory*, interfaces de nombre `I…ModelFactory` situadas en las áreas de administración. Una fábrica de este tipo construye el modelo de vista de una pantalla a partir de entidades y servicios: prepara listas de selección, aplica permisos y formato, y devuelve el view-model listo para la vista. La interfaz `IBaseAdminModelFactory` concentra los preparados comunes —estados de pedido, de pago o de envío, entre otros—.
 
-**Enlace:** Capítulo 15. Información pendiente de documentar: el patrón Model Factory no tiene capítulo propio en esta versión del manual; su único uso referido aparece en el Capítulo 31.
+**Enlace:** Capítulo 17.
+
+> Información pendiente de documentar: el patrón Model Factory no tiene capítulo propio en esta versión del manual; su único uso referido aparece en el Capítulo 33.
 
 ### Patrón plugin (estrategia)
 
-**Concepto general.** El patrón plugin añade comportamiento mediante componentes intercambiables, sin modificar el núcleo: el sistema define un contrato y cada extensión lo implementa. El principio subyacente es dejar abierto el sistema para su extensión y cerrado para su modificación.
+**Concepto general.** El patrón plugin añade comportamiento mediante componentes intercambiables, sin modificar el núcleo: el sistema define un contrato y cada extensión lo implementa. El principio subyacente es el principio abierto/cerrado: abierto para la extensión y cerrado para la modificación.
 
-**En nopCommerce.** nopCommerce define los contratos `IPlugin` e `IWidgetPlugin`. Cada plugin declara un descriptor `plugin.json` —con `SystemName`, `SupportedVersions` y `FileName`— y una clase que implementa el contrato; el sistema la detecta y la registra al arrancar.
+Las guías de extensibilidad de Microsoft lo enuncian en términos de superficie de extensión: se trata de diseñar los puntos por los que otros ampliarán el sistema y de abrirlos por demanda —prefiriendo miembros internos a públicos para reducir esa superficie—; una vez publicado un punto de extensión, mantenerlo es responsabilidad de quien lo publicó. En la práctica, el sistema elige en tiempo de ejecución la implementación concreta que aplicará —la idea del patrón estrategia—, de modo que añadir o sustituir una variante no obliga a reescribir el núcleo.
 
-**Enlace:** Capítulo 13 y Capítulo 16.
+> Fuente: «Write extensible code» —principios SOLID, sección «Open/closed»— (Microsoft Learn; URL en el Apéndice A.7).
+
+**En nopCommerce.** nopCommerce define los contratos `IPlugin`, común a todo plugin, e `IWidgetPlugin`, la especialización que usan los widgets para declarar sus zonas y el componente de vista que los renderiza. Cada plugin declara un descriptor `plugin.json` —con campos como `SystemName` (identificador único), `FriendlyName`, `Version`, `SupportedVersions`, `Author`, `FileName` (nombre del ensamblado) y `Description`— y una clase que implementa el contrato; el sistema la detecta y la registra al arrancar.
+
+**Enlace:** Capítulo 15 y Capítulo 18.
 
 ### Publicación-consumo de eventos (pub-sub)
 
-**Concepto general.** El patrón publicador-consumidor desacopla quien ocurre de quien reacciona: un emisor publica un evento sin saber quién lo recibe, y los suscriptores se dan de alta para reaccionar. Añadir una reacción nueva no obliga a tocar al emisor.
+**Concepto general.** El patrón publicador-consumidor desacopla al emisor de sus destinatarios: quien publica un evento no sabe quién lo recibe, y los suscriptores se dan de alta para reaccionar. Añadir una reacción nueva no obliga a tocar al emisor.
 
-**En nopCommerce.** nopCommerce publica eventos de entidad —inserción, actualización o borrado— mediante `IEventPublisher`; los componentes que quieren reaccionar implementan `IConsumer<T>` y se registran como suscriptores.
+En C#, un evento se declara con la palabra clave `event` y es de tipo delegado: los manejadores son instancias de delegado que se añaden o se quitan del evento y se ejecutan cuando este se lanza. La guía de eventos de C# resume así su comportamiento:
 
-**Enlace:** Capítulo 18.
+- El publicador decide cuándo se lanza el evento; los suscriptores deciden qué acción responde.
+- Un evento puede tener varios suscriptores, y un suscriptor puede atender eventos de varios publicadores.
+- Un evento sin suscriptores no se lanza nunca.
+- Con varios suscriptores, los manejadores se invocan de forma síncrona cuando se lanza el evento.
+
+A escala de sistema, el patrón Publisher-Subscriber traslada la misma idea a la mensajería: los publicadores envían eventos de forma asíncrona a múltiples consumidores a través de un intermediario, sin acoplar emisores y receptores.
+
+> Fuente: «The event keyword», «Events (C# programming guide)» y «Publisher-Subscriber pattern» (Microsoft Learn; URL en el Apéndice A.7).
+
+**En nopCommerce.** nopCommerce publica eventos de entidad —`EntityInsertedEvent<T>`, `EntityUpdatedEvent<T>` y `EntityDeletedEvent<T>`— mediante `IEventPublisher`, que ofrece las operaciones `Publish` y `PublishAsync`. Los componentes que quieren reaccionar implementan `IConsumer<T>` y se resuelven desde el contenedor de dependencias, tantos como suscriptores registre. El mecanismo es de proceso único: los eventos viajan en memoria, no por un broker de mensajes.
+
+**Enlace:** Capítulo 20.
+
+Declaración y lanzamiento de un evento:
+
+```csharp
+public class ProcessCompletedEventArgs : EventArgs
+{
+    public int OrderId { get; }
+    public ProcessCompletedEventArgs(int orderId) => OrderId = orderId;
+}
+
+public class OrderProcessor
+{
+    public event EventHandler<ProcessCompletedEventArgs>? ProcessCompleted;
+
+    public void Process(int orderId)
+    {
+        // ... lógica de procesamiento
+        ProcessCompleted?.Invoke(this, new ProcessCompletedEventArgs(orderId));
+    }
+}
+```
+
 
 ## Capítulo 3 — Estado y contexto de ejecución {#capitulo-3}
 
@@ -180,7 +297,11 @@ Repasa los conceptos de estado transversal: caché, ajustes, contexto de tienda 
 
 **Parte I — Conceptos esenciales (recordatorio)** · Nivel: Básico
 
-Este capítulo repasa el estado y el contexto que el código da por supuesto en cada operación; Sirve para no perder de vista los servicios transversales que aparecen en casi todos los capítulos; Los conceptos clave incluyen la caché y su invalidación, los ajustes con ISettings y GenericAttribute, el contexto de tienda y de usuario, la localización y el control de acceso; Prerrequisitos: capítulo 1; Caso de uso típico: recordar qué servicios acompañan a cada llamada antes de detallarlos.
+- **Servicio:** repasa el estado y el contexto que el código da por supuesto en cada operación.
+- **Utilidad:** no perder de vista los servicios transversales que aparecen en casi todos los capítulos.
+- **Conceptos clave:** la caché y su invalidación; los ajustes con `ISettings` y `GenericAttribute`; el contexto de tienda y de usuario; la localización; el control de acceso.
+- **Prerrequisitos:** capítulo 1.
+- **Caso de uso típico:** recordar qué servicios acompañan a cada llamada antes de detallarlos.
 
 **Trampas frecuentes:**
 
@@ -192,43 +313,88 @@ Este capítulo repasa el estado y el contexto que el código da por supuesto en 
 
 ### Caché e invalidación
 
-**Concepto general.** La caché guarda el resultado de consultas o cálculos costosos para no repetirlos. El problema real no es guardar, sino invalidar: mantener los datos coherentes cuando cambian. Una caché sin invalidación bien diseñada devuelve información antigua.
+**Concepto general.** La caché guarda el resultado de consultas o cálculos costosos para no repetirlos. El patrón Cache-Aside (carga diferida) trabaja así:
 
-**En nopCommerce.** nopCommerce distingue dos gestores: `IStaticCacheManager` conserva datos entre peticiones —caché de largo plazo— e `IShortTermCacheManager` durante una sola petición. Ambos trabajan con claves `CacheKey` y permiten limpiar por prefijo para invalidar grupos de entradas.
+1. La aplicación pide el elemento a la caché.
+2. Si la caché lo tiene, lo devuelve; si no —fallo de caché—, la aplicación lee el elemento del almacén de datos.
+3. La aplicación añade el elemento a la caché y lo devuelve al solicitante.
 
-**Enlace:** Capítulo 25.
+Cuando un dato cambia, la aplicación escribe el cambio en el almacén y después invalida la entrada correspondiente; el orden importa, porque si se invalida antes de escribir, otro cliente puede volver a cargar el dato antiguo. El problema real, por tanto, no es guardar, sino invalidar: mantener los datos coherentes cuando cambian. Las guías recomiendan casar la política de expiración con el patrón de acceso —ni tan corta que obligue a releer sin parar, ni tan larga que sirva datos caducados— y, cuando hay varias instancias con cachés privadas, expirar y refrescar con frecuencia o migrar a una caché compartida.
+
+> Fuente: «Cache-Aside pattern» (Microsoft Learn; URL en el Apéndice A.7).
+
+**En nopCommerce.** nopCommerce distingue dos gestores: `IStaticCacheManager` conserva datos entre peticiones —caché de largo plazo— e `IShortTermCacheManager` durante una sola petición. Ambos trabajan con claves `CacheKey` y exponen la misma operación básica: leer con carga diferida (`GetAsync`, con un delegado `acquire` que solo se ejecuta si la clave no está), escribir (`SetAsync`), eliminar (`RemoveAsync`), invalidar por prefijo (`RemoveByPrefixAsync`) y vaciar por completo (`ClearAsync`).
+
+**Enlace:** Capítulo 27.
 
 ### Ajustes y atributos genéricos
 
 **Concepto general.** Un ajuste es configuración persistente que el operador puede cambiar sin recompilar. Cuando la configuración es un par clave-valor, conviene guardarla en base de datos en lugar de en ficheros para poder modificarla en ejecución.
 
-**En nopCommerce.** nopCommerce guarda la configuración con dos mecanismos. Las clases que implementan `ISettings` definen secciones de ajustes con propiedades tipadas y se persisten en la tabla de ajustes. Para datos sueltos por entidad utiliza `GenericAttribute`, una entidad de `Nop.Core` con los campos `EntityId`, `KeyGroup`, `Key`, `Value` y `StoreId`, que permite añadir metadatos sin crear tablas nuevas.
+Para la configuración que sí vive en ficheros, ASP.NET Core propone el patrón de opciones:
 
-**Enlace:** Apéndice C y Capítulo 15.
+- Agrupar los ajustes relacionados en clases tipadas en lugar de leer claves sueltas por el código.
+- Encapsular la configuración y separarla del resto del componente: cada parte depende de su clase de opciones, no del almacén de configuración.
+- Añadir un mecanismo de validación de los datos de configuración.
+
+La interfaz `IOptions<T>` expone la configuración agregada; sus variantes `IOptionsSnapshot` e `IOptionsMonitor` permiten leer datos actualizados.
+
+> Fuente: «Options pattern in ASP.NET Core» (Microsoft Learn; URL en el Apéndice A.7).
+
+**En nopCommerce.** nopCommerce guarda la configuración con dos mecanismos. Las clases que implementan `ISettings` definen secciones de ajustes con propiedades tipadas y se persisten en la tabla de ajustes. Para datos sueltos por entidad utiliza `GenericAttribute`, una entidad de `Nop.Core` con los campos `EntityId`, `KeyGroup`, `Key`, `Value`, `StoreId` y la fecha `CreatedOrUpdatedDateUTC`, que permite añadir metadatos sin crear tablas nuevas.
+
+**Enlace:** Apéndice C y Capítulo 17.
 
 ### Contexto de tienda y de usuario
 
-**Concepto general.** Durante una petición, el código necesita saber en qué tienda se atiende y quién es el usuario sin que esa información se pase por todas las firmas. Los objetos de contexto resuelven esa pregunta de forma centralizada.
+**Concepto general.** Durante una petición, el código necesita saber en qué tienda se atiende y quién es el usuario sin que esa información se pase por todas las firmas. Es el problema del estado ambiental: datos que muchos componentes necesitan en cualquier momento y que deben fluir con la ejecución, también a través de las llamadas asíncronas.
 
-**En nopCommerce.** nopCommerce expone dos contextos. `IStoreContext` devuelve la tienda actual y el ámbito de configuración de tienda activo. `IWorkContext` devuelve el cliente actual, el vendedor, el idioma de trabajo y la moneda, entre otros datos de la petición.
+.NET ofrece `AsyncLocal<T>` para gestionar datos ambientales en contextos asíncronos: el valor se conserva mientras la operación avanza, sin que las llamadas intermedias lo reciban como parámetro. La documentación advierte de sus costes —cada instancia añade overhead y su uso directo acopla el código a una implementación concreta—, de modo que las aplicaciones suelen envolver ese estado tras interfaces propias de contexto.
 
-**Enlace:** Capítulo 23 y Apéndice C.
+> Fuente: «Asynchronous state management» (Microsoft Learn; URL en el Apéndice A.7).
+
+**En nopCommerce.** nopCommerce expone dos contextos. `IStoreContext` devuelve la tienda actual (`GetCurrentStoreAsync`) y el ámbito de configuración de tienda activo (`GetActiveStoreScopeConfigurationAsync`). `IWorkContext` devuelve el cliente actual, el vendedor, el idioma de trabajo, la moneda y el tipo de visualización de impuestos, entre otros datos de la petición; la mayoría de sus miembros son métodos asíncronos, como `GetCurrentCustomerAsync` o `GetWorkingLanguageAsync`.
+
+**Enlace:** Capítulo 25 y Apéndice C.
 
 ### Localización e idiomas
 
 **Concepto general.** La internacionalización separa los textos del código para poder ofrecer la misma aplicación en varios idiomas sin duplicar lógica.
 
-**En nopCommerce.** nopCommerce gestiona los textos y sus traducciones mediante `ILocalizationService` y recursos de localización; el idioma activo lo aporta el contexto de trabajo.
+En el ecosistema .NET, el mecanismo clásico son los ficheros de recursos `.resx`, que aislan las cadenas localizables; `ResourceManager` busca la traducción según `CurrentUICulture`, la cultura de interfaz de usuario del hilo actual. ASP.NET Core añade `IStringLocalizer` e `IStringLocalizer<T>`, que usan `ResourceManager` y `ResourceReader` para obtener los recursos en tiempo de ejecución y devolver la cadena pedida por clave mediante un indizador. Además, no exigen guardar en recursos las cadenas del idioma por defecto, así que se puede empezar a localizar sin crear los ficheros desde el principio.
 
-**Enlace:** Capítulo 24.
+> Fuente: «Provide localized resources for languages and cultures in an ASP.NET Core app» y «Make an ASP.NET Core app's content localizable» (Microsoft Learn; URL en el Apéndice A.7).
+
+**En nopCommerce.** nopCommerce gestiona los textos y sus traducciones mediante `ILocalizationService` y los recursos de localización (`LocaleStringResource`), pares clave-valor asociados a un idioma. El servicio localiza recursos por clave (`GetResourceAsync`), resuelve propiedades traducidas de una entidad (`GetLocalizedAsync`) e importa o exporta el catálogo completo en XML. El catálogo de idiomas disponible lo gestiona `ILanguageService`, y el idioma activo de la petición lo aporta el contexto de trabajo.
+
+**Enlace:** Capítulo 26.
+
+Uso del localizador por clave (estilo "Título de sección"):
+
+```csharp
+// Recuperación del valor localizado (o la clave si no existe)
+string title = _localizer["About Title"];
+```
+
+Si la clave no existe, el localizador devuelve la propia clave. Para valores con
+sustituciones se usa la sobrecarga con argumentos: `_localizer["Clave {0}", valor]`.
+
 
 ### Permisos y control de acceso
 
 **Concepto general.** El control de acceso decide qué rol puede ver o ejecutar qué. Separa la definición de permisos —el catálogo— de su asignación a roles y de su comprobación en cada punto de acceso.
 
-**En nopCommerce.** nopCommerce declara un catálogo de permisos estándar (`StandardPermission` y `PermissionRecord`); las entidades que pueden restringirse por roles implementan `IAclSupported`, y los servicios de seguridad comprueban el acceso, sobre todo en el área de administración.
+En ASP.NET Core, la autorización se modela con políticas:
 
-**Enlace:** Capítulo 27.
+- Una política es un conjunto de uno o más requisitos que el framework evalúa para decidir si un usuario puede acceder a un recurso.
+- Las políticas se registran con un nombre al arrancar y se aplican con `[Authorize(Policy = "...")]` en componentes o con `RequireAuthorization(...)` en extremos; detrás, los manejadores (*handlers*) evalúan cada requisito.
+- El modelo exige usuarios autenticados por defecto, y la autorización por roles y por *claims* se construye sobre la misma infraestructura: tras la autenticación, la identidad del usuario puede pertenecer a uno o más roles que reflejan sus autorizaciones.
+
+> Fuente: «Policy-based authorization in ASP.NET Core» y «Role-based authorization in ASP.NET Core» (Microsoft Learn; URL en el Apéndice A.7).
+
+**En nopCommerce.** nopCommerce declara un catálogo de permisos estándar (`StandardPermission` y `PermissionRecord`); cada permiso se asocia a roles de cliente mediante `PermissionRecordCustomerRoleMapping`. Las entidades que pueden restringirse por roles implementan `IAclSupported`, y los servicios de seguridad comprueban el acceso, sobre todo en el área de administración.
+
+**Enlace:** Capítulo 29.
 
 # Parte II — Fundamentos {#parte-ii}
 
@@ -578,8 +744,9 @@ de datos a partir de las clases C\# definidas en Nop.Core.
 Todo el trabajo con los datos de una tabla se realiza a través de la interfaz genérica
 IRepository<TEntity>, que proporciona las operaciones básicas de lectura, escritura,
 actualización y eliminación sin exponer directamente los mecanismos internos de Linq2DB. El
-siguiente ejemplo muestra cómo se consume este repositorio desde una clase que necesita acceder
-a datos:
+funcionamiento detallado de ese ORM y su configuración en esta capa se documenta en los
+capítulos 7 y 8. El siguiente ejemplo muestra cómo se consume este repositorio desde una clase
+que necesita acceder a datos:
 
 ```csharp
 // El repositorio se recibe mediante inyección de dependencias.
@@ -662,7 +829,214 @@ implementa INopStartup, siguiendo siempre el mismo patrón:
 services.AddScoped<IManufacturerService, ManufacturerService>();
 ```
 
-## Capítulo 7 — UI Layer {#capitulo-7}
+## Capítulo 7 — linq2db: qué es y cómo se usa {#capitulo-7}
+
+Explica qué es linq2db, el modelo de conexión y de mapeo que ofrece y las operaciones principales con las que trabaja una base de datos desde C#. Los conceptos generales de este capítulo proceden de la documentación oficial de linq2db; las citas se recogen en el Apéndice A.8.
+
+**Parte II — Fundamentos** · Nivel: Intermedio
+
+- **Servicio:** describir la biblioteca de acceso a datos sobre la que se apoya la persistencia de nopCommerce.
+- **Utilidad:** entender el código de la capa Nop.Data antes de entrar en ella.
+- **Conceptos clave:** biblioteca LINQ de acceso a datos tipado; `DataConnection` y `DataContext`; mapeo POCO-tabla con `MappingSchema`; consultas LINQ y operaciones CRUD; inserciones masivas con `BulkCopy`; operación `Merge`; transacciones.
+- **Prerrequisitos:** capítulo 6.
+- **Caso de uso típico:** leer o escribir código de persistencia basado en linq2db y reconocer qué hace cada pieza.
+
+**Trampas frecuentes:**
+
+> - Devolver un `IQueryable` de un bloque `using` de `DataConnection` y enumerarlo fuera: la consulta se ejecuta con la conexión ya devuelta al *pool* y se obtiene un `ObjectDisposedException`.
+> - Suponer que linq2db hace seguimiento de cambios (*change tracking*) como EF Core: no lo hace; el estado de las entidades se gestiona fuera de la biblioteca.
+> - Crear un `MappingSchema` nuevo por cada conexión en lugar de un único compartido: la documentación advierte de que daña seriamente el rendimiento.
+> - Pedir `KeepIdentity` en un modo o proveedor que no lo admite: linq2db lanza `LinqToDBException`.
+
+---
+
+### Qué es linq2db
+
+LINQ to DB se define como una biblioteca de acceso a datos LINQ: ofrece una capa ligera, rápida y tipada entre los POCO y la base de datos. Se sitúa un paso por encima de los micro-ORM como Dapper —se trabaja con expresiones LINQ, no con cadenas de texto— pero es más ligera que LINQ to SQL o Entity Framework: no incorpora seguimiento de cambios ni un modelo de entidades, y a cambio el desarrollador gana control y acceso más directo a los datos. La propia documentación lo resume como SQL tipado por el compilador: las consultas se escriben en C#, el compilador las valida y solo después se traducen a SQL.
+
+| Aspecto | linq2db | EF Core | Dapper |
+|---------|---------|---------|--------|
+| Tipo de consultas | expresiones LINQ traducidas a SQL | expresiones LINQ con modelo de entidades | SQL literal en cadenas de texto |
+| Seguimiento de cambios | no | sí | no |
+| Peso de la abstracción | capa fina entre POCO y base de datos | más pesada | la más ligera |
+
+nopCommerce figura entre los proyectos de código abierto destacados que utilizan linq2db, según la propia documentación de la biblioteca.
+
+### Conexiones: DataConnection y DataContext
+
+Al conectar con una base de datos, los proveedores ADO.NET de .NET usan un *pool* de conexiones para evitar el coste de abrir y cerrar conexiones; una conexión no devuelta al *pool* acaba agotando el límite disponible. linq2db ofrece dos formas de trabajar con esa conexión:
+
+| Clase | Comportamiento | Uso |
+|-------|----------------|-----|
+| `DataConnection` | abre la conexión con la primera consulta y la retiene hasta el `Dispose` | la opción recomendada; siempre dentro de un bloque `using` |
+| `DataContext` | abre y cierra una conexión real por cada consulta | solo si se necesita ese comportamiento; `KeepConnectionAlive = true` la hace equivalente a `DataConnection` |
+
+La regla de oro con `DataConnection` es que la consulta se ejecute antes de disponer de la conexión. Si se devuelve un `IQueryable` sin materializar —por ejemplo, `return db.GetTable<Person>();` dentro del bloque `using`—, la enumeración ocurre después del `Dispose` y linq2db lanza `ObjectDisposedException`. La configuración —cadena de conexión, proveedor y esquema de mapeo— se declara una sola vez con la clase `DataOptions` y se pasa al constructor.
+
+```csharp
+// Configuración y consulta con DataConnection (ejemplo de la documentación oficial)
+var db = new DataConnection(
+    new DataOptions().UseSqlServer(@"Server=.\;Database=Northwind;Trusted_Connection=True;"));
+
+var products = from p in db.GetTable<Product>()
+               where p.ProductID > 25
+               orderby p.Name descending
+               select p;
+
+var list = products.ToList(); // la consulta se ejecuta aquí, dentro de la vida de la conexión
+```
+
+### Modelo de mapeo: POCO y tabla
+
+linq2db admite tres formas de asociar una clase con una tabla, intercambiables en capacidades:
+
+| Forma | Cómo se declara | Observaciones |
+|-------|-----------------|---------------|
+| Por atributos | `[Table]`, `[Column]`, `[PrimaryKey]`, `[Identity]` sobre la clase | si un POCO lleva un atributo, todas las propiedades persistentes deben llevarlo; las que no lo hacen, se ignoran |
+| Mapeo fluido | `FluentMappingBuilder` sobre una instancia de `MappingSchema` | admite varias configuraciones e inferir lo no declarado; el `MappingSchema` se crea una vez y se comparte entre conexiones |
+| Inferido | sin declaraciones: nombres de clase = nombres de tabla | no recomendado: no infiere la clave primaria aunque exista una propiedad `Id`, ni la nulabilidad, ni las asociaciones |
+
+El `MappingSchema` es el centro del mapeo: se construye una sola vez, se asocia a las conexiones que lo necesiten y contiene la traducción completa clase-tabla-columna.
+
+### Consultas y operaciones CRUD
+
+`db.GetTable<T>()` devuelve un `ITable<T>`, una tabla consultable. Sobre ella se aplica LINQ con composición —cada cláusula `Where`, `OrderBy` o `Select` añadida se traduce a una única consulta SQL—, proyecciones a objetos anónimos o a la propia entidad, paginación con `Skip`/`Take` y uniones entre tablas. Las consultas se materializan con `ToList`, `First` o `Count` y sus equivalentes asíncronos —`ToListAsync`, `FirstOrDefaultAsync`, `CountAsync`—.
+
+La escritura se resuelve con operaciones directas:
+
+| Operación | API de linq2db |
+|-----------|----------------|
+| Insertar | `db.Insert(entity)`, `db.InsertWithInt32Identity(entity)` o `.Value(...).Insert()` para columnas concretas |
+| Actualizar | `db.Update(entity)` o por consulta: `.Where(...).Set(p => p.Campo, valor).Update()` |
+| Borrar | por consulta: `.Where(...).Delete()` |
+
+Las variantes por consulta —`Set` y `Delete` encadenados— modifican o eliminan múltiples filas con un solo comando SQL, sin cargarlas en memoria.
+
+### Inserciones masivas: Bulk Copy
+
+El *bulk copy* transfiere grandes volúmenes de datos a una tabla de forma más eficiente que los `INSERT` convencionales. linq2db unifica la operación con `BulkCopy` y `BulkCopyAsync` y define cuatro métodos internos: `Default` —elige según el proveedor—, `RowByRow` —un `INSERT` por fila—, `MultipleRows` —inserción por lotes— y `ProviderSpecific` —mecanismo nativo del motor, el más rápido—. El soporte varía por proveedor: SQL Server usa por defecto `ProviderSpecific`, y MySQL y PostgreSQL admiten los modos por lotes y el específico. La opción `KeepIdentity`, que inserta conservando los valores de identidad proporcionados, está soportada en SQL Server, MySQL y PostgreSQL, entre otros motores.
+
+### Operación Merge
+
+`Merge` es una operación atómica que actualiza una tabla destino usando una tabla, una consulta o una colección como origen. Se define una regla de coincidencia —por defecto, la clave primaria— y operaciones por grupo: actualización o borrado para los registros que coinciden e inserción para los que solo aparecen en el origen. La API está disponible para SQL Server, DB2, Firebird, Oracle, Sybase ASE, Informix, HANA 2 y PostgreSQL 15; MySQL no figura entre los motores soportados, lo que explica su uso condicionado a SQL Server en nopCommerce (Capítulo 8).
+
+### Transacciones
+
+linq2db admite transacciones explícitas —`BeginTransaction`, `CommitTransaction`, `RollbackTransaction`— y transacciones ambientales con la clase `TransactionScope` de .NET. La salvedad es temporal: una `DataConnection` se asocia a la transacción ambiental en el momento en que se abre, de modo que las `TransactionScope` creadas después no la afectan. Para que una transacción ambiental envuelva la operación, la conexión debe abrirse dentro del ámbito.
+
+**Enlace:** Capítulo 8.
+
+## Capítulo 8 — linq2db en nopCommerce (capa Nop.Data) {#capitulo-8}
+
+Describe cómo la capa Nop.Data configura y utiliza linq2db en nopCommerce 4.90.8: selección del proveedor de base de datos, mapeo derivado de FluentMigrator, consultas y escritura a través de `IRepository` y funcionalidades de linq2db aprovechadas por la plataforma. Se apoya en el código fuente de la versión de referencia y en la documentación de linq2db citada en el Apéndice A.8.
+
+**Parte II — Fundamentos** · Nivel: Intermedio
+
+- **Servicio:** documentar la cadena completa de acceso a datos de nopCommerce.
+- **Utilidad:** saber en qué punto ocurre cada operación al depurar o extender la persistencia.
+- **Conceptos clave:** cadena `IRepository` → `INopDataProvider` → linq2db; `DataConfig` y selección de proveedor; FluentMigrator como origen del esquema y del mapeo; consultas asíncronas y caché en el repositorio; funcionalidades de linq2db utilizadas y no utilizadas.
+- **Prerrequisitos:** capítulos 6 y 7.
+- **Caso de uso típico:** seguir una consulta desde el servicio hasta el SQL ejecutado y escribir consultas nuevas sin romper las capas.
+
+**Trampas frecuentes:**
+
+> - Escribir SQL pensando solo en SQL Server: el ajuste `WithNoLock` y el hint `NOLOCK` son exclusivos de SQL Server, y cada motor traduce de forma distinta tipos, identidades y tablas temporales.
+> - Modificar una migración ya aplicada: nopCommerce no la vuelve a ejecutar; hay que crear una nueva con fecha posterior (Capítulo 17).
+> - Esperar un `DbContext` o un seguimiento de cambios en memoria: la capa de datos no los tiene; los eventos de entidad se publican después de persistir (Capítulo 20 y Capítulo 22).
+> - Conducir el comportamiento según `ConfigurationName` sin probar los tres motores: el código ramificado por proveedor puede romper en MySQL o PostgreSQL.
+
+---
+
+### Cadena de acceso a datos
+
+La persistencia de nopCommerce se resuelve en la capa `Nop.Data` con una cadena corta de componentes, registrados en DI por `NopDbStartup`:
+
+| Componente | Fichero | Responsabilidad |
+|------------|---------|-----------------|
+| `IRepository<TEntity>` | `Libraries/Nop.Data/IRepository.cs` | contrato de repositorio con opciones de caché y de borrado lógico |
+| `EntityRepository<TEntity>` | `Libraries/Nop.Data/EntityRepository.cs` | implementación genérica del contrato |
+| `INopDataProvider` y `BaseDataProvider` | `Libraries/Nop.Data/INopDataProvider.cs`, `DataProviders/BaseDataProvider.cs` | CRUD, SQL crudo y acceso a tablas sobre linq2db |
+| `DataProviderManager` | `Libraries/Nop.Data/DataProviderManager.cs` | elige el proveedor según `DataConfig` |
+| Proveedores concretos | `DataProviders/MsSqlDataProvider.cs`, `MySqlDataProvider.cs`, `PostgreSqlDataProvider.cs` | traducción a cada motor y sus particularidades |
+| `NopDbStartup` | `Libraries/Nop.Data/NopDbStartup.cs` | registro de servicios: `IRepository<>` → `EntityRepository<>` |
+
+```mermaid
+flowchart LR
+    S[Nop.Services] --> R[IRepository de T]
+    R --> ER[EntityRepository de T]
+    ER --> DP[INopDataProvider / BaseDataProvider]
+    DP --> LQ[linq2db: DataConnection y DataContext]
+    LQ --> AD[Driver ADO.NET: SqlClient / MySqlConnector / Npgsql]
+    AD --> BD[(Base de datos)]
+```
+
+Los servicios de `Nop.Services` solo ven `IRepository`; no importan tipos de linq2db en sus ficheros, salvo usos puntuales de `INopDataProvider` para operaciones que no caben en el repositorio —consultas con tablas temporales, mantenimiento—.
+
+### Configuración y selección del proveedor
+
+La configuración de datos vive en `DataConfig` y se persiste en `App_Data/appsettings.json`, bajo la sección `ConfigurationManager.ConnectionStrings`:
+
+| Ajuste | Función |
+|--------|---------|
+| `ConnectionString` | cadena de conexión al motor elegido |
+| `DataProvider` | motor: `SqlServer`, `MySql` o `PostgreSQL` (no hay soporte de Oracle) |
+| `SQLCommandTimeout` | tiempo de espera de los comandos; se aplica tanto a linq2db como a FluentMigrator |
+| `WithNoLock` | añade el hint `NOLOCK` a las consultas; solo tiene efecto en SQL Server |
+| `Collation`, `CharacterSet` | colación y juego de caracteres durante la instalación |
+
+`DataSettingsManager` carga y cachea ese ajuste —con migración de los formatos antiguos `Settings.txt` y `dataSettings.json`— y expone utilidades como `IsDatabaseInstalled()` y `UseNoLock()`. A partir de `DataProvider`, `DataProviderManager` instancia el proveedor correspondiente (`MsSqlNopDataProvider`, `MySqlNopDataProvider` o `PostgreSqlDataProvider`), y cada uno aporta el `IDataProvider` de linq2db y el driver ADO.NET —`Microsoft.Data.SqlClient`, `MySqlConnector` y `Npgsql`—.
+
+### Mapeo: FluentMigrator como origen del esquema
+
+nopCommerce no declara el mapeo con atributos de linq2db. La única definición del esquema son las clases de migración de FluentMigrator, y el mapeo de linq2db se deriva de ellas en tiempo de ejecución:
+
+1. Cada entidad tiene un `IEntityBuilder` —por ejemplo `Mapping/Builders/Catalog/ProductBuilder.cs`— que describe columnas y tipos sobre las expresiones `CreateTable` de FluentMigrator. Las propiedades no descritas se completan con un mapa de tipos CLR y la clave primaria `Id` identidad se añade por convención.
+2. `NopMappingSchema.GetEntityDescriptor(Type)` ejecuta esos descriptores en memoria —sin tocar la base de datos— y cachea el resultado: nombre de tabla, columnas, claves, identidad, longitudes y tipos.
+3. `GetMappingSchema(configuration, provider)` crea el `MappingSchema` de linq2db correspondiente y le añade un lector de metadatos propio, `FluentMigratorMetadataReader`, que implementa la interfaz `IMetadataReader` de linq2db y traduce el descriptor a los atributos que linq2db entiende —`TableAttribute`, `ColumnAttribute`, `SequenceNameAttribute` para las identidades de PostgreSQL—.
+4. `NameCompatibilityManager` resuelve los renombres históricos de tablas y columnas —por ejemplo, `ProductCategory` corresponde a la tabla `Product_Category_Mapping`—.
+
+El resultado es que el mismo descriptor genera el DDL de las migraciones y el mapeo de las consultas: si cambia una columna, cambia en los dos sitios a la vez.
+
+### Consultas y escritura a través del repositorio
+
+| Aspecto | Implementación |
+|---------|----------------|
+| Tabla consultable | `EntityRepository.Table` devuelve `_dataProvider.GetTable<TEntity>()`, un `DataContext` de linq2db construido con `DataOptions` —cadena de conexión y `MappingSchema`— |
+| Hints de tabla | el proveedor de SQL Server convierte la tabla a `ITable<TEntity>` y aplica `.With("NOLOCK")` cuando `WithNoLock` está activo |
+| Consultas asíncronas | `Extensions/AsyncIQueryableExtensions.cs` envuelve las extensiones asíncronas de linq2db —`ToListAsync`, `CountAsync`, `AsAsyncEnumerable`—; la capa no usa Entity Framework |
+| Caché | `GetByIdAsync` y `GetAllAsync` aceptan una función de clave de caché; el repositorio coopera con `IStaticCacheManager` e `IShortTermCacheManager` (Capítulo 27) |
+| Escritura | `InsertAsync`, `UpdateAsync`, `DeleteAsync` y `TruncateAsync` sobre linq2db; después de persistir, el repositorio publica los eventos de entidad (Capítulo 20) |
+| Transacciones | las rutas de escritura masiva usan `TransactionScope` sobre `EntityRepository` |
+
+```csharp
+// EntityRepository.cs (4.90.8): la tabla consultable es una tabla de linq2db
+public virtual IQueryable<TEntity> Table => _dataProvider.GetTable<TEntity>();
+```
+
+### Funcionalidades de linq2db aprovechadas
+
+| Funcionalidad | Uso en nopCommerce | Dónde |
+|----------------|--------------------|-------|
+| Consulta LINQ sobre `ITable<T>` | todas las consultas del repositorio | `EntityRepository.Table` |
+| Extensiones asíncronas | consultas `*Async` de toda la plataforma | `Extensions/AsyncIQueryableExtensions.cs` |
+| `BulkCopy` con `KeepIdentity` | inserciones masivas preservando identidades | `BaseDataProvider.cs` |
+| `Merge` | actualización masiva por clave; solo SQL Server | `MsSqlDataProvider.cs` |
+| Tablas temporales | borrados masivos con conjuntos grandes | `TempSqlDataStorage.cs`, `CustomerService.cs` |
+| `Set(...).Update()` por consulta | migraciones de datos | `Migrations/UpgradeTo490/DataMigration.cs` |
+| SQL condicional por proveedor | hash SHA-2 calculados en la propia base de datos | `BaseDataProvider.cs` (`SqlSha2`, `GetFieldHashesAsync`) |
+| Hints de tabla (`.With`) | `NOLOCK` en SQL Server | `MsSqlDataProvider.cs` |
+| SQL crudo (`CommandInfo`) | mantenimiento: copias, reindexado, `VACUUM` | `BaseDataProvider.cs` |
+| Caché de consultas de linq2db | activable o desactivable desde administración | `NopDbStartup.cs`, ajuste `LinqDisableQueryCache` |
+
+No se detectan usos en el núcleo de otras funciones de linq2db, como las funciones de ventana vía `Sql.Ext` o la carga múltiple de entidades (`LoadWith`); su ausencia es una búsqueda en los proyectos `Libraries`, no una limitación de la biblioteca.
+
+### Migraciones de esquema
+
+El esquema lo crea y evoluciona FluentMigrator 7.1.0, no linq2db. Las migraciones de instalación —`Migrations/Installation/SchemaMigration.cs`— crean todas las tablas con `Create.TableFor<T>()`, que resuelve el `IEntityBuilder` de cada entidad; las de actualización —`UpgradeTo440` a `UpgradeTo490`— evolucionan esquema y datos. `IMigrationManager` aplica las migraciones del ensamblado `Nop.Data` con una tabla de versiones (`MigrationVersionInfo`), y el mismo mecanismo descubre las migraciones que un plugin pueda incluir (Capítulo 17). Existe además un segundo puente con linq2db: las migraciones de datos consultan y actualizan filas con LINQ sobre `INopDataProvider.GetTable<T>()`.
+
+**Enlace:** Capítulo 6, Capítulo 7, Capítulo 17 y Capítulo 22.
+
+## Capítulo 9 — UI Layer {#capitulo-9}
 
 Detalla la capa de presentación, dividida en la biblioteca compartida Nop.Web.Framework y la aplicación web Nop.Web con su área de administración.
 
@@ -738,7 +1112,7 @@ pública, que puede ser accesible libremente por los usuarios, el área de admin
 requiere **autenticación y autorización**, ya que proporciona acceso a funciones e información
 reservadas exclusivamente para usuarios con privilegios administrativos.
 
-## Capítulo 8 — Inyección de dependencias y desacoplamiento {#capitulo-8}
+## Capítulo 10 — Inyección de dependencias y desacoplamiento {#capitulo-10}
 
 Explica el uso del contenedor de dependencias de ASP.NET Core en nopCommerce, el registro mediante INopStartup y los ciclos de vida de los servicios.
 
@@ -1056,7 +1430,7 @@ nopCommerce sin modificar su núcleo. Esta parte aborda su estructura, el sistem
 sobre el que se apoyan y las diferencias fundamentales entre la tienda pública y el panel de
 administración.
 
-## Capítulo 9 — Temas: alcance, estructura y personalización {#capitulo-9}
+## Capítulo 11 — Temas: alcance, estructura y personalización {#capitulo-11}
 
 Define el alcance de los temas como mecanismo de personalización visual, su estructura de archivos y el mecanismo de sobreescritura de vistas.
 
@@ -1303,7 +1677,7 @@ Los temas constituyen el mecanismo de personalización de la apariencia visual y
 de ampliación de la funcionalidad; ambos son complementarios y conviene no mezclar sus
 responsabilidades.
 
-## Capítulo 10 — Layouts y jerarquía de renderizado {#capitulo-10}
+## Capítulo 12 — Layouts y jerarquía de renderizado {#capitulo-12}
 
 Describe la jerarquía de layouts _Root.Head, _Root, _ColumnsOne y _ColumnsTwo sobre la que se renderizan las vistas de la tienda.
 
@@ -1591,7 +1965,7 @@ tiempo que permite adaptar la maquetación según las necesidades de cada tipo d
 El detalle de cada archivo de esta jerarquía se ha descrito en las secciones anteriores del
 capítulo.
 
-## Capítulo 11 — Diferencia entre tienda pública y área de administración {#capitulo-11}
+## Capítulo 13 — Diferencia entre tienda pública y área de administración {#capitulo-13}
 
 Contrasta la tienda pública y el área de administración en propósito, ubicación, seguridad, rutas y tipo de operaciones.
 
@@ -1832,13 +2206,13 @@ temas, que solo modifican la presentación, los plugins pueden añadir nueva fun
 modificar comportamiento existente e integrar servicios externos. Esta parte cubre su
 estructura completa, ciclo de vida y configuración.
 
-## Capítulo 12 — Carga de ensamblados (.dll) y descubrimiento de plugins en runtime {#capitulo-12}
+## Capítulo 14 — Carga de ensamblados (.dll) y descubrimiento de plugins en runtime {#capitulo-14}
 
 Explica cómo nopCommerce localiza los descriptores de plugin, carga sus ensamblados en tiempo de ejecución y detecta incompatibilidades, sobre la base del modelo de ensamblado de .NET.
 
 **Parte IV — Plugins** · Nivel: Intermedio
 
-Este capítulo cubre el modelo de ensamblado aplicado a nopCommerce, la localización de los descriptores `plugin.json` con PluginsInfo, la carga de ensamblados con Assembly.LoadFrom y ApplicationPartManager, la búsqueda de tipos mediante WebAppTypeFinder y la detección de colisiones y versiones; Sirve para entender por qué un plugin se detecta, se carga o se rechaza al arrancar; Los conceptos clave incluyen PluginDescriptor, PluginsInfo, InitializePlugins, ApplicationPartManager, WebAppTypeFinder, UseUnsafeLoadAssembly, SupportedVersions y PluginIncompatibleType; Prerrequisitos: capítulos 6 y 13; Caso de uso típico: diagnosticar por qué un plugin no aparece o no termina de cargar.
+Este capítulo cubre el modelo de ensamblado aplicado a nopCommerce, la localización de los descriptores `plugin.json` con PluginsInfo, la carga de ensamblados con Assembly.LoadFrom y ApplicationPartManager, la búsqueda de tipos mediante WebAppTypeFinder y la detección de colisiones y versiones; Sirve para entender por qué un plugin se detecta, se carga o se rechaza al arrancar; Los conceptos clave incluyen PluginDescriptor, PluginsInfo, InitializePlugins, ApplicationPartManager, WebAppTypeFinder, UseUnsafeLoadAssembly, SupportedVersions y PluginIncompatibleType; Prerrequisitos: capítulos 6 y 15; Caso de uso típico: diagnosticar por qué un plugin no aparece o no termina de cargar.
 
 **Trampas frecuentes:**
 
@@ -1937,15 +2311,15 @@ Compartir bibliotecas entre el núcleo y los plugins es la fuente principal de p
 4. Se localiza la clase `IPlugin` de cada ensamblado y se detectan colisiones entre bibliotecas.
 5. `WebAppTypeFinder` permite hallar, sobre lo cargado, los tipos que implementan los contratos del sistema.
 
-**Enlace:** Capítulo 13 (estructura del plugin), Capítulo 16 (ciclo de vida) y Capítulo 6 (proyectos de la solución).
+**Enlace:** Capítulo 15 (estructura del plugin), Capítulo 18 (ciclo de vida) y Capítulo 6 (proyectos de la solución).
 
-## Capítulo 13 — Estructura completa de un plugin {#capitulo-13}
+## Capítulo 15 — Estructura completa de un plugin {#capitulo-15}
 
 Detalla la estructura física y los archivos obligatorios de un plugin: proyecto, .csproj, plugin.json, clase principal, vistas y registro de servicios.
 
 **Parte IV — Plugins** · Nivel: Intermedio
 
-Este capítulo cubre la estructura completa de un plugin, desde el proyecto Class Library y la configuración del .csproj con OutputPath y ClearPluginAssemblies hasta plugin.json, la clase principal basada en BasePlugin, _ViewImports.cshtml, la vista Configure con layout _ConfigurePlugin y la clase NopStartup propia; Sirve para crear un plugin que nopCommerce pueda detectar, cargar y administrar; Los conceptos clave incluyen SystemName, SupportedVersions, FileName, la interfaz IMiscPlugin y la convención Nop.Plugin.{Grupo}.{Nombre}; Prerrequisitos: capítulos 4, 5 y 8; Caso de uso típico: montar el esqueleto de un plugin nuevo antes de escribir su lógica.
+Este capítulo cubre la estructura completa de un plugin, desde el proyecto Class Library y la configuración del .csproj con OutputPath y ClearPluginAssemblies hasta plugin.json, la clase principal basada en BasePlugin, _ViewImports.cshtml, la vista Configure con layout _ConfigurePlugin y la clase NopStartup propia; Sirve para crear un plugin que nopCommerce pueda detectar, cargar y administrar; Los conceptos clave incluyen SystemName, SupportedVersions, FileName, la interfaz IMiscPlugin y la convención Nop.Plugin.{Grupo}.{Nombre}; Prerrequisitos: capítulos 4, 5 y 10; Caso de uso típico: montar el esqueleto de un plugin nuevo antes de escribir su lógica.
 
 **Trampas frecuentes:**
 
@@ -2425,13 +2799,13 @@ desde el primer momento.
 necesita.** nopCommerce entrega las herramientas (como ISettingService o IWebHelper) a través
 del constructor. Si el constructor no los pide, el plugin no los recibe y no podrá usarlos.
 
-## Capítulo 14 — Cómo crear un widget desde cero en nopCommerce {#capitulo-14}
+## Capítulo 16 — Cómo crear un widget desde cero en nopCommerce {#capitulo-16}
 
 Explica cómo construir un plugin widget completo, con clase principal IWidgetPlugin, ViewComponent público y página de configuración administrativa.
 
 **Parte IV — Plugins** · Nivel: Intermedio
 
-Este capítulo cubre la creación de un widget desde cero: plugin.json con Group Widgets, clase principal BasePlugin + IWidgetPlugin, métodos GetWidgetZonesAsync y GetWidgetViewComponent, ViewComponent basado en NopViewComponent y localización de recursos con AddOrUpdateLocaleResourceAsync; Sirve para insertar contenido visual en Widget Zones sin tocar el núcleo; Los conceptos clave incluyen HideInWidgetList, la resolución por Type del ViewComponent desde la 4.60 y la convención Plugins.{SystemName}.{Context}.{Field} para claves localizadas; Prerrequisitos: capítulos 5, 7 y 9; Caso de uso típico: desarrollar un banner o carrusel que se muestre en la página de inicio.
+Este capítulo cubre la creación de un widget desde cero: plugin.json con Group Widgets, clase principal BasePlugin + IWidgetPlugin, métodos GetWidgetZonesAsync y GetWidgetViewComponent, ViewComponent basado en NopViewComponent y localización de recursos con AddOrUpdateLocaleResourceAsync; Sirve para insertar contenido visual en Widget Zones sin tocar el núcleo; Los conceptos clave incluyen HideInWidgetList, la resolución por Type del ViewComponent desde la 4.60 y la convención Plugins.{SystemName}.{Context}.{Field} para claves localizadas; Prerrequisitos: capítulos 5, 9 y 11; Caso de uso típico: desarrollar un banner o carrusel que se muestre en la página de inicio.
 
 **Trampas frecuentes:**
 
@@ -2688,13 +3062,13 @@ listado y puede activarse o desactivarse desde la administración.
 - `true`: el widget se oculta del listado. Útil para widgets que no
 necesitan activación manual o que se gestionan por otros medios.
 
-## Capítulo 15 — Diseño interno de un plugin: modelos, controladores y servicios {#capitulo-15}
+## Capítulo 17 — Diseño interno de un plugin: modelos, controladores y servicios {#capitulo-17}
 
 Profundiza en el diseño del plugin: modelos, controladores CRUD, capa de dominio, servicios internos, sistema de Settings, migraciones y rutas.
 
 **Parte IV — Plugins** · Nivel: Avanzado
 
-Este capítulo cubre el diseño interno de un plugin, desde modelos y controladores con operaciones CRUD hasta la capa de dominio, la elección entre JSON en la tabla Setting y tablas propias con FluentMigrator, el sistema ISettingService con soporte multi-tienda y el registro de rutas mediante IRouteProvider; Sirve para estructurar la lógica de un plugin con separación de responsabilidades; Los conceptos clave incluyen SaveSettingOverridablePerStoreAsync, el atributo NopMigration, la arquitectura dual Admin Controller y Public ViewComponent, y la clase de constantes del plugin; Prerrequisitos: capítulos 5, 9 y 10; Caso de uso típico: añadir datos propios y una pantalla de configuración multi-tienda a un widget.
+Este capítulo cubre el diseño interno de un plugin, desde modelos y controladores con operaciones CRUD hasta la capa de dominio, la elección entre JSON en la tabla Setting y tablas propias con FluentMigrator, el sistema ISettingService con soporte multi-tienda y el registro de rutas mediante IRouteProvider; Sirve para estructurar la lógica de un plugin con separación de responsabilidades; Los conceptos clave incluyen SaveSettingOverridablePerStoreAsync, el atributo NopMigration, la arquitectura dual Admin Controller y Public ViewComponent, y la clase de constantes del plugin; Prerrequisitos: capítulos 5, 11 y 12; Caso de uso típico: añadir datos propios y una pantalla de configuración multi-tienda a un widget.
 
 **Trampas frecuentes:**
 
@@ -3219,13 +3593,13 @@ public static class MiPluginDefaults
 }
 ```
 
-## Capítulo 16 — Ciclo de vida de un plugin {#capitulo-16}
+## Capítulo 18 — Ciclo de vida de un plugin {#capitulo-18}
 
 Recorre las fases de un plugin, desde la compilación hasta la detección, instalación, configuración, actualización, desinstalación e incompatibilidad.
 
 **Parte IV — Plugins** · Nivel: Intermedio
 
-Este capítulo cubre el ciclo de vida completo del plugin en diez fases, detalladas en trece secciones, incluida la detección mediante plugin.json, el registro del estado en App_Data/plugins.json, la invocación de InstallAsync, UpdateAsync y UninstallAsync y los problemas habituales de cada fase; Sirve para diagnosticar por qué un plugin no aparece, no instala o falla tras una actualización; Los conceptos clave incluyen la lista InstalledPlugins, el SystemName huérfano y el campo SupportedVersions; Prerrequisitos: capítulos 9, 10 y 11; Caso de uso típico: seguir el recorrido de un plugin para localizar el origen de un fallo de integración.
+Este capítulo cubre el ciclo de vida completo del plugin en diez fases, detalladas en trece secciones, incluida la detección mediante plugin.json, el registro del estado en App_Data/plugins.json, la invocación de InstallAsync, UpdateAsync y UninstallAsync y los problemas habituales de cada fase; Sirve para diagnosticar por qué un plugin no aparece, no instala o falla tras una actualización; Los conceptos clave incluyen la lista InstalledPlugins, el SystemName huérfano y el campo SupportedVersions; Prerrequisitos: capítulos 11, 12 y 13; Caso de uso típico: seguir el recorrido de un plugin para localizar el origen de un fallo de integración.
 
 **Trampas frecuentes:**
 
@@ -3534,13 +3908,13 @@ plataforma.
 
 # Parte V — Caso práctico {#parte-v}
 
-## Capítulo 17 — Caso práctico: widget Swiper {#capitulo-17}
+## Capítulo 19 — Caso práctico: widget Swiper {#capitulo-19}
 
 Aplica todo lo aprendido al desarrollo completo de un widget de carrusel, desde la interfaz administrativa hasta las rutas y la compatibilidad.
 
 **Parte V — Caso práctico: widget Swiper** · Nivel: Avanzado
 
-Este capítulo cubre el caso práctico del widget Swiper: gestión de solicitudes con el patrón MVC, implementación de InstallAsync, UninstallAsync y UpdateAsync, registro de rutas con RouteProvider y compatibilidad tras actualizar nopCommerce; Sirve como recorrido íntegro que integra los capítulos anteriores; Los conceptos clave incluyen la ruta física de la vista Configure.cshtml, el layout _ConfigurePlugin, el uso de INopUrlHelper en GetConfigurationPageUrl y la propiedad Priority de IRouteProvider; Prerrequisitos: capítulos 9 a 12; Caso de uso típico: tomar este widget como plantilla de partida para un plugin propio.
+Este capítulo cubre el caso práctico del widget Swiper: gestión de solicitudes con el patrón MVC, implementación de InstallAsync, UninstallAsync y UpdateAsync, registro de rutas con RouteProvider y compatibilidad tras actualizar nopCommerce; Sirve como recorrido íntegro que integra los capítulos anteriores; Los conceptos clave incluyen la ruta física de la vista Configure.cshtml, el layout _ConfigurePlugin, el uso de INopUrlHelper en GetConfigurationPageUrl y la propiedad Priority de IRouteProvider; Prerrequisitos: capítulos 11 a 14; Caso de uso típico: tomar este widget como plantilla de partida para un plugin propio.
 
 **Trampas frecuentes:**
 
@@ -3730,7 +4104,7 @@ namespace Nop.Plugin.Widgets.MiBanner.Components
 Esta parte cubre mecanismos internos de nopCommerce que no son visibles en el desarrollo
 cotidiano pero resultan esenciales para construir extensiones robustas y eficientes.
 
-## Capítulo 18 — Sistema de eventos (pub-sub) {#capitulo-18}
+## Capítulo 20 — Sistema de eventos (pub-sub) {#capitulo-20}
 
 Explica el patrón publicador-suscriptor de nopCommerce, los eventos automáticos de entidad y la creación de consumidores y eventos personalizados.
 
@@ -3867,13 +4241,13 @@ en `AppStartedEvent`); usar `IStopProcessingEvent` para detener la cadena de con
 - Usar `EntityInsertedEvent<T>` para lógica posterior a la persistencia,
 no para validación previa.
 
-## Capítulo 19 — Widget Zones personalizadas {#capitulo-19}
+## Capítulo 21 — Widget Zones personalizadas {#capitulo-21}
 
 Muestra cómo declarar Widget Zones personalizadas en temas con el tag helper nop-widget y cómo registrarlas en un plugin.
 
 **Parte VI — Temas avanzados** · Nivel: Intermedio
 
-Este capítulo cubre las Widget Zones predefinidas del núcleo y el proceso para crear zonas propias con el tag helper nop-widget, registrarlas en GetWidgetZonesAsync y asociarlas a un ViewComponent en GetWidgetViewComponent; Sirve para colocar widgets en ubicaciones concretas del tema; Los conceptos clave incluyen el parámetro additional-data, el formato de nombre {plugin}_ubicacion y la disponibilidad de las zonas en tienda pública y administración; Prerrequisitos: capítulos 7 y 10; Caso de uso típico: ofrecer una zona de inserción documentada en un tema comercial para plugins de terceros.
+Este capítulo cubre las Widget Zones predefinidas del núcleo y el proceso para crear zonas propias con el tag helper nop-widget, registrarlas en GetWidgetZonesAsync y asociarlas a un ViewComponent en GetWidgetViewComponent; Sirve para colocar widgets en ubicaciones concretas del tema; Los conceptos clave incluyen el parámetro additional-data, el formato de nombre {plugin}_ubicacion y la disponibilidad de las zonas en tienda pública y administración; Prerrequisitos: capítulos 9 y 12; Caso de uso típico: ofrecer una zona de inserción documentada en un tema comercial para plugins de terceros.
 
 **Trampas frecuentes:**
 
@@ -3965,13 +4339,13 @@ para que el ViewComponent reciba contexto.
 - Para temas comerciales distribuidos externamente, documentar las zonas
 personalizadas para que los plugins de terceros puedan usarlas.
 
-## Capítulo 20 — Change Tracker: EF Core y nopCommerce {#capitulo-20}
+## Capítulo 22 — Change Tracker: EF Core y nopCommerce {#capitulo-22}
 
 Contrasta el Change Tracker de EF Core con el mecanismo equivalente de nopCommerce basado en eventos de dominio posteriores a la persistencia.
 
 **Parte VI — Temas avanzados** · Nivel: Avanzado
 
-Este capítulo cubre el concepto de Change Tracker de EF Core, sus estados de entidad y su equivalencia en nopCommerce, que al usar Linq2db no dispone de este mecanismo y notifica los cambios mediante eventos de dominio; Sirve para elegir el enfoque correcto al rastrear modificaciones de entidades; Los conceptos clave incluyen SavingChanges, ChangeTracker.Clear, EntityUpdatedEvent<T> y la comparación explícita contra el repositorio; Prerrequisitos: capítulos 3, 5 y 14; Caso de uso típico: reaccionar a actualizaciones de una entidad o validar cambios antes de persistirlos.
+Este capítulo cubre el concepto de Change Tracker de EF Core, sus estados de entidad y su equivalencia en nopCommerce, que al usar Linq2db no dispone de este mecanismo y notifica los cambios mediante eventos de dominio; Sirve para elegir el enfoque correcto al rastrear modificaciones de entidades; Los conceptos clave incluyen SavingChanges, ChangeTracker.Clear, EntityUpdatedEvent<T> y la comparación explícita contra el repositorio; Prerrequisitos: capítulos 3, 5 y 16; Caso de uso típico: reaccionar a actualizaciones de una entidad o validar cambios antes de persistirlos.
 
 **Trampas frecuentes:**
 
@@ -3985,6 +4359,8 @@ Este capítulo cubre el concepto de Change Tracker de EF Core, sus estados de en
 Aunque nopCommerce utiliza Linq2DB como ORM principal, el conocimiento del Change Tracker de EF
 Core resulta útil porque muchos conceptos son análogos y porque nopCommerce expone mecanismos
 similares para rastrear cambios en las entidades mediante su sistema de eventos.
+
+**Ver también:** Capítulos 7 y 8 (linq2db y capa Nop.Data).
 
 ### Concepto de Change Tracker
 
@@ -4068,7 +4444,7 @@ El desarrollo sobre nopCommerce no termina en la escritura del código. Las prue
 automatizadas y las buenas prácticas arquitectónicas son esenciales para mantener la calidad
 del sistema a lo largo del tiempo.
 
-## Capítulo 21 — Estrategia de pruebas {#capitulo-21}
+## Capítulo 23 — Estrategia de pruebas {#capitulo-23}
 
 Describe la organización de la capa de pruebas de la solución y las técnicas de inicialización y sustitución de dependencias.
 
@@ -4371,13 +4747,13 @@ La organización de las pruebas por carpetas (núcleo, datos, servicios y presen
 proyecto Nop.Tests permite comprobar cada nivel por separado, y la inyección de dependencias
 facilita la creación de pruebas aisladas.
 
-## Capítulo 22 — Buenas prácticas y errores frecuentes {#capitulo-22}
+## Capítulo 24 — Buenas prácticas y errores frecuentes {#capitulo-24}
 
 Reúne buenas prácticas de desarrollo, errores frecuentes en temas, plugins y arquitectura, y una lista de verificación previa al despliegue.
 
 **Parte VII — Calidad y buenas prácticas** · Nivel: Básico
 
-Este capítulo cubre las buenas prácticas de nopCommerce —respetar las capas, no modificar el núcleo, distinguir tema de plugin, mantener convenciones y compatibilidad—, los errores frecuentes organizados por síntoma, causa y solución, y el checklist de verificación antes de desplegar un plugin; Sirve como referencia rápida de diagnóstico y de auditoría previa a producción; Los conceptos clave incluyen el ciclo completo de carga del plugin, CopyLocalLockFileAssemblies y ClearPluginAssemblies; Prerrequisitos: capítulos 9 a 13 y 17; Caso de uso típico: auditar un plugin antes de llevarlo a un entorno de producción.
+Este capítulo cubre las buenas prácticas de nopCommerce —respetar las capas, no modificar el núcleo, distinguir tema de plugin, mantener convenciones y compatibilidad—, los errores frecuentes organizados por síntoma, causa y solución, y el checklist de verificación antes de desplegar un plugin; Sirve como referencia rápida de diagnóstico y de auditoría previa a producción; Los conceptos clave incluyen el ciclo completo de carga del plugin, CopyLocalLockFileAssemblies y ClearPluginAssemblies; Prerrequisitos: capítulos 11 a 15 y 19; Caso de uso típico: auditar un plugin antes de llevarlo a un entorno de producción.
 
 **Trampas frecuentes:**
 
@@ -4697,13 +5073,13 @@ robustas y sostenibles en el tiempo.
 
 # Parte VIII — Capacidades transversales {#parte-viii}
 
-## Capítulo 23 — Multi-tienda {#capitulo-23}
+## Capítulo 25 — Multi-tienda {#capitulo-25}
 
 Describe el modelo de varias tiendas dentro de una instalación, el contexto de tienda activo, el alcance de configuración por tienda y el mapeo de entidades.
 
 **Parte VIII — Capacidades transversales** · Nivel: Intermedio
 
-Este capítulo cubre la gestión multi-tienda, el contexto de tienda activo, el alcance de configuración por ajuste y el mapeo de entidades por tienda; Sirve para operar varias tiendas desde una instalación única de nopCommerce; Los conceptos clave incluyen Store, StoreMapping, IStoreContext y SaveSettingOverridablePerStoreAsync; Prerrequisitos: capítulos 8 (tienda pública y administración) y 11 (diseño interno de un plugin); Caso de uso típico: definir qué ajustes son globales y cuáles dependen de cada tienda.
+Este capítulo cubre la gestión multi-tienda, el contexto de tienda activo, el alcance de configuración por ajuste y el mapeo de entidades por tienda; Sirve para operar varias tiendas desde una instalación única de nopCommerce; Los conceptos clave incluyen Store, StoreMapping, IStoreContext y SaveSettingOverridablePerStoreAsync; Prerrequisitos: capítulos 13 (tienda pública y administración) y 17 (diseño interno de un plugin); Caso de uso típico: definir qué ajustes son globales y cuáles dependen de cada tienda.
 
 **Trampas frecuentes:**
 
@@ -4731,7 +5107,7 @@ La entidad `Store` vive en el namespace `Nop.Core.Domain.Stores` y representa un
 | `InsertStoreAsync(Store)` / `UpdateStoreAsync(Store)` / `DeleteStoreAsync(Store)` | Persiste cambios |
 | `GetNotExistingStoresAsync(string[])` | Valida nombres o identificadores inexistentes |
 
-La entidad `StoreMapping` (`Nop.Core.Domain.Stores`) asocia una entidad de negocio con una o varias tiendas. Sus campos son `EntityId`, `EntityName` y `StoreId`. El rol de cliente no interviene en esta tabla; se gestiona en la ACL (Capítulo 27).
+La entidad `StoreMapping` (`Nop.Core.Domain.Stores`) asocia una entidad de negocio con una o varias tiendas. Sus campos son `EntityId`, `EntityName` y `StoreId`. El rol de cliente no interviene en esta tabla; se gestiona en la ACL (Capítulo 29).
 
 > Nota: la configuración general se almacena en la tabla `Setting`, cuya columna `StoreId` vale `0` cuando el valor es global.
 
@@ -4776,13 +5152,13 @@ La lectura de un ajuste en el panel de administración debe combinar el valor gl
 | `SaveStoreMappingsAsync<TEntity>(TEntity, IEnumerable<int>)` | Sustituye el conjunto de tiendas |
 | `AuthorizeAsync<TEntity>(TEntity, int storeId)` | Comprueba acceso de la entidad a la tienda |
 
-Este servicio es paralelo a `IAclService` (Capítulo 27): uno filtra por tienda, el otro por rol de cliente.
+Este servicio es paralelo a `IAclService` (Capítulo 29): uno filtra por tienda, el otro por rol de cliente.
 
 ### Consideraciones operativas
 
-- Cada tienda declara su propia URL; `TaskScheduler` construye la dirección de ejecución de tareas con la URL de la tienda actual (Capítulo 26).
+- Cada tienda declara su propia URL; `TaskScheduler` construye la dirección de ejecución de tareas con la URL de la tienda actual (Capítulo 28).
 - El idioma disponible por tienda se resuelve con `ILanguageService.GetAllLanguagesAsync(storeId: storeId)`.
-- La caché de entidades por tienda usa claves que incorporan el identificador de tienda (Capítulo 25).
+- La caché de entidades por tienda usa claves que incorporan el identificador de tienda (Capítulo 27).
 
 ### Fuentes verificadas
 
@@ -4796,17 +5172,17 @@ Este servicio es paralelo a `IAclService` (Capítulo 27): uno filtra por tienda,
 
 > Fecha de consulta: 2026-10-17.
 
-## Capítulo 24 — Localización, monedas y regionalización {#capitulo-24}
+## Capítulo 26 — Localización, monedas y regionalización {#capitulo-26}
 
 Describe la separación entre idioma de interfaz, moneda y formato regional, sus servicios, recursos de texto y la resolución del idioma de la petición.
 
 **Parte VIII — Capacidades transversales** · Nivel: Intermedio
 
-Este capítulo cubre la localización de textos, la gestión de monedas y tipos de cambio y la adaptación regional de la tienda; Sirve para preparar la plataforma para varios idiomas, monedas y regiones; Los conceptos clave incluyen Language, LocaleStringResource, LocalizedProperty, Currency e IExchangeRateProvider; Prerrequisitos: capítulos 5 (inyección de dependencias) y 11 (diseño interno de un plugin); Caso de uso típico: adaptar una tienda existente a nuevos mercados.
+Este capítulo cubre la localización de textos, la gestión de monedas y tipos de cambio y la adaptación regional de la tienda; Sirve para preparar la plataforma para varios idiomas, monedas y regiones; Los conceptos clave incluyen Language, LocaleStringResource, LocalizedProperty, Currency e IExchangeRateProvider; Prerrequisitos: capítulos 10 (inyección de dependencias) y 17 (diseño interno de un plugin); Caso de uso típico: adaptar una tienda existente a nuevos mercados.
 
 **Trampas frecuentes:**
 
-> - Guardar fechas en la zona horaria del cliente en lugar de UTC rompe la comparación con tareas programadas y registros (Capítulos 26 y 28).
+> - Guardar fechas en la zona horaria del cliente en lugar de UTC rompe la comparación con tareas programadas y registros (Capítulos 28 y 30).
 > - `LocaleStringResource` y `LocalizedProperty` son tablas distintas: la primera para cadenas de interfaz, la segunda para propiedades de entidades.
 > - Un idioma deshabilitado sigue existiendo en base de datos; `GetAllLanguagesAsync()` sin `showHidden` lo excluye, pero las consultas directas no.
 > - Cambiar `CurrencySettings.ActiveExchangeRateProviderSystemName` sin instalar el plugin correspondiente deja la conversión sin proveedor.
@@ -4814,7 +5190,7 @@ Este capítulo cubre la localización de textos, la gestión de monedas y tipos 
 
 ---
 
-La localización separa tres conceptos: idioma (interfaz), moneda (precios) y formato regional (fechas y números). Cada uno tiene su entidad, su servicio y sus ajustes. Este capítulo describe únicamente los componentes de la plataforma; la traducción de plantillas de mensajes se trata en el Capítulo 29.
+La localización separa tres conceptos: idioma (interfaz), moneda (precios) y formato regional (fechas y números). Cada uno tiene su entidad, su servicio y sus ajustes. Este capítulo describe únicamente los componentes de la plataforma; la traducción de plantillas de mensajes se trata en el Capítulo 31.
 
 ### Idiomas
 
@@ -4882,21 +5258,21 @@ El servidor almacena fechas en UTC; la conversión a zona horaria ocurre en la c
 
 > Fecha de consulta: 2026-10-17.
 
-## Capítulo 25 — Caché e invalidación {#capitulo-25}
+## Capítulo 27 — Caché e invalidación {#capitulo-27}
 
 Describe los dos niveles de caché de la 4.90.8, sus implementaciones registradas, las claves y el flujo de invalidación automática.
 
 **Parte VIII — Capacidades transversales** · Nivel: Avanzado
 
-Este capítulo cubre la caché entre peticiones y durante la petición, la selección del proveedor según DistributedCacheConfig y las estrategias de invalidación; Sirve para decidir qué datos cachear y cómo invalidarlos de forma coherente; Los conceptos clave incluyen IStaticCacheManager, IShortTermCacheManager, DistributedCacheConfig y la invalidación por prefijo; Prerrequisitos: capítulos 5 (inyección de dependencias), 11 (diseño interno de un plugin) y 14 (sistema de eventos); Caso de uso típico: reducir consultas a base de datos sin servir datos obsoletos tras un cambio de configuración o de entidades.
+Este capítulo cubre la caché entre peticiones y durante la petición, la selección del proveedor según DistributedCacheConfig y las estrategias de invalidación; Sirve para decidir qué datos cachear y cómo invalidarlos de forma coherente; Los conceptos clave incluyen IStaticCacheManager, IShortTermCacheManager, DistributedCacheConfig y la invalidación por prefijo; Prerrequisitos: capítulos 10 (inyección de dependencias), 17 (diseño interno de un plugin) y 20 (sistema de eventos); Caso de uso típico: reducir consultas a base de datos sin servir datos obsoletos tras un cambio de configuración o de entidades.
 
 **Trampas frecuentes:**
 
 > - Usar `IShortTermCacheManager` para datos que deben sobrevivir a la petición produce lecturas obsoletas en la siguiente petición.
-> - Claves sin el identificador de tienda o de idioma devuelven datos de otra tienda o idioma (Capítulos 23 y 24).
+> - Claves sin el identificador de tienda o de idioma devuelven datos de otra tienda o idioma (Capítulos 25 y 26).
 > - `RemoveByPrefixAsync` solo elimina lo que cuelga del prefijo exacto; un prefijo mal formado no invalida nada y no lanza error.
-> - Con `DistributedCacheConfig.Enabled = false`, cada proceso usa su propia memoria: en un despliegue con varias instancias la caché no se comparte (Capítulo 32).
-> - Al activar la caché distribuida cambia el bloqueo disponible (`DistributedCacheLocker` en lugar de `MemoryCacheLocker`), de lo que dependen las tareas programadas (Capítulo 26).
+> - Con `DistributedCacheConfig.Enabled = false`, cada proceso usa su propia memoria: en un despliegue con varias instancias la caché no se comparte (Capítulo 34).
+> - Al activar la caché distribuida cambia el bloqueo disponible (`DistributedCacheLocker` en lugar de `MemoryCacheLocker`), de lo que dependen las tareas programadas (Capítulo 28).
 > - `ClearAsync()` purga la caché del proveedor activo; con varias instancias y Redis, el borrado llega a todas, pero con memoria local no.
 
 ---
@@ -4939,7 +5315,7 @@ La selección se hace en `NopStartup.cs` (`Presentation/Nop.Web.Framework/Infras
 
 `DistributedCacheManager` (`Libraries/Nop.Core/Caching/DistributedCacheManager.cs`) es la clase abstracta de la que heredan los proveedores distribuidos. `PerRequestCacheManager` se registra siempre como `IShortTermCacheManager`.
 
-El bloqueo asociado cambia también: `MemoryCacheLocker` sin caché distribuida y `DistributedCacheLocker` con ella; ambos implementan `ILocker`, que utilizan `ScheduleTaskRunner` (Capítulo 26).
+El bloqueo asociado cambia también: `MemoryCacheLocker` sin caché distribuida y `DistributedCacheLocker` con ella; ambos implementan `ILocker`, que utilizan `ScheduleTaskRunner` (Capítulo 28).
 
 `RedisCacheManager` usa `IRedisConnectionWrapper` (`Libraries/Nop.Services/Caching/`). En el modo `RedisSynchronizedMemory`, `SynchronizedMemoryCacheManager` se apoya en `RedisSynchronizedMemoryCache` (implementación de `ISynchronizedMemoryCache`). `CacheConfig.DefaultCacheTime` fija la expiración por defecto en minutos (valor por defecto: 60).
 
@@ -4966,7 +5342,7 @@ La invalidación manual directa sobre `IStaticCacheManager.ClearAsync()` purga t
 
 ### Configuración
 
-`DistributedCacheConfig` (`Nop.Core.Configuration`) se lee de `appsettings.json` (Capítulo 32):
+`DistributedCacheConfig` (`Nop.Core.Configuration`) se lee de `appsettings.json` (Capítulo 34):
 
 | Propiedad | Contenido | Valor por defecto |
 |-----------|-----------|-------------------|
@@ -4994,13 +5370,13 @@ La invalidación manual directa sobre `IStaticCacheManager.ClearAsync()` purga t
 
 > Fecha de consulta: 2026-10-17.
 
-## Capítulo 26 — Tareas programadas {#capitulo-26}
+## Capítulo 28 — Tareas programadas {#capitulo-28}
 
 Describe el modelo de tarea, el planificador de hilos, el ciclo de ejecución con bloqueo y el procedimiento para añadir tareas propias.
 
 **Parte VIII — Capacidades transversales** · Nivel: Intermedio
 
-Este capítulo cubre las tareas programadas de nopCommerce: entidad ScheduleTask, TaskScheduler, ScheduleTaskRunner y las tareas instaladas por defecto; Sirve para ejecutar de forma periódica procesos propios de la plataforma o de un plugin; Los conceptos clave incluyen ScheduleTask, TaskScheduler, ScheduleTaskRunner y la tabla ScheduleTask; Prerrequisitos: capítulos 9 (estructura completa de un plugin) y 11 (diseño interno de un plugin); Caso de uso típico: programar un proceso propio de un plugin sin bloquear la respuesta a las solicitudes.
+Este capítulo cubre las tareas programadas de nopCommerce: entidad ScheduleTask, TaskScheduler, ScheduleTaskRunner y las tareas instaladas por defecto; Sirve para ejecutar de forma periódica procesos propios de la plataforma o de un plugin; Los conceptos clave incluyen ScheduleTask, TaskScheduler, ScheduleTaskRunner y la tabla ScheduleTask; Prerrequisitos: capítulos 15 (estructura completa de un plugin) y 17 (diseño interno de un plugin); Caso de uso típico: programar un proceso propio de un plugin sin bloquear la respuesta a las solicitudes.
 
 **Trampas frecuentes:**
 
@@ -5041,7 +5417,7 @@ La interfaz `IScheduleTask` (`Nop.Services.ScheduleTasks`) declara `ExecuteAsync
 4. Calcula `InitSeconds`: ejecución inmediata si la última arrancada está vencida, o el tiempo restante hasta completar el periodo.
 5. `StartSchedulerAsync()` inicia todos los hilos con `Task.WhenAll`.
 
-El tiempo de espera de cada ejecución procede de `CommonConfig.ScheduleTaskRunTimeout`, expresado en milisegundos y `null` por defecto (Capítulo 32).
+El tiempo de espera de cada ejecución procede de `CommonConfig.ScheduleTaskRunTimeout`, expresado en milisegundos y `null` por defecto (Capítulo 34).
 
 ### Ejecución
 
@@ -5062,7 +5438,7 @@ Puntos del flujo `ExecuteAsync(ScheduleTask, forceRun, throwException, ensureRun
 
 ### Tareas incluidas
 
-La instalación crea las tareas en `InstallRequiredData.InstallScheduleTasksAsync()` (`Libraries/Nop.Services/Installation/`, línea 3422), invocado desde `InstallationService`. Entre ellas está `QueuedMessagesSendTask`, responsable del envío de la cola de correo (Capítulo 29).
+La instalación crea las tareas en `InstallRequiredData.InstallScheduleTasksAsync()` (`Libraries/Nop.Services/Installation/`, línea 3422), invocado desde `InstallationService`. Entre ellas está `QueuedMessagesSendTask`, responsable del envío de la cola de correo (Capítulo 31).
 
 El arranque del planificador lo hace `AppStartedConsumer` (`Presentation/Nop.Web.Framework/Infrastructure/AppStartedConsumer.cs`), que al recibir `AppStartedEvent` llama a `_taskScheduler.InitializeAsync()` y `StartSchedulerAsync()`.
 
@@ -5086,13 +5462,13 @@ Los plugins crean esa fila en su migración. Ejemplo verificado: `Plugins/Nop.Pl
 
 > Fecha de consulta: 2026-10-17.
 
-## Capítulo 27 — Permisos, ACL y roles {#capitulo-27}
+## Capítulo 29 — Permisos, ACL y roles {#capitulo-29}
 
 Describe la definición de permisos en código, su asignación a roles de cliente, la autorización en el panel de administración y el ACL de entidades.
 
 **Parte VIII — Capacidades transversales** · Nivel: Intermedio
 
-Este capítulo cubre el modelo de autorización de la 4.90.8: PermissionConfig, PermissionRecord, los atributos del área de administración y el control de acceso por entidad; Sirve para restringir quién puede operar cada parte del sistema; Los conceptos clave incluyen PermissionConfig, PermissionRecord, AuthorizeAdminAttribute y AclRecord; Prerrequisitos: capítulos 8 (tienda pública y administración) y 11 (diseño interno de un plugin); Caso de uso típico: restringir el acceso al panel de administración y controlar la visibilidad de entidades por rol.
+Este capítulo cubre el modelo de autorización de la 4.90.8: PermissionConfig, PermissionRecord, los atributos del área de administración y el control de acceso por entidad; Sirve para restringir quién puede operar cada parte del sistema; Los conceptos clave incluyen PermissionConfig, PermissionRecord, AuthorizeAdminAttribute y AclRecord; Prerrequisitos: capítulos 13 (tienda pública y administración) y 17 (diseño interno de un plugin); Caso de uso típico: restringir el acceso al panel de administración y controlar la visibilidad de entidades por rol.
 
 **Trampas frecuentes:**
 
@@ -5159,7 +5535,7 @@ No existe `GetAccessControlList`; el método equivalente para lectura es `GetAcl
 
 ### Relación con tiendas
 
-El filtrado por tienda (Capítulo 23) es un eje adicional, no una sustitución: una entidad puede estar publicada en una tienda y, dentro de ella, visible solo para determinados roles.
+El filtrado por tienda (Capítulo 25) es un eje adicional, no una sustitución: una entidad puede estar publicada en una tienda y, dentro de ella, visible solo para determinados roles.
 
 ### Fuentes verificadas
 
@@ -5174,13 +5550,13 @@ El filtrado por tienda (Capítulo 23) es un eje adicional, no una sustitución: 
 
 > Fecha de consulta: 2026-10-17.
 
-## Capítulo 28 — Diagnóstico y registro {#capitulo-28}
+## Capítulo 30 — Diagnóstico y registro {#capitulo-30}
 
 Describe la interfaz de registro, los niveles con su valor numérico, la entidad de registro, los eventos internos y el manejo de excepciones.
 
 **Parte VIII — Capacidades transversales** · Nivel: Intermedio
 
-Este capítulo cubre el registro de diagnóstico con ILogger y DefaultLogger, los niveles de registro, la publicación y consumo de eventos y el manejador de excepciones de la aplicación; Sirve para diagnosticar errores en ejecución sin perder trazabilidad; Los conceptos clave incluyen ILogger, DefaultLogger, LogLevel e IEventPublisher; Prerrequisitos: capítulos 5 (inyección de dependencias) y 14 (sistema de eventos); Caso de uso típico: diagnosticar errores en producción y registrar eventos de dominio de forma controlada.
+Este capítulo cubre el registro de diagnóstico con ILogger y DefaultLogger, los niveles de registro, la publicación y consumo de eventos y el manejador de excepciones de la aplicación; Sirve para diagnosticar errores en ejecución sin perder trazabilidad; Los conceptos clave incluyen ILogger, DefaultLogger, LogLevel e IEventPublisher; Prerrequisitos: capítulos 10 (inyección de dependencias) y 20 (sistema de eventos); Caso de uso típico: diagnosticar errores en producción y registrar eventos de dominio de forma controlada.
 
 **Trampas frecuentes:**
 
@@ -5232,7 +5608,7 @@ La entidad `Log` (`Nop.Core.Domain.Logging`) conserva nivel, mensaje corto, mens
 
 ### Eventos internos
 
-`IEventPublisher` (`Nop.Core.Events`) publica eventos de dominio. Los consumidores reaccionan a ellos, por ejemplo `CacheEventConsumer<TEntity>` para invalidar caché (Capítulo 25).
+`IEventPublisher` (`Nop.Core.Events`) publica eventos de dominio. Los consumidores reaccionan a ellos, por ejemplo `CacheEventConsumer<TEntity>` para invalidar caché (Capítulo 27).
 
 El patrón habitual de un consumidor:
 
@@ -5246,7 +5622,7 @@ El patrón habitual de un consumidor:
 
 - `UseNopExceptionHandler` (`ApplicationBuilderExtensions.cs`, línea 73) usa `UseDeveloperExceptionPage` si `CommonConfig.DisplayFullErrorStack` o el entorno es de desarrollo; en otro caso redirige a `/Error/Error`.
 - El manejador registra el error con `ILogger.ErrorAsync` cuando la base de datos está instalada y vuelve a lanzar la excepción con `ExceptionDispatchInfo.Throw` para mostrar la página de error.
-- Los errores de tareas programadas se registran con `ErrorAsync` y se reflejan en `ScheduleTask.StopOnError` (Capítulo 26).
+- Los errores de tareas programadas se registran con `ErrorAsync` y se reflejan en `ScheduleTask.StopOnError` (Capítulo 28).
 
 ### Fuentes verificadas
 
@@ -5260,13 +5636,13 @@ El patrón habitual de un consumidor:
 
 > Fecha de consulta: 2026-10-17.
 
-## Capítulo 29 — Correo electrónico y cola de mensajes {#capitulo-29}
+## Capítulo 31 — Correo electrónico y cola de mensajes {#capitulo-31}
 
 Describe el envío de correo en dos fases: generación de mensajes, cola de correo, envío mediante tarea programada y administración desde el panel.
 
 **Parte VIII — Capacidades transversales** · Nivel: Intermedio
 
-Este capítulo cubre las cuentas de correo, la cola QueuedEmail, la generación de mensajes con WorkflowMessageService y el envío asíncrono por QueuedMessagesSendTask; Sirve para comprender y extender el correo transaccional de la tienda; Los conceptos clave incluyen EmailAccount, QueuedEmail, QueuedMessagesSendTask y WorkflowMessageService; Prerrequisitos: capítulos 11 (diseño interno de un plugin) y 20 (localización, monedas y regionalización); Caso de uso típico: enviar correos transaccionales de forma asíncrona y controlada.
+Este capítulo cubre las cuentas de correo, la cola QueuedEmail, la generación de mensajes con WorkflowMessageService y el envío asíncrono por QueuedMessagesSendTask; Sirve para comprender y extender el correo transaccional de la tienda; Los conceptos clave incluyen EmailAccount, QueuedEmail, QueuedMessagesSendTask y WorkflowMessageService; Prerrequisitos: capítulos 17 (diseño interno de un plugin) y 26 (localización, monedas y regionalización); Caso de uso típico: enviar correos transaccionales de forma asíncrona y controlada.
 
 **Trampas frecuentes:**
 
@@ -5275,7 +5651,7 @@ Este capítulo cubre las cuentas de correo, la cola QueuedEmail, la generación 
 > - Con `maxTries = 3`, un fallo persistente agota los intentos y el mensaje queda en la cola sin enviar y fuera de la siguiente búsqueda.
 > - `DontSendBeforeDateUtc` en el pasado no desencadena envío inmediato fuera del ciclo de la tarea.
 > - Reenviar un mensaje desde el panel conserva la plantilla ya sustituida; cambios posteriores en `MessageTemplate` no se aplican a ese mensaje.
-> - `WorkflowMessageService` descarta las plantillas con `IsActive` falso y comprueba con `EnsureLanguageIsActiveAsync` que el idioma siga activo (Capítulo 24).
+> - `WorkflowMessageService` descarta las plantillas con `IsActive` falso y comprueba con `EnsureLanguageIsActiveAsync` que el idioma siga activo (Capítulo 26).
 
 ---
 
@@ -5325,7 +5701,7 @@ El flujo es: elegir plantilla y idioma, sustituir variables, obtener la cuenta d
 
 ### Administración
 
-El panel de administración expone la cola a través de `QueuedEmailController` (`Nop.Web.Areas.Admin.Controllers`), con acciones `List`, `Edit`, `Delete`, `DeleteSelected`, `DeleteAll`, `Requeue` y `RequeueSelected`. La tarea de envío está incluida en la instalación (Capítulo 26).
+El panel de administración expone la cola a través de `QueuedEmailController` (`Nop.Web.Areas.Admin.Controllers`), con acciones `List`, `Edit`, `Delete`, `DeleteSelected`, `DeleteAll`, `Requeue` y `RequeueSelected`. La tarea de envío está incluida en la instalación (Capítulo 28).
 
 ### Fuentes verificadas
 
@@ -5340,13 +5716,13 @@ El panel de administración expone la cola a través de `QueuedEmailController` 
 
 > Fecha de consulta: 2026-10-17.
 
-## Capítulo 30 — Gestión de medios {#capitulo-30}
+## Capítulo 32 — Gestión de medios {#capitulo-32}
 
 Describe el almacenamiento de imágenes en base de datos o disco, los ajustes de imagen, la generación de miniaturas y el ciclo de vida de una imagen.
 
 **Parte VIII — Capacidades transversales** · Nivel: Básico
 
-Este capítulo cubre las entidades Picture y PictureBinary, la clave de ajuste Media.Images.StoreInDB, MediaSettings y las miniaturas de IThumbService; Sirve para almacenar y servir imágenes de forma eficiente; Los conceptos clave incluyen Picture, PictureBinary, Media.Images.StoreInDB y las miniaturas; Prerrequisitos: capítulos 11 (diseño interno de un plugin) y 13 (caso práctico: widget Swiper); Caso de uso típico: almacenar imágenes de forma eficiente y mantenerlas accesibles tras cambiar la configuración.
+Este capítulo cubre las entidades Picture y PictureBinary, la clave de ajuste Media.Images.StoreInDB, MediaSettings y las miniaturas de IThumbService; Sirve para almacenar y servir imágenes de forma eficiente; Los conceptos clave incluyen Picture, PictureBinary, Media.Images.StoreInDB y las miniaturas; Prerrequisitos: capítulos 17 (diseño interno de un plugin) y 19 (caso práctico: widget Swiper); Caso de uso típico: almacenar imágenes de forma eficiente y mantenerlas accesibles tras cambiar la configuración.
 
 **Trampas frecuentes:**
 
@@ -5354,7 +5730,7 @@ Este capítulo cubre las entidades Picture y PictureBinary, la clave de ajuste M
 > - Cambiar `Media.Images.StoreInDB` con imágenes ya cargadas deja imágenes inaccesibles: no hay migración automática.
 > - `AllowSvgUploads` activo permite archivos vectoriales que pueden contener scripts; revisar el contenido antes de habilitarlo en instalaciones abiertas.
 > - `MaximumImageSize` no rechaza la imagen grande: la redimensiona. La calidad del resultado la fija `DefaultImageQuality`.
-> - `UseAbsoluteImagePath` antepone la URL de la tienda a las rutas de imagen; un cambio de dominio obliga a revisar esas respuestas (Capítulo 31).
+> - `UseAbsoluteImagePath` antepone la URL de la tienda a las rutas de imagen; un cambio de dominio obliga a revisar esas respuestas (Capítulo 33).
 > - `DeletePictureAsync` borra las miniaturas y, si `Media.Images.StoreInDB` es falso, el fichero en disco; un fichero dejado por una configuración anterior no se elimina.
 
 ---
@@ -5428,13 +5804,13 @@ flowchart LR
 
 > Fecha de consulta: 2026-10-17.
 
-## Capítulo 31 — Búsqueda y SEO {#capitulo-31}
+## Capítulo 33 — Búsqueda y SEO {#capitulo-33}
 
 Describe las URL amigables, el sitemap XML, el fichero robots.txt y los mecanismos de búsqueda de catálogo y de proveedor externo.
 
 **Parte VIII — Capacidades transversales** · Nivel: Intermedio
 
-Este capítulo cubre los slug con UrlRecord, la generación del sitemap y del robots.txt, la búsqueda sobre base de datos y la selección del proveedor de búsqueda externo; Sirve para mejorar el posicionamiento y la localización de contenido; Los conceptos clave incluyen UrlRecord, NopSeoDefaults, ISearchProvider y SearchPluginManager; Prerrequisitos: capítulos 11 (diseño interno de un plugin) y 14 (sistema de eventos); Caso de uso típico: mejorar el posicionamiento con URL amigables y sitemap, o integrar un proveedor de búsqueda externo.
+Este capítulo cubre los slug con UrlRecord, la generación del sitemap y del robots.txt, la búsqueda sobre base de datos y la selección del proveedor de búsqueda externo; Sirve para mejorar el posicionamiento y la localización de contenido; Los conceptos clave incluyen UrlRecord, NopSeoDefaults, ISearchProvider y SearchPluginManager; Prerrequisitos: capítulos 17 (diseño interno de un plugin) y 20 (sistema de eventos); Caso de uso típico: mejorar el posicionamiento con URL amigables y sitemap, o integrar un proveedor de búsqueda externo.
 
 **Trampas frecuentes:**
 
@@ -5481,7 +5857,7 @@ Este capítulo cubre las URL amigables, el sitemap XML, el fichero `robots.txt` 
 
 `IProductService.SearchProductsAsync(...)` (`Nop.Services.Catalog`) realiza la búsqueda sobre la base de datos con filtros de categoría, marca, precio, atributos y visibilidad. El resultado se transforma en modelo en las fábricas de catálogo del área de presentación.
 
-En la fábrica de modelos del catálogo, `CatalogModelFactory` publica `ProductSearchEvent` (`Nop.Web.Framework.Events`) antes de devolver el modelo, consumible con `IEventPublisher` (Capítulo 28).
+En la fábrica de modelos del catálogo, `CatalogModelFactory` publica `ProductSearchEvent` (`Nop.Web.Framework.Events`) antes de devolver el modelo, consumible con `IEventPublisher` (Capítulo 20).
 
 ### Proveedor de búsqueda externo
 
@@ -5510,13 +5886,13 @@ En la fábrica de modelos del catálogo, `CatalogModelFactory` publica `ProductS
 
 > Fecha de consulta: 2026-10-17.
 
-## Capítulo 32 — Rendimiento, compresión y despliegue {#capitulo-32}
+## Capítulo 34 — Rendimiento, compresión y despliegue {#capitulo-34}
 
 Describe las palancas de rendimiento, la configuración de host y de ficheros y el despliegue incluido con la fuente de nopCommerce.
 
 **Parte VIII — Capacidades transversales** · Nivel: Avanzado
 
-Este capítulo cubre la compresión de respuesta, la optimización de recursos estáticos, el limitador de tasa, los ficheros de configuración y el procedimiento de despliegue; Sirve para preparar la aplicación para producción; Los conceptos clave incluyen UseNopResponseCompression, WebOptimizerConfig, CommonConfig y App_Data/appsettings.json; Prerrequisitos: capítulos 1 (visión general) y 2 (visión general de la arquitectura); Caso de uso típico: preparar la aplicación para producción con compresión, límites de admisión y un despliegue reproducible.
+Este capítulo cubre la compresión de respuesta, la optimización de recursos estáticos, el limitador de tasa, los ficheros de configuración y el procedimiento de despliegue; Sirve para preparar la aplicación para producción; Los conceptos clave incluyen UseNopResponseCompression, WebOptimizerConfig, CommonConfig y App_Data/appsettings.json; Prerrequisitos: capítulos 4 (visión general) y 5 (visión general de la arquitectura); Caso de uso típico: preparar la aplicación para producción con compresión, límites de admisión y un despliegue reproducible.
 
 **Trampas frecuentes:**
 
@@ -5551,8 +5927,8 @@ La compresión reduce el tamaño de las respuestas HTML, CSS y JavaScript enviad
 |--------|---------|--------|
 | `PermitLimit`, `QueueCount`, `RejectionStatusCode` | `CommonConfig` | Límite de concurrencia del limitador de tasa |
 | `UseAutofac` | `CommonConfig` | Uso del contenedor Autofac |
-| `ScheduleTaskRunTimeout` | `CommonConfig` | Tiempo de espera de ejecución de tareas (Capítulo 26) |
-| `DisplayFullErrorStack` | `CommonConfig` | Traza completa en errores (Capítulo 28) |
+| `ScheduleTaskRunTimeout` | `CommonConfig` | Tiempo de espera de ejecución de tareas (Capítulo 28) |
+| `DisplayFullErrorStack` | `CommonConfig` | Traza completa en errores (Capítulo 30) |
 
 El limitador de tasa se registra en `ServiceCollectionExtensions.AddRateLimiter` (`Presentation/Nop.Web.Framework/Infrastructure/Extensions/ServiceCollectionExtensions.cs`, línea 123). Las opciones de alojamiento residen en `HostingConfig`.
 
@@ -5561,7 +5937,7 @@ El limitador de tasa se registra en `ServiceCollectionExtensions.AddRateLimiter`
 - `NopConfigurationDefaults` (`Nop.Core.Configuration`) fija `AppSettingsFilePath` (`App_Data/appsettings.json`) y `AppSettingsEnvironmentFilePath` (`App_Data/appsettings.{0}.json`).
 - `AppSettingsHelper` carga el fichero principal; `Program.cs` (línea 17) añade el fichero del entorno con `builder.Environment.EnvironmentName`.
 - `InstallationConfig` parametriza la instalación inicial.
-- `DataSettingsManager` (`Libraries/Nop.Data`) gestiona la configuración de base de datos y expone `IsDatabaseInstalled()` (Capítulo 26).
+- `DataSettingsManager` (`Libraries/Nop.Data`) gestiona la configuración de base de datos y expone `IsDatabaseInstalled()` (Capítulo 28).
 - `Program.cs` (`Presentation/Nop.Web/Program.cs`) compone el host e invoca la canalización de arranque.
 
 ```json
@@ -5687,6 +6063,51 @@ learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection.
 Estos tres recursos cubren los fundamentos sobre los que está construida la capa de
 presentación y la infraestructura de servicios de nopCommerce.
 
+### A.7 Referencias de la Parte I — Conceptos esenciales
+
+Las fichas de la Parte I explican conceptos generales de C#, .NET y ASP.NET Core además del uso que hace nopCommerce de ellos. Las fuentes oficiales de Microsoft consultadas para esos conceptos, a través del servidor MCP de Microsoft Learn, se recogen en la siguiente tabla.
+
+| Concepto | Artículo de Microsoft Learn | URL |
+| - | - | - |
+| Arquitectura por capas y dirección de dependencia | Common web application architectures | learn.microsoft.com/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures |
+| Principios arquitectónicos (separación de preocupaciones, encapsulamiento, inversión de dependencias, dependencias explícitas, DRY) | Architectural principles | learn.microsoft.com/dotnet/architecture/modern-web-apps-azure/architectural-principles |
+| Inyección de dependencias y ciclos de vida (transitorio, con ámbito y singleton) | Dependency injection in ASP.NET Core | learn.microsoft.com/aspnet/core/fundamentals/dependency-injection |
+| Ciclos de vida del contenedor de servicios y dependencias cautivas | Service lifetimes | learn.microsoft.com/dotnet/core/extensions/dependency-injection/service-lifetimes |
+| Patrón repositorio como abstracción del acceso a datos | Design the infrastructure persistence layer | learn.microsoft.com/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design |
+| Entidad de dominio: identidad, continuidad y comportamiento | Design a microservice domain model —sección «The Domain Entity pattern»— | learn.microsoft.com/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/microservice-domain-model |
+| Reflection en .NET: inspección de tipos en tiempo de ejecución | Reflection in .NET | learn.microsoft.com/dotnet/fundamentals/reflection/overview |
+| Carga de ensamblados en tiempo de ejecución | About System.Runtime.Loader.AssemblyLoadContext | learn.microsoft.com/dotnet/core/dependency-loading/understanding-assemblyloadcontext |
+| Carga de un ensamblado por ruta | Assembly.LoadFrom Method | learn.microsoft.com/dotnet/api/system.reflection.assembly.loadfrom |
+| Patrón fábrica (Factory) para modernizar aplicaciones monolíticas | Lay the foundation for application modernization —sección «Modernize monolithic applications using the Factory Design pattern»— | learn.microsoft.com/azure/app-modernization-guidance/foundation |
+| Principio abierto/cerrado y extensibilidad del código | Write extensible code —sección «Open/closed»— | learn.microsoft.com/dynamics365/fin-ops-core/dev-itpro/extensibility/writing-extensible-code |
+| Eventos en C#: declaración del miembro `event` | The `event` keyword (C# reference) | learn.microsoft.com/dotnet/csharp/language-reference/keywords/event |
+| Manejadores, lanzamiento y suscripción de eventos | Events (C# Programming Guide) | learn.microsoft.com/dotnet/csharp/programming-guide/events/ |
+| Patrón publicador-suscriptor | Publisher-Subscriber pattern | learn.microsoft.com/azure/architecture/patterns/publisher-subscriber |
+| Comunicación entre componentes desacoplados | Communicating between loosely coupled components | learn.microsoft.com/dotnet/architecture/maui/communicating-between-components |
+| Caché en memoria y su invalidación | Cache in-memory in ASP.NET Core | learn.microsoft.com/aspnet/core/performance/caching/memory |
+| Patrón Cache-Aside: lectura y escritura diferida con caché | Cache-Aside pattern | learn.microsoft.com/azure/architecture/patterns/cache-aside |
+| Options pattern: configuración tipada con `IOptions<T>` | Options pattern in ASP.NET Core | learn.microsoft.com/aspnet/core/fundamentals/configuration/options |
+| Estado asíncrono y contexto de ejecución (`AsyncLocal<T>`) | Asynchronous state management | learn.microsoft.com/dotnet/core/extensions/async-state |
+| Recursos localizables (archivos `.resx` y ensamblados satélite) | Provide localized resources for languages and cultures in an ASP.NET Core app | learn.microsoft.com/aspnet/core/fundamentals/localization/provide-resources |
+| Contenido localizable con `IStringLocalizer` | Make an ASP.NET Core app's content localizable | learn.microsoft.com/aspnet/core/fundamentals/localization/make-content-localizable |
+| Autorización basada en políticas | Policy-based authorization in ASP.NET Core | learn.microsoft.com/aspnet/core/security/authorization/policies |
+| Autorización basada en roles | Role-based authorization in ASP.NET Core | learn.microsoft.com/aspnet/core/security/authorization/roles |
+
+> Nota: los artículos se citan en su edición inglesa, que es la lengua de referencia de estas páginas técnicas. Fecha de consulta: 19 de octubre de 2026.
+
+### A.8 Referencias de linq2db
+
+La documentación de linq2db usada en los capítulos 7 y 8 procede de su sitio oficial de documentación:
+
+| Contenido | URL |
+| - | - |
+| Sitio oficial de documentación de linq2db | https://linq2db.github.io/ |
+| Gestión de la conexión de datos (modos `Dynamic` y `Static`) | https://linq2db.github.io/articles/general/Managing-data-connection.html |
+| Operaciones de carga masiva (bulk copy) | https://linq2db.github.io/articles/sql/Bulk-Copy.html |
+| API de combinación (`MERGE`) | https://linq2db.github.io/articles/sql/merge/Merge-API.html |
+
+> Nota: los artículos se citan en su edición inglesa. Fecha de consulta: 19 de octubre de 2026.
+
 ## Apéndice B — Glosario de términos {#apendice-b}
 
 | Término | Definición |
@@ -5742,7 +6163,12 @@ presentación y la infraestructura de servicios de nopCommerce.
 | Tipo | Ubicación | Propósito |
 | - | - | - |
 | `IRepository<T>` | Nop.Data | Interfaz genérica del repositorio con operaciones CRUD básicas |
+| `EntityRepository<T>` | Nop.Data | Implementación genérica de `IRepository<T>` sobre linq2db (`Table`, `BulkCopy`, transacciones) |
 | `INopDataProvider` | Nop.Data | Contrato del proveedor de datos: crear e inicializar la base de datos y ejecutar operaciones CRUD sobre entidades |
+| `BaseDataProvider` | Nop.Data.DataProviders | Base común de los proveedores: CRUD, SQL crudo (`CommandInfo`), `BulkCopy` con `KeepIdentity` y `SqlSha2` |
+| `MsSqlNopDataProvider` | Nop.Data.DataProviders | Proveedor de SQL Server: `IDataProvider` de linq2db + `Microsoft.Data.SqlClient`; `Merge` y hints `NOLOCK` |
+| `NopMappingSchema` | Nop.Data.Mapping | Descriptores de entidad en memoria y `MappingSchema` de linq2db cacheados |
+| `FluentMigratorMetadataReader` | Nop.Data.Mapping | `IMetadataReader` de linq2db que traduce los descriptores FluentMigrator a atributos de mapeo |
 
 ### Capa de servicios (Nop.Services)
 

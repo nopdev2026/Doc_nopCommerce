@@ -271,7 +271,8 @@ end
 local function is_cover_image(el)
   if el.tag ~= "Image" then return false end
   local src = el.src
-  return src:find("cover%.png$") ~= nil
+  -- cover.png (nombres previos) y cover_Desarrollador.png / cover_usuarios.png
+  return src:find("cover.*%.png$") ~= nil
 end
 
 function Figure(f)

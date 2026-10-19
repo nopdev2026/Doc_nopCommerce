@@ -77,16 +77,16 @@ incluyen [conceptos]. Prerrequisitos: [capítulos]. Caso de uso típico: [cuánd
 
 ---
 
-## 5. Estado y entregables (tabla actualizada 2026-10-18)
+## 5. Estado y entregables (tabla actualizada 2026-10-19)
 
 | Entregable | Estado |
 |---|---|
 | `Fuentes_nopCommerce.md` | Completo: 5 secciones con fechas de consulta |
-| `Manual de desarrollo V01 de nopCommerce.md` | Completo: 32 capítulos V01, 8 partes, 3 apéndices, índice (322.130 B, 5.781 líneas, LF sin BOM) |
-| `publicacion/imprimir/Manual_NopCommerce_Del_Desarrollador.pdf` | Completo: interior KDP 7×10", 274 páginas, 1.239.906 B, 127 cajas overfull (123 de tabla ≤3 mm, 4 de texto ≤8,7 mm) |
-| `publicacion/imprimir/Manual_NopCommerce_Del_Desarrollador.docx` | Completo: Word, 36 Heading2, 288 bookmarks, 14 imágenes |
-| `publicacion/imprimir/Manual_NopCommerce_Del_Usuario.pdf` | Completo: interior 7×10", 516 páginas, 42.013.261 B, 708 imágenes, 21 cajas overfull (todas de tabla ≤2,8 mm) |
-| `publicacion/imprimir/Manual_NopCommerce_Del_Usuario.docx` | Completo: Word, 61 Heading2, 699 imágenes |
+| `Manual de desarrollo V01 de nopCommerce.md` | Completo: 34 capítulos V01, 8 partes, 3 apéndices, índice (360.065 B, 6.206 líneas, LF sin BOM) |
+| `publicacion/imprimir/Manual_NopCommerce_Del_Desarrollador.pdf` | Completo: interior KDP 7×10", 298 páginas, 2.663.977 B, portada `cover_Desarrollador.png` a página completa, 160 cajas overfull (156 de tabla ≤3 mm, 4 de texto ≤8,7 mm) |
+| `publicacion/imprimir/Manual_NopCommerce_Del_Desarrollador.docx` | Completo: Word, 38 Heading2, 305 bookmarks, 14 imágenes |
+| `publicacion/imprimir/Manual_NopCommerce_Del_Usuario.pdf` | Completo: interior 7×10", 516 páginas, 43.438.444 B, portada `cover_usuarios.png` a página completa, 708 entradas XObject, 21 cajas overfull (todas de tabla ≤2,8 mm) |
+| `publicacion/imprimir/Manual_NopCommerce_Del_Usuario.docx` | Completo: Word, 61 Heading2, 700 imágenes (portada incluida, 6 in) |
 | Hallazgos `find_01`…`find_06` (108) | 0 pendientes |
 | Reglas de corrección aplicadas | 169 (27 A + 27 B + 64 C + 17 mine + 13 mine2 + 12 p7fix + 9 final) |
 | PARTE VII (10 módulos) | Verificada contra el repo (≈200 afirmaciones, 12 hallazgos corregidos) |
@@ -102,15 +102,28 @@ incluyen [conceptos]. Prerrequisitos: [capítulos]. Caso de uso típico: [cuánd
 
 ### 5.2 Pipeline de publicación PDF (7×10", track LaTeX de la colección)
 
-Estructura (réplica de `javascript/` y hermanos): `cover.png` + `header_pdf.tex` en la raíz y
-`publicacion/{script,imprimir,backups}`. El manual fuente **nunca se toca**: el build lee una
-copia temporal `publicacion/imprimir/_build/manual_tmp.md` que prepara `preparar_fuente.py`
-(bloque mermaid → imagen pre-renderizada con `npx @mermaid-js/mermaid-cli`; imágenes que desbordan
-el ancho útil 5,1" acotadas con `{width=…}`; las que ya caben quedan intactas).
+Estructura (réplica de `javascript/` y hermanos): `cover_Desarrollador.png` +
+`cover_usuarios.png` + `header_pdf.tex` en la raíz y `publicacion/{script,imprimir,backups}`.
+El manual fuente **nunca se toca**: el build lee una copia temporal
+`publicacion/imprimir/_build/manual_tmp.md` que prepara `preparar_fuente.py` (cada bloque
+mermaid → su imagen pre-renderizada con `npx @mermaid-js/mermaid-cli`, en serie `_1`, `_2`, …
+y en orden de aparición —con un solo bloque se conserva el nombre sin sufijo—; imágenes que
+desbordan el ancho útil 5,1" acotadas con `{width=…}`; las que ya caben quedan intactas).
+`header_libro.tex` inyecta la portada del libro de desarrollo a página completa fijando **solo
+el ancho**: el asset mide 1024×1536 (2:3), no 7×10, y forzar ancho+alto lo deformaría un 5%.
+`header_usuario.tex` hace lo propio con `cover_usuarios.png`, pero fija ancho **y** alto
+(7×10.5 in, la proporción 2:3 exacta) porque este header define valores `Gin` por defecto
+(`width=\maxwidth`, `height=0.85\textheight`, `keepaspectratio`) que, de quedarse activos,
+encogerían la portada a 5.67×8.5 in en lugar de dejarla sangrar. En Word no hay `\maketitle`:
+ `filtro_portada_docx.lua` limita la imagen de portada a 6 in de ancho (área de texto de una
+carta con márgenes de 1 in).
 
 Comandos de reconstrucción: ver `ESTADO.md` (sección «Publicación KDP»). Resumen:
-`preparar_fuente.py extraer-mermaid` → `mmdc` → `preparar_fuente.py preparar` →
-`build_pdf_nopcommerce.ps1 -Libro publicacion/imprimir/_build/manual_tmp.md -Tecnología NopCommerce`.
+`preparar_fuente.py extraer-mermaid` → `mmdc` por bloque → `preparar_fuente.py preparar` →
+`build_pdf_nopcommerce.ps1 -Libro publicacion/imprimir/_build/manual_tmp.md -Tecnología NopCommerce`
+→ `build_docx_nopcommerce.ps1 -Manual desarrollo`. Trampa actual: si la caché de puppeteer no
+tiene `chrome-headless-shell`, `mmdc` se lanza con
+`PUPPETEER_EXECUTABLE_PATH=$(command -v chromium)`.
 
 Trampas resueltas (no re-descubrir):
 
@@ -167,6 +180,7 @@ Trampas resueltas (no re-descubrir):
 
 | Fecha | Cambio | Motivo |
 |---|---|---|
+| 2026-10-19 | Portada `cover_usuarios.png` en el manual de usuario: MD + `\maketitle` en `header_usuario.tex` (PDF) + `filtro_portada_docx.lua` (Word); reconstruidos PDF y DOCX | Petición del usuario; réplica del mecanismo del manual de desarrollo |
 | 2026-10-17 | Interior PDF KDP 7×10" (252 págs): pipeline en `publicacion/` + `cover.png` | Aprobación del usuario (solo PDF) |
 | 2026-10-17 | Reestructuración completa a V01: 28 capítulos, 7 partes, índice con anclas, PARTE VII | Plan v3 aprobado |
 | 2026-10-17 | Resolución de los 108 hallazgos (`find_01`…`find_06`) | Corrección contra el repo 4.90.8 |

@@ -47,7 +47,8 @@ Doc_nopCommerce/
 ├── ESTADO.md                                   Estado de entregables, árbol y hallazgos
 ├── MEMORIA_PROYECTO.md                         Memoria técnica del proyecto
 ├── Fuentes_nopCommerce.md                      Fuentes de referencia con fechas de consulta
-├── cover.png                                   Portada 2100×3000 (7×10" @300 dpi)
+├── cover_Desarrollador.png                  Portada del manual de desarrollo (1024×1536, 2:3)
+├── cover_usuarios.png                       Portada del manual de usuario (1024×1536, 2:3)
 ├── header_pdf.tex                              fontspec + fuente de respaldo
 ├── Manual de desarrollo V01 de nopCommerce.md  FUENTE del manual de desarrollo
 ├── Manual de usuario V01 de nopCommerce.md     FUENTE del manual de usuario
@@ -69,6 +70,7 @@ Doc_nopCommerce/
         ├── build_pdf_usuario_nopcommerce.ps1   PDF de usuario
         ├── build_docx_nopcommerce.ps1          DOCX de ambos manuales
         ├── filtro_libro_nopcommerce.lua        Partes, capítulos, apéndices y quiebres de ruta
+        ├── filtro_portada_docx.lua            Word: portada cover*.png a 6 in de ancho
         ├── emoji.lua / header_libro.tex / header_usuario.tex / fuentes_libro.tex
         ├── backup_fuente.ps1 / generar_portada.py
         └── fonts/                              TeX Gyre Pagella + DejaVu Sans Mono

@@ -39,6 +39,30 @@ Se pretende crear dos documentos la fuentes de verdad están en @Fuentes_nopComm
  - Manual de desarrollo para el programador
 
 ---
+
+# Fuentes de verdad
+
+## nopCommerce
+
+El comportamiento de nopCommerce se documenta a partir de su código fuente y de `Fuentes_nopCommerce.md`.
+
+## Microsoft Learn MCP (C#, .NET, ASP.NET Core, EF Core)
+
+Para cualquier concepto del lenguaje C# o de la plataforma .NET (incluidos ASP.NET Core, Entity Framework Core, LINQ, etc.), la fuente de verdad es el servidor MCP de Microsoft Learn configurado en `opencode.json` (nombre del servidor: `learn`).
+
+Reglas de uso:
+
+- Antes de documentar o consultar un concepto de C#/.NET, usar `microsoft_docs_search` para localizar el artículo oficial.
+- Cuando se necesite el contenido completo del artículo, usar `microsoft_docs_fetch`.
+- Cuando se necesiten ejemplos oficiales de código, usar `microsoft_code_sample_search` (filtro `language: csharp` cuando proceda).
+- No documentar conceptos de C#/.NET basados en el conocimiento previo del modelo. Si el servidor no aporta la información, indicar «Información pendiente de verificar en Microsoft Learn».
+- Citar la fuente por apartado, no por cada frase: cada sección o capítulo que incluya conceptos de C#/.NET debe identificar el artículo oficial del que procede la información.
+- Recoger todas las citas en la sección «Referencias» del documento, con el título del artículo y la URL de Microsoft Learn.
+- El servidor MCP no contiene documentación de nopCommerce. Para nopCommerce, usar el código fuente y `Fuentes_nopCommerce.md`.
+- Fuente de verdad para linq2db: documentación oficial en `https://linq2db.github.io/`.
+
+---
+
 # Principios
 
 La documentación debe ser:

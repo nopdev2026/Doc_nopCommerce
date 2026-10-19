@@ -1,0 +1,7 @@
+flowchart LR
+    S[Nop.Services] --> R[IRepository de T]
+    R --> ER[EntityRepository de T]
+    ER --> DP[INopDataProvider / BaseDataProvider]
+    DP --> LQ[linq2db: DataConnection y DataContext]
+    LQ --> AD[Driver ADO.NET: SqlClient / MySqlConnector / Npgsql]
+    AD --> BD[(Base de datos)]

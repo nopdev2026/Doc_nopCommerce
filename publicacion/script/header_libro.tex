@@ -3,16 +3,21 @@
 \usepackage{tikz}
 \graphicspath{{../../}}
 
-% Portada: la primera página muestra el cover.png a página completa.
-% - Dimensiones EXPLÍCITAS (7in x 10in): \includegraphics con width=\paperwidth
-%   falla silenciosamente en xelatex y produce página en blanco.
+% Portada: la primera página muestra cover_Desarrollador.png a página completa.
+% - Ancho EXPLÍCITO (7in): \includegraphics con width=\paperwidth falla
+%   silenciosamente en xelatex y produce página en blanco.
+% - Solo se fija el ancho: el asset es 1024x1536 (2:3), no 7:10. Forzar
+%   width+height deformaría la imagen un 5%. Con solo ancho, la altura
+%   resultante (10.5in) sobresale 0.25in por arriba y por abajo, centrada, y
+%   el sobrante queda fuera del recorte de la página: página completa sin
+%   distorsión ni bandas blancas.
 % - Overlay TikZ en lugar de \newgeometry/\restoregeometry: estos fuerzan saltos
 %   de página y desplazan la portada/copyright creando páginas en blanco.
 \renewcommand{\maketitle}{%
   \thispagestyle{empty}%
   \begin{tikzpicture}[remember picture, overlay]
-    \node[inner sep=0, anchor=north west] at (current page.north west)
-      {\includegraphics[width=7in,height=10in]{cover.png}};
+    \node[inner sep=0, anchor=center] at (current page.center)
+      {\includegraphics[width=7in]{cover_Desarrollador.png}};
   \end{tikzpicture}%
   \clearpage
 }

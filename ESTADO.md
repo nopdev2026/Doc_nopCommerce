@@ -1,6 +1,6 @@
 # ESTADO.md — Proyecto Doc_nopCommerce
 
-> **Estado del proyecto a 2026-10-18.** La fuente de verdad del conocimiento es `MEMORIA_PROYECTO.md`;
+> **Estado del proyecto a 2026-10-19.** La fuente de verdad del conocimiento es `MEMORIA_PROYECTO.md`;
 > este fichero refleja el estado operativo y los próximos pasos.
 
 ## Estado global
@@ -27,19 +27,69 @@ y el resto se filtró al PDF (índice duplicado). Ahora la zona se cierra en el 
 encabezado** y se borran todas sus listas: PDF sin duplicado (274 pp) y TOC de LaTeX completa
 con los 32 capítulos y las 8 partes.
 
+**Revisión de la Parte I (2026-10-19).** Revisión de «Parte I — Conceptos esenciales (recordatorio)» del manual de desarrollo: fichas de presentación de los 3 capítulos reescritas como lista etiquetada (servicio, utilidad, conceptos clave, prerrequisitos, caso de uso), corrección de la redacción de la ficha pub-sub y separación del marcador «Información pendiente de documentar» de la línea «Enlace». Ampliación de las fichas de repositorio (paginación, `ISoftDeletedEntity`), eventos (`EntityInsertedEvent<T>` y operaciones `Publish`/`PublishAsync`, mecanismo en memoria), caché (operaciones de los gestores), contextos (métodos asíncronos), localización (`LocaleStringResource`, `ILanguageService`) y permisos (`PermissionRecordCustomerRoleMapping`). Los datos de nopCommerce se verificaron contra el código 4.90.8 —`IEventPublisher` + `IConsumer<T>` vigentes, sin MassTransit; `plugin.json` con su lista completa de campos— y los conceptos .NET con el servidor MCP de Microsoft Learn, citados en el nuevo **Apéndice A.7** del manual. `Fuentes_nopCommerce.md` actualizado (fila de Microsoft Learn verificada). Respaldo: `Manual de desarrollo V01 de nopCommerce.pre-revision-partei.bak.md`. No se regeneraron PDF/DOCX.
+
+**Ampliación de la Parte I y capítulos de linq2db (2026-10-19, manual de desarrollo).**
+Ampliadas en el sitio las **13 fichas de la Parte I** con un bloque «Concepto general» nuevo y un
+apunte `> Fuente:` por ficha; los conceptos de C#/.NET/ASP.NET Core se verificaron con el servidor
+MCP de Microsoft Learn (23 artículos recogidos en el **Apéndice A.7**, reescrito: se corrigió la
+fila «Principios arquitectónicos (SOLID)» —`Architectural principles` no incluye SOLID— y se
+añadieron las fuentes de reflejo, eventos, caché, options, estado asíncrono, localización,
+autorización, abierto/cerrado y fábrica). Añadidos 3 ejemplos C# cortos aprobados (registro DI,
+declaración/lanzamiento de eventos, localizador por clave). Parte I: 191 → 342 líneas. Nuevos
+**Capítulo 7 «linq2db: qué es y cómo se usa»** y **Capítulo 8 «linq2db en nopCommerce (capa
+Nop.Data)»** —documentados con `https://linq2db.github.io/` y el código 4.90.8, con **Apéndice A.8**
+de referencias—; la Parte II pasa de 5 a 7 capítulos y el manual de **32 a 34 capítulos**,
+renumerados 108+ referencias, 52 anclas y referencias parentéticas obsoletas (además del arreglo
+de la referencia a `IEventPublisher`, que apuntaba al Cap. 30 y es el Cap. 20). Ampliado el
+Apéndice C con 5 tipos de `Nop.Data` (`EntityRepository<T>`, `BaseDataProvider`,
+`MsSqlNopDataProvider`, `NopMappingSchema`, `FluentMigratorMetadataReader`), fila de linq2db en
+`Fuentes_nopCommerce.md` y enlaces cruzados (Cap. 6 → 7-8; ficha repositorio → Cap. 8; Cap. 22 →
+7-8). Respaldo previo: `Manual de desarrollo V01 de nopCommerce.pre-ampliacion.bak.md`.
+No se regeneraron PDF/DOCX.
+
+**Regeneración de entregables (2026-10-19, posterior a la ampliación).** Ambos entregables del
+manual de desarrollo reconstruidos con el fuente ampliado. **PDF**: 274 → **298 páginas**
+(2.663.977 B), gutter 23 mm (mínimo KDP del tramo de 151-300: 12,7 mm), fuentes incrustadas,
+TOC con 34 capítulos / 8 partes / 3 apéndices y la portada nueva `cover_Desarrollador.png`
+pintada a página completa. Cajas overfull: 160 —156 de tabla (≤3 mm) y 4 de texto (máx. 8,7 mm),
+**ninguna >20 mm**—, ver §Hallazgo de desbordamiento. **DOCX**: 621.884 B, 38 Heading2,
+305 bookmarks, 14 imágenes, los 34 enlaces del índice resueltos. Correcciones de pipeline
+necesarias para que el build vuelva a ser reproducible:
+
+- `preparar_fuente.py` admitía **un solo bloque mermaid**: con dos, sustituía ambos por la
+  imagen del primero (un diagrama en el lugar de otro). Ahora extrae y sustituye **N bloques
+  en orden** (`_1`, `_2`, …) y exige igualdad de recuentos; con un bloque conserva el
+  comportamiento histórico.
+- `header_libro.tex` apuntaba a `cover.png` (borrada): ahora usa `cover_Desarrollador.png` y
+  **solo fija el ancho**. El asset nuevo mide 1024×1536 (2:3) y no 7×10; forzar ancho+alto lo
+  habría deformado un 5%. La altura sobrante (0,25 in arriba y abajo) queda fuera del recorte.
+- `mmdc` falla porque la caché de puppeteer no tiene `chrome-headless-shell`: se renderiza con
+  `PUPPETEER_EXECUTABLE_PATH=$(command -v chromium)`.
+- El diagrama del Cap. 8 pasó de `flowchart TD` a `LR`: en vertical medía 1,8×8 in y ocuparía
+  la página entera como una tira; en horizontal entra en 5,1×0,5 in.
+
+El manual de usuario **se reconstruyó con portada** (2026-10-19): el MD incluye ahora
+`![](cover_usuarios.png)` tras los metadatos; en el PDF esa imagen se elimina del cuerpo
+(`filtro_libro_nopcommerce.lua` ya casaba `cover*.png`) y la pinta `header_usuario.tex` con un
+`\maketitle` a página completa (overlay TikZ, igual que `header_libro.tex`, pero anulando los
+valores `Gin` por defecto de este header para no encoger la imagen). En Word la limita a 6 in el
+nuevo `filtro_portada_docx.lua`.
+
 ## Entregables
 
 | Fichero | Estado | Notas |
 |---|---|---|
-| `Manual de desarrollo V01 de nopCommerce.md` | **Completo** | 322.130 B · 5.781 líneas (LF, sin BOM) · 32 capítulos V01 · 8 partes · 3 apéndices · portada e índice con 44 enlaces |
-| `publicacion/imprimir/Manual_NopCommerce_Del_Desarrollador.pdf` | **Completo** | Interior KDP 7×10": 274 páginas · 1.239.906 B · track LaTeX (pandoc + xelatex) · gutter 23 mm · 127 cajas overfull (123 de tabla ≤3 mm; 4 de texto ≤8,7 mm; ver §Hallazgo de desbordamiento) |
-| `Manual de usuario V01 de nopCommerce.md` | **Completo** | 241.610 B · 57 capítulos V01 · 12 partes · 3 apéndices · índice con 72 enlaces · **708 capturas oficiales incrustadas** (`img/usuario/`) · uso personal/no comercial |
-| `publicacion/imprimir/Manual_NopCommerce_Del_Usuario.pdf` | **Completo** | Interior 7×10": 516 páginas · 42.013.261 B · 708 imágenes XObject · track LaTeX propio · 21 cajas overfull, todas de tabla (≤2,8 mm), ninguna de texto · copyright de uso personal con atribución a nop Solutions Ltd · sin ISBN |
-| `publicacion/imprimir/Manual_NopCommerce_Del_Usuario.docx` | **Completo** | Word vía pandoc + reference · 35.844.675 B · 699 imágenes incrustadas · 61 Heading2 · índice interno clicable (72 enlaces) |
-| `publicacion/imprimir/Manual_NopCommerce_Del_Desarrollador.docx` | **Completo** | Word del manual de desarrollo vía pandoc + reference · 602.813 B · 14 imágenes · 36 Heading2 · índice interno clicable (288 bookmarks) |
+| `Manual de desarrollo V01 de nopCommerce.md` | **Completo** | 360.065 B · 6.206 líneas (LF, sin BOM) · 34 capítulos V01 · 8 partes · 3 apéndices · portada e índice con 46 enlaces |
+| `publicacion/imprimir/Manual_NopCommerce_Del_Desarrollador.pdf` | **Completo** | Interior KDP 7×10": 298 páginas · 2.663.977 B · track LaTeX (pandoc + xelatex) · gutter 23 mm (mín. KDP 12,7 mm) · portada `cover_Desarrollador.png` a página completa · 160 cajas overfull (156 de tabla ≤3 mm; 4 de texto ≤8,7 mm; ninguna >20 mm) |
+| `Manual de usuario V01 de nopCommerce.md` | **Completo** | 241.635 B · 57 capítulos V01 · 12 partes · 3 apéndices · índice con 72 enlaces · portada `cover_usuarios.png` tras los metadatos · **708 capturas oficiales incrustadas** (`img/usuario/`) · uso personal/no comercial |
+| `publicacion/imprimir/Manual_NopCommerce_Del_Usuario.pdf` | **Completo** | Interior 7×10": 516 páginas · 43.438.444 B · 708 entradas XObject de imagen (699 únicas, portada incluida) · track LaTeX propio · portada `cover_usuarios.png` a página completa (pág. 1) · 21 cajas overfull, todas de tabla (≤2,8 mm), ninguna de texto · copyright de uso personal con atribución a nop Solutions Ltd · sin ISBN |
+| `publicacion/imprimir/Manual_NopCommerce_Del_Usuario.docx` | **Completo** | Word vía pandoc + reference · 37.365.749 B · 700 imágenes incrustadas (portada incluida, 6 in de ancho vía `filtro_portada_docx.lua`) · 61 Heading2 · índice interno clicable (72 enlaces) |
+| `publicacion/imprimir/Manual_NopCommerce_Del_Desarrollador.docx` | **Completo** | Word del manual de desarrollo vía pandoc + reference · 621.884 B · 14 imágenes · 38 Heading2 · índice interno clicable (305 bookmarks, 34 enlaces de capítulo) |
 | `img/usuario/` | **Completo** | 699 capturas oficiales descargadas de `nopCommerce-Docs` (`_static/`), con atribución |
-| `cover.png` | **Completo** | Portada 2100×3000 px (7×10" @300 dpi), plantilla de la colección |
-| `publicacion/script/` | **Completo** | Pipeline PDF: `build_pdf_nopcommerce.ps1`, `build_pdf_usuario_nopcommerce.ps1`, `build_docx_nopcommerce.ps1` (Word de ambos manuales), `filtro_libro_nopcommerce.lua`, `preparar_fuente.py`, `generar_portada.py`, `tecnologias.json` (entradas NOPCOMMERCE y NOPCOMMERCE_USUARIO), `header_libro.tex`, `header_usuario.tex`, `fuentes_libro.tex`, `emoji.lua`, `backup_fuente.ps1`, `fonts/` |
+| `cover_Desarrollador.png` | **Completo** | Portada del libro de desarrollo (1024×1536, 2:3), aportada el 2026-10-19; la usa `header_libro.tex` |
+| `cover_usuarios.png` | **Completo** | Portada del libro de usuario (1024×1536, 2:3), aportada el 2026-10-19; la usa `header_usuario.tex` en el PDF y el MD/DOCX del manual de usuario |
+| `publicacion/script/` | **Completo** | Pipeline PDF: `build_pdf_nopcommerce.ps1`, `build_pdf_usuario_nopcommerce.ps1`, `build_docx_nopcommerce.ps1` (Word de ambos manuales), `filtro_libro_nopcommerce.lua`, `filtro_portada_docx.lua` (ancho de portada en Word), `preparar_fuente.py`, `generar_portada.py`, `tecnologias.json` (entradas NOPCOMMERCE y NOPCOMMERCE_USUARIO), `header_libro.tex`, `header_usuario.tex`, `fuentes_libro.tex`, `emoji.lua`, `backup_fuente.ps1`, `fonts/` |
 | `Fuentes_nopCommerce.md` | **Completo** | 5 secciones (Advertencias + A-D) con fechas de consulta; 37 enlaces oficiales |
 | `MEMORIA_PROYECTO.md` | **Actualizado** | Conocimiento persistente del proyecto (reescrito 2026-10-17) |
 | `ESTADO.md` | **Este fichero** | Estado operativo |
@@ -92,14 +142,22 @@ misma plantilla de build.
 Secuencia de reconstrucción (el manual original no se modifica nunca; el build trabaja sobre una
 copia temporal en `publicacion/imprimir/_build/`):
 
-```powershell
-# 1) Copia temporal con el bloque mermaid sustituido por imagen y anchos acotados
+```bash
+# 1) Bloques mermaid -> .mmd (una ruta por línea; serie _1, _2, … si hay varios)
 python publicacion/script/preparar_fuente.py extraer-mermaid 'Manual de desarrollo V01 de nopCommerce.md' 'publicacion/imprimir/_build/mermaid_miniaturas.mmd'
-npx -y @mermaid-js/mermaid-cli -i publicacion/imprimir/_build/mermaid_miniaturas.mmd -o publicacion/imprimir/_build/mermaid_miniaturas.png -b white -s 2
-python publicacion/script/preparar_fuente.py preparar 'Manual de desarrollo V01 de nopCommerce.md' 'publicacion/imprimir/_build/manual_tmp.md' 'publicacion/imprimir/_build/mermaid_miniaturas.png'
-# 2) Build LaTeX (pandoc + xelatex ×2 + verificación de páginas/gutter con pypdf)
-powershell -NoProfile -ExecutionPolicy Bypass -File publicacion/script/build_pdf_nopcommerce.ps1 -Libro 'publicacion/imprimir/_build/manual_tmp.md' -Tecnología NopCommerce
-# 3) Portada (solo si hay que regenerarla)
+# 2) Render de cada bloque. PUPPETEER_EXECUTABLE_PATH es necesario si la caché
+#    de puppeteer no tiene chrome-headless-shell instalado.
+for f in publicacion/imprimir/_build/mermaid_miniaturas*.mmd; do
+  PUPPETEER_EXECUTABLE_PATH="$(command -v chromium)" npx -y @mermaid-js/mermaid-cli -i "$f" -o "${f%.mmd}.png" -b white -s 2
+done
+# 3) Copia temporal: bloque i <- imagen i (el script exige igualdad de recuentos)
+#    y acota el ancho de las imágenes que desbordan los 5,1 in útiles
+python publicacion/script/preparar_fuente.py preparar 'Manual de desarrollo V01 de nopCommerce.md' 'publicacion/imprimir/_build/manual_tmp.md' publicacion/imprimir/_build/mermaid_miniaturas*.png
+# 4) Build LaTeX (pandoc + xelatex ×2 + verificación de páginas/gutter con pypdf)
+pwsh -NoProfile -ExecutionPolicy Bypass -File publicacion/script/build_pdf_nopcommerce.ps1 -Libro 'publicacion/imprimir/_build/manual_tmp.md' -Tecnología NopCommerce
+# 5) Word (lee el fuente directamente, sin pasar por la copia temporal)
+pwsh -NoProfile -ExecutionPolicy Bypass -File publicacion/script/build_docx_nopcommerce.ps1 -Manual desarrollo
+# 6) Portada (solo si hay que regenerarla desde la plantilla; hoy la aporta el usuario)
 python publicacion/script/generar_portada.py cover.png
 ```
 
@@ -186,7 +244,7 @@ ahora a la segunda línea en lugar de cortarse en el margen.
 ## Próximos pasos (fuera del alcance actual)
 
 1. Cubierta KDP full-wrap (con `ensamblar_cubierta.py` de la colección) cuando se cierre el lomo
-   con las 274 páginas. **(Solo aplica al manual de desarrollo; el manual de usuario es de uso
+   con las 298 páginas. **(Solo aplica al manual de desarrollo; el manual de usuario es de uso
    personal y no se publica.)**
 2. Manual de usuario de nopCommerce: **COMPLETADO** (57 capítulos, **con las 708 capturas oficiales
    incrustadas**, PDF 516 pp y DOCX). Word del manual de desarrollo también generado.
@@ -197,13 +255,14 @@ ahora a la segunda línea en lugar de cortarse en el margen.
 
 ```
 Doc_nopCommerce/
-├── cover.png                      Portada 2100×3000 (7×10" @300 dpi)
+├── cover_Desarrollador.png        Portada del libro de desarrollo (1024×1536, 2:3)
+├── cover_usuarios.png             Portada del libro de usuario (1024×1536, 2:3)
 ├── header_pdf.tex                 fontspec + fuente de respaldo (sin ucharclasses)
 └── publicacion/
     ├── backups/                   Respaldos automáticos del fuente (backup_fuente.ps1)
     ├── imprimir/
-    │   ├── Manual_NopCommerce_Del_Desarrollador.pdf   ENTREGABLE: interior 274 págs
-    │   ├── Manual_NopCommerce_Del_Desarrollador.docx  ENTREGABLE: Word (36 Heading2)
+    │   ├── Manual_NopCommerce_Del_Desarrollador.pdf   ENTREGABLE: interior 298 págs
+    │   ├── Manual_NopCommerce_Del_Desarrollador.docx  ENTREGABLE: Word (38 Heading2)
     │   ├── Manual_NopCommerce_Del_Desarrollador.tex/.log/.toc/.aux   Artefactos del build
     │   ├── Manual_NopCommerce_Del_Usuario.pdf         ENTREGABLE: interior 516 págs
     │   ├── Manual_NopCommerce_Del_Usuario.docx        ENTREGABLE: Word (61 Heading2)
@@ -211,12 +270,13 @@ Doc_nopCommerce/
     │   ├── copyright_generado.tex / copyright_usuario_generado.tex   Copyright (generados)
     │   ├── reference_usuario.docx       Plantilla de referencia de los DOCX
     │   └── _build/                Copia temporal y assets: manual_tmp.md (regenerable),
-    │                              mermaid_miniaturas.mmd/.png y utilidades de verificación
+    │                              mermaid_miniaturas[_N].mmd/.png y utilidades de verificación
     └── script/
         ├── build_pdf_nopcommerce.ps1      Build solo-PDF (pandoc + xelatex ×2)
         ├── filtro_libro_nopcommerce.lua   Filtro del libro (partes, capítulos, apéndices)
+        ├── filtro_portada_docx.lua        Word: portada cover*.png a 6 in de ancho
         ├── preparar_fuente.py             Copia temporal: mermaid + anchos de imagen
-        ├── generar_portada.py             cover.png (plantilla de la colección)
+        ├── generar_portada.py             cover*.png (plantilla; hoy las portadas las aporta el usuario)
         ├── tecnologias.json               Textos del VOLUMEN IV (entrada NOPCOMMERCE)
         ├── header_libro.tex / fuentes_libro.tex / emoji.lua / backup_fuente.ps1
         └── fonts/                 TeX Gyre Pagella + DejaVu Sans Mono

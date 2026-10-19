@@ -1,5 +1,7 @@
 # Build DOCX (Word) para los manuales de nopCommerce (uso personal).
-# pandoc + reference-doc; SIN el filtro Lua (que emite LaTeX crudo para book).
+# pandoc + reference-doc + filtro_portada_docx.lua (limita el ancho de la
+# portada cover*.png a 6in para la página carta). NO se aplica
+# filtro_libro_nopcommerce.lua, que emite LaTeX crudo para book.
 # El índice general del manual se conserva: sus enlaces #capitulo-N se resuelven
 # como bookmarks internos en Word. El fuente NUNCA se modifica.
 # Uso:
@@ -50,6 +52,7 @@ pandoc $Libro -s -t docx `
   --from markdown+lists_without_preceding_blankline `
   --reference-doc="$refDoc" `
   --resource-path=. `
+  --lua-filter (Join-Path $PSScriptRoot "filtro_portada_docx.lua") `
   --metadata title="$titulo" `
   --metadata author="César Delgado Ruiz" `
   --metadata lang="es" `

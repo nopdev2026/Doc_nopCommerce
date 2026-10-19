@@ -6,6 +6,8 @@
 > **Última revisión:** 18 de octubre de 2026
 > **Naturaleza:** documento de uso personal y autoaprendizaje. No es un material editorial destinado a la venta.
 
+![](cover_usuarios.png)
+
 ## Índice general {#indice-general}
 
 - **[Parte I — Puesta en marcha](#parte-i)**

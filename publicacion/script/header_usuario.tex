@@ -1,7 +1,30 @@
 % Ajustes adicionales para el manual de usuario (uso personal), 7"x10"
-% La página de título la genera pandoc por defecto con title/subtitle/author/date.
 \usepackage{graphicx}
 \usepackage{tikz}
+% Rutas de capturas y portada: la raíz del proyecto, dos niveles arriba
+% (xelatex corre desde publicacion/imprimir/).
+\graphicspath{{../../}}
+
+% Portada: la primera página muestra cover_usuarios.png a página completa,
+% con el mismo mecanismo que header_libro.tex para el manual de desarrollo.
+% - Diferencia con header_libro.tex: aquí Gin tiene valores por defecto
+%   (width=\maxwidth, height=\maxheight, keepaspectratio) para las capturas,
+%   así que hay que anularlos los tres en la llamada. Solo fijar width=7in
+%   dejaría activo height=0.85\textheight y con keepaspectratio la portada
+%   se encogería a 5.67x8.5 in en vez de sangrar a página completa.
+% - width+height 7x10.5 in es la proporción exacta 2:3 del asset (1024x1536):
+%   sin deformación; el sobrante (0.25 in arriba y abajo) queda fuera del
+%   recorte de la página.
+% - Overlay TikZ en lugar de \newgeometry/\restoregeometry: estos fuerzan
+%   saltos de página y crean páginas en blanco.
+\renewcommand{\maketitle}{%
+  \thispagestyle{empty}%
+  \begin{tikzpicture}[remember picture, overlay]
+    \node[inner sep=0, anchor=center] at (current page.center)
+      {\includegraphics[width=7in,height=10.5in,keepaspectratio=false]{cover_usuarios.png}};
+  \end{tikzpicture}%
+  \clearpage
+}
 
 % Capturas: nunca desbordan la columna de 7"x10". Se limitan al ancho de
 % texto y a la altura de página conservando la proporción (keepaspectratio).
