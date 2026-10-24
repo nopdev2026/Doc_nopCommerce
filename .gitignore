@@ -16,6 +16,9 @@ publicacion/backups/
 __pycache__/
 *.pyc
 
+# Dependencias del servidor MCP (mcp/): se regeneran con `npm install`.
+mcp/node_modules/
+
 # Sistema
 Thumbs.db
 Desktop.ini

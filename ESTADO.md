@@ -1,7 +1,28 @@
 # ESTADO.md — Proyecto Doc_nopCommerce
 
-> **Estado del proyecto a 2026-10-19.** La fuente de verdad del conocimiento es `MEMORIA_PROYECTO.md`;
+> **Estado del proyecto a 2026-10-24.** La fuente de verdad del conocimiento es `MEMORIA_PROYECTO.md`;
 > este fichero refleja el estado operativo y los próximos pasos.
+
+## Cambios 2026-10-24 (limpieza, MCP y coherencia)
+
+- **Limpieza del repo**: borrados de `PDFs\` los 3 entregables antiguos
+  (`Manual_NopCommerce_Del_Desarrollador.docx`, `…_Del_Usuario.docx` y `…_Del_Usuario.pdf`, unos 70 MB;
+  eran versiones obsoletas sin versionar) y movidos los 6 `.bak.md` de la raíz a
+  `publicacion/backups/` (10 ficheros en total allí). Raíz y `git status` limpios.
+- **Servidor MCP `nopdev-docs`** (`mcp/`, Node + `@modelcontextprotocol/sdk`, stdio): expone los dos
+  manuales con 4 tools —`toc`, `get_chapter`, `search`, `reload`— probadas por JSON-RPC (inicializado,
+  tools/list, TOC agrupado por partes, capítulo por número/ancla/título y búsqueda con plegado de
+  acentos). Requiere Node ≥ 18 (comprobada v26.4.0) y `npm install` en `mcp/`
+  (`node_modules/` ignorado). Configuración en `opencode.json` (raíz del repo y workspace
+  `D:\Programacion\Proyectos_nopCommerce`): servidor local `nopdev-docs` + `learn` de Microsoft Learn.
+- **`check_pdf.py` actualizado** (32 → 34): la ampliación había renumerado el capítulo de Rendimiento
+  al 34 y el verificador quedó desfasado. Ahora las 4 comprobaciones de TOC imprimen `True`.
+- **Cifras reales verificadas hoy** (pypdf + zip): desarrollo PDF 298 pp · 2.663.977 B; DOCX 621.884 B ·
+  38 Heading2 · 305 bookmarks; usuario PDF 516 pp · 43.438.444 B; DOCX 37.365.749 B · 61 Heading2.
+  README y este fichero actualizados a esos valores.
+- **Pendiente**: renombrar `D:\Programacion\Proyectos_nopCommerde` → `Proyectos_nopCommerce`
+  (bloqueado por otra sesión de OpenCode y una terminal PowerShell con cwd dentro; tras cerrarlas,
+  el renombrado es inmediato: la config ya está escrita en la carpeta).
 
 ## Estado global
 
@@ -135,7 +156,8 @@ fichero correspondiente como `Manual de desarrollo V01 de nopCommerce.md`.
 ## Publicación KDP (interior PDF)
 
 El interior PDF **está generado y verificado** (`publicacion/imprimir/Manual_NopCommerce_Del_Desarrollador.pdf`,
-274 páginas · 1.239.906 B). Reproduce el track LaTeX de la colección (`MaquetaciónLibroGlobal.md`):
+298 páginas · 2.663.977 B; cifras re-verificadas el 2026-10-24). Reproduce el track LaTeX de la
+colección (`MaquetaciónLibroGlobal.md`):
 mismas tipografías (TeX Gyre Pagella + DejaVu Sans Mono), mismos márgenes 7×10" (gutter 23 mm) y
 misma plantilla de build.
 
@@ -230,12 +252,14 @@ borde, de modo que **ninguna línea sale de la página**. (El build solo verific
 gutter interior; este margen exterior se ha medido a partir de la geometría `paperwidth=7in`,
 `outer=20mm`, `inner=23mm`.)
 
-TOC verificada contra la página impresa: **32/32** capítulos en el de desarrollo y **60/60** en el de
-usuario (desfazue de front matter = 6 en ambos).
+TOC verificada contra la página impresa: **34/34** capítulos en el de desarrollo y **60/60** en el de
+usuario (desfazue de front matter = 6 en ambos; el recuento de desarrollo se re-verificó el
+2026-10-24 tras la ampliación a 34 capítulos, con `check_pdf.py` actualizado 32 → 34).
 
-> **Importante**: corregir el defecto alteró la paginación, como se anticipaba. El interior de
-> desarrollo pasa de **272 a 274 páginas**; todas las cifras de este documento y de
-> `MEMORIA_PROYECTO.md` están actualizadas a ese valor.
+> **Importante**: corregir el defecto alteró la paginación, como se anticipaba. En aquel momento el
+> interior de desarrollo pasó de **272 a 274 páginas**; tras la ampliación posterior (Parte I + cap.
+> de profundidad, 2026-10-18/19) el interior quedó en **298 páginas**, valor que mantienen este
+> documento y `MEMORIA_PROYECTO.md` (re-verificado el 2026-10-24).
 
 Verificación visual con `pdftoppm`: la ruta
 `Presentation/Nop.Web.Framework/Infrastructure/Extensions/ApplicationBuilderExtensions.cs` parte

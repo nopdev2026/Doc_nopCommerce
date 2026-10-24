@@ -7,7 +7,7 @@ maquetados a PDF (interior KDP 7×10") y a DOCX con pandoc + XeLaTeX.
 
 | Manual | Fichero fuente | Estructura |
 |---|---|---|
-| Desarrollo | `Manual de desarrollo V01 de nopCommerce.md` | 32 capítulos en 8 partes + 3 apéndices |
+| Desarrollo | `Manual de desarrollo V01 de nopCommerce.md` | 34 capítulos en 8 partes + 3 apéndices |
 | Usuario | `Manual de usuario V01 de nopCommerce.md` | 57 capítulos en 12 partes + 3 apéndices |
 
 Ambos manuales se documentan únicamente contra la versión **4.90.8** de nopCommerce. No hay
@@ -19,10 +19,10 @@ Cuatro ficheros generados en `publicacion/imprimir/`:
 
 | Fichero | Formato | Datos verificados |
 |---|---|---|
-| `Manual_NopCommerce_Del_Desarrollador.pdf` | Interior KDP 7×10" | 274 páginas · 1.239.906 B · gutter 23 mm |
-| `Manual_NopCommerce_Del_Desarrollador.docx` | Word | 602.813 B · 36 *Heading 2* |
-| `Manual_NopCommerce_Del_Usuario.pdf` | Interior 7×10" | 516 páginas · 42.013.261 B · 708 imágenes |
-| `Manual_NopCommerce_Del_Usuario.docx` | Word | 35.844.675 B · 61 *Heading 2* |
+| `Manual_NopCommerce_Del_Desarrollador.pdf` | Interior KDP 7×10" | 298 páginas · 2.663.977 B · gutter 23 mm |
+| `Manual_NopCommerce_Del_Desarrollador.docx` | Word | 621.884 B · 38 *Heading 2* |
+| `Manual_NopCommerce_Del_Usuario.pdf` | Interior 7×10" | 516 páginas · 43.438.444 B · 708 imágenes |
+| `Manual_NopCommerce_Del_Usuario.docx` | Word | 37.365.749 B · 61 *Heading 2* |
 
 ### Convención de nombres
 
@@ -47,6 +47,8 @@ Doc_nopCommerce/
 ├── ESTADO.md                                   Estado de entregables, árbol y hallazgos
 ├── MEMORIA_PROYECTO.md                         Memoria técnica del proyecto
 ├── Fuentes_nopCommerce.md                      Fuentes de referencia con fechas de consulta
+├── opencode.json                               Configuración de OpenCode (MCP `nopdev-docs` + `learn`)
+├── mcp/                                        Servidor MCP local «nopdev-docs» (Node, stdio)
 ├── cover_Desarrollador.png                  Portada del manual de desarrollo (1024×1536, 2:3)
 ├── cover_usuarios.png                       Portada del manual de usuario (1024×1536, 2:3)
 ├── header_pdf.tex                              fontspec + fuente de respaldo
@@ -91,6 +93,8 @@ Entorno con el que están verificados los builds:
 | pypdf | 6.21.1 | Lectura de PDF en los verificadores |
 | PowerShell | 7.6.7 (`pwsh`) | Ejecución de los builds |
 | Git | 2.54.0 | Control de versiones |
+| Node.js | ≥ 18 (comprobada v26) | Servidor MCP `nopdev-docs` (`mcp/`) |
+| npm | incluido con Node | Dependencias del servidor MCP |
 
 Además, `pdftoppm` (se instala con MiKTeX) permite revisar una página concreta como imagen.
 
@@ -126,6 +130,43 @@ pwsh -File publicacion/script/build_docx_nopcommerce.ps1 -Manual desarrollo
 pwsh -File publicacion/script/build_docx_nopcommerce.ps1 -Manual usuario
 ```
 
+## MCP nopdev-docs
+
+El repositorio incluye un **servidor MCP local** (`mcp/`, Node.js + `@modelcontextprotocol/sdk`,
+transporte stdio) que expone los dos manuales como documentación consultable desde cualquier
+cliente MCP (OpenCode, Claude Desktop, etc.), al estilo del MCP de Microsoft Learn:
+
+| Tool | Qué hace |
+|---|---|
+| `toc` | Índice de partes, capítulos y apéndices con sus *anchors* (filtro opcional por manual) |
+| `get_chapter` | Devuelve un capítulo completo; selector por número (`16`), ancla (`capitulo-16`) o subcadena del título |
+| `search` | Búsqueda literal o regex en ambos manuales, insensible a mayúsculas y acentos, con contexto |
+| `reload` | Vuelve a leer los `.md` desde disco (útil tras editar el fuente) |
+
+Uso y configuración:
+
+```powershell
+# Arranque directo (transporte stdio)
+node mcp/index.js
+```
+
+Para usarlo desde OpenCode hay dos `opencode.json` ya preparados (uno en la raíz de este repo y
+otro en el workspace `D:\Programacion\Proyectos_nopCommerce`), ambos con:
+
+- `nopdev-docs`: servidor local que ejecuta `node <ruta>\mcp\index.js`.
+- `learn`: MCP remoto de Microsoft Learn (`https://learn.microsoft.com/api/mcp`) para .NET.
+
+Instalación de dependencias (una sola vez; `mcp/node_modules/` está excluido de git):
+
+```powershell
+cd mcp
+npm install
+```
+
+> El repo es privado y el contenido está bajo todos los derechos reservados: el servidor MCP es
+> para uso personal. Si algún día se publica (Fase 3, Cloudflare Worker + `mcp.nopdev.es`),
+> decidir antes la licencia y los derechos de difusión.
+
 ## Verificación
 
 Ambos verificadores usan rutas relativas: deben ejecutarse desde la raíz del repositorio.
@@ -136,10 +177,10 @@ python publicacion/imprimir/_build/locate.py
 ```
 
 `check_pdf.py` comprueba número de páginas, copyright sin *mojibake*, páginas de apertura de partes
-y capítulos, mapa de fuentes del capítulo 32 y cuatro entradas de la TOC. Debe imprimir `True` en
+y capítulos, mapa de fuentes del capítulo 34 y cuatro entradas de la TOC. Debe imprimir `True` en
 las cuatro comprobaciones de TOC.
 
-La verificación de la TOC contra la página impresa (32/32 en desarrollo y 60/60 en usuario) y el
+La verificación de la TOC contra la página impresa (34/34 en desarrollo y 60/60 en usuario) y el
 desglose de cajas *overfull* se recogen en `ESTADO.md`, apartado «Hallazgo de desbordamiento».
 
 ## Documentación de estado

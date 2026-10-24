@@ -1,0 +1,15 @@
+{
+  "name": "nopdev-docs-mcp",
+  "version": "1.0.0",
+  "description": "MCP local (stdio) con los manuales de nopCommerce 4.90.8 de César Delgado Ruiz: toc, search y get_chapter",
+  "type": "module",
+  "main": "index.js",
+  "bin": { "nopdev-docs-mcp": "./index.js" },
+  "scripts": { "start": "node index.js" },
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.25.0"
+  },
+  "private": true
+}

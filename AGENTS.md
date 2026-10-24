@@ -58,8 +58,23 @@ Reglas de uso:
 - No documentar conceptos de C#/.NET basados en el conocimiento previo del modelo. Si el servidor no aporta la información, indicar «Información pendiente de verificar en Microsoft Learn».
 - Citar la fuente por apartado, no por cada frase: cada sección o capítulo que incluya conceptos de C#/.NET debe identificar el artículo oficial del que procede la información.
 - Recoger todas las citas en la sección «Referencias» del documento, con el título del artículo y la URL de Microsoft Learn.
-- El servidor MCP no contiene documentación de nopCommerce. Para nopCommerce, usar el código fuente y `Fuentes_nopCommerce.md`.
+- El servidor MCP `learn` no contiene documentación de nopCommerce. Para nopCommerce, usar el código fuente, `Fuentes_nopCommerce.md` y el servidor `nopdev-docs` (ver abajo).
 - Fuente de verdad para linq2db: documentación oficial en `https://linq2db.github.io/`.
+
+## MCP nopdev-docs (manuales de nopCommerce)
+
+Este repositorio expone sus propios manuales como servidor MCP local (Node, stdio; nombre del servidor: `nopdev-docs`, configurado en `opencode.json`). Es la **fuente de navegación rápida** del contenido ya documentado en este repo:
+
+- `toc`: índice de partes, capítulos y apéndices de ambos manuales, con sus *anchors*.
+- `get_chapter`: capítulo completo por número, ancla o subcadena del título (`manual`: `desarrollo` o `usuario`).
+- `search`: búsqueda literal o regex en los manuales, insensible a acentos y mayúsculas.
+- `reload`: recarga los `.md` desde disco tras editarlos.
+
+Reglas de uso:
+
+- Para saber **qué ya está documentado** sobre nopCommerce 4.90.8 en este repo (temas, capítulos, anclas), usar primero `nopdev-docs` (`toc` / `search`) en lugar de re-leer los `.md` enteros.
+- `nopdev-docs` indexa **estos manuales**, no el código fuente: para verificar el comportamiento real de nopCommerce sigue mandando el código fuente de 4.90.8 y `Fuentes_nopCommerce.md`.
+- Requiere Node ≥ 18 y `npm install` en `mcp/`; el servidor se arranca con `node mcp/index.js` (transporte stdio).
 
 ---
 
