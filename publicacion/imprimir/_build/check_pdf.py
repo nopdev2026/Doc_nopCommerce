@@ -1,4 +1,4 @@
-import re
+﻿import re
 from pypdf import PdfReader
 
 r = PdfReader(r'publicacion\imprimir\Manual_NopCommerce_Del_Desarrollador.pdf')
@@ -27,12 +27,12 @@ print('copyright pags:', find('Reservados todos los derechos'))
 print('parte I  (Conceptos esenciales) pags:', find('Conceptos esenciales (recordatorio)', start=7))
 print('parte II (Fundamentos) pags:', find('Fundamentos', start=7))
 print('cap 1  (Arquitectura) pags:', find('Arquitectura, entidades y dependencias', start=7))
-print('cap 32 (Rendimiento) pags:', find('Rendimiento, compresión y despliegue', start=7))
+print('cap 34 (Rendimiento) pags:', find('Rendimiento, compresión y despliegue', start=7))
 print('apendice A pags:', find('Recursos y referencias', start=7))
 
-# Mapa de fuentes de la apertura del capitulo 32 (antes envenenada).
-p32 = find('Rendimiento, compresión y despliegue', start=7)[0]
-pg = r.pages[p32 - 1]
+# Mapa de fuentes de la apertura del capitulo 34 (antes envenenada).
+p34 = find('Rendimiento, compresión y despliegue', start=7)[0]
+pg = r.pages[p34 - 1]
 out = []
 def visitor(text, cm, tm, font_dict, fs):
     t = text.strip()
@@ -44,7 +44,7 @@ def visitor(text, cm, tm, font_dict, fs):
     else:
         out.append([name, t[:34]])
 pg.extract_text(visitor_text=visitor)
-print(f'=== fuentes pagina {p32} (apertura cap 32) ===')
+print(f'=== fuentes pagina {p34} (apertura cap 34) ===')
 for name, t in out[:12]:
     print(f'  {name:44s} | {t}')
 
@@ -54,8 +54,9 @@ print('TOC paginas 3-6')
 print('  entrada "1. Arquitectura":', bool(re.search(r'1\.\s+Arquitectura', toc_text)))
 print('  entrada parte "I Conceptos esenciales":', bool(re.search(r'\bI\s+Conceptos esenciales', toc_text)))
 print('  entrada parte "II Fundamentos":', bool(re.search(r'\bII\s+Fundamentos', toc_text)))
-print('  entrada "32. Rendimiento":', bool(re.search(r'32\.\s+Rendimiento', toc_text)))
+print('  entrada "34. Rendimiento":', bool(re.search(r'34\.\s+Rendimiento', toc_text)))
 
 # Copyright sin mojibake.
 cpy = r.pages[1].extract_text() or ''
 print('copyright electronico ok:', 'electrónico' in cpy, '| mojibake:', 'Ã' in cpy)
+
