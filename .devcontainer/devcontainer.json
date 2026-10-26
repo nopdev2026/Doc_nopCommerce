@@ -15,5 +15,5 @@
     }
   },
   "postCreateCommand": "cd /workspaces/Doc_nopCommerce/mcp && npm ci --no-audit --no-fund",
-  "postStartCommand": "bash -c 'if [ -f \"$HOME/.nopdev-docs.env\" ]; then set -a; . \"$HOME/.nopdev-docs.env\"; set +a; fi; cd /workspaces/Doc_nopCommerce/mcp && nohup node http.js > \"$HOME/nopdev-docs-http.log\" 2>&1 &'"
+  "postStartCommand": "bash -c 'if [ -f \"$HOME/.nopdev-docs.env\" ]; then set -a; . \"$HOME/.nopdev-docs.env\"; set +a; fi; cd /workspaces/Doc_nopCommerce/mcp && setsid nohup node http.js > \"$HOME/nopdev-docs-http.log\" 2>&1 &'"
 }
