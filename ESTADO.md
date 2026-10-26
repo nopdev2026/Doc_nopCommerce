@@ -3,6 +3,26 @@
 > **Estado del proyecto a 2026-10-26.** La fuente de verdad del conocimiento es `MEMORIA_PROYECTO.md`;
 > este fichero refleja el estado operativo y los próximos pasos.
 
+## Cambios 2026-10-26 (retirada del MCP remoto y repo público)
+
+Decisión del usuario, tomada el mismo día tras implementar la Fase 2:
+
+- **Repo hecho público**: `nopdev2026/Doc_nopCommerce` pasa de privado a **público** (sin fichero
+  `LICENSE` → todos los derechos reservados). El usuario no va a comercializar este contenido ni
+  hacer libros sobre ello; la difusión a la comunidad se limita, de momento, a **enlazar el repo**.
+- **MCP solo local**: se retira la Fase 2. Eliminados el codespace `nopdev-docs-jr56wvw95pg6hpx65`,
+  el codespace secret `MCP_TOKEN`, la entrada `nopdev-docs-remote` del `opencode.json` del workspace
+  y los ficheros `.mcp_token` y `arrancar-mcp-remoto.ps1`. El workspace queda con `nopdev-docs`
+  (local) + `learn`.
+- **Fase 3 descartada**: no habrá endpoint público (`mcp.nopdev.es` ni Cloudflare Worker). El
+  estudio `Investigacion_Fase3_hosting_MCP.md` queda **archivado** por si se retoma.
+- **Se conserva** el código de la Fase 2 en el repo (`mcp/http.js`, `mcp/start-server.sh`,
+  `.devcontainer/`) con instrucciones de reactivación en el README.
+- Nota sobre las 708 capturas de nopCommerce en el manual de usuario: el usuario asume mantenerlas
+  con atribución (sin verificación adicional de licencia), dado que no hay servicio ni venta.
+- Los dos documentos de apoyo viven en local: `Manual_MCP_Remoto_nopdev-docs.md` e
+  `Investigacion_Fase3_hosting_MCP.md` (en `D:\Investigaciones_con_IA\CurriculumCesar\`).
+
 ## Cambios 2026-10-26 (MCP remoto vía GitHub Codespaces — Fase 2)
 
 - **MCP remoto operativo**: el servidor `nopdev-docs` se expone en HTTPS público desde un Codespace

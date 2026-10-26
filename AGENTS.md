@@ -63,7 +63,7 @@ Reglas de uso:
 
 ## MCP nopdev-docs (manuales de nopCommerce)
 
-Este repositorio expone sus propios manuales como servidor MCP (Node; nombre del servidor: `nopdev-docs`, configurado en `opencode.json`), en dos modalidades: **local** (`mcp/index.js`, transporte stdio) y **remota** (Fase 2, `mcp/http.js`, Streamable HTTP sobre el puerto 8787 de un GitHub Codespace; en el workspace `D:\Programacion\Proyectos_nopCommerce` se configura como `nopdev-docs-remote`). Es la **fuente de navegación rápida** del contenido ya documentado en este repo:
+Este repositorio expone sus propios manuales como servidor MCP **local** (Node, transporte stdio; nombre del servidor: `nopdev-docs`, configurado en `opencode.json`). Es la **fuente de navegación rápida** del contenido ya documentado en este repo:
 
 - `toc`: índice de partes, capítulos y apéndices de ambos manuales, con sus *anchors*.
 - `get_chapter`: capítulo completo por número, ancla o subcadena del título (`manual`: `desarrollo` o `usuario`).
@@ -74,9 +74,9 @@ Reglas de uso:
 
 - Para saber **qué ya está documentado** sobre nopCommerce 4.90.8 en este repo (temas, capítulos, anclas), usar primero `nopdev-docs` (`toc` / `search`) en lugar de re-leer los `.md` enteros.
 - `nopdev-docs` indexa **estos manuales**, no el código fuente: para verificar el comportamiento real de nopCommerce sigue mandando el código fuente de 4.90.8 y `Fuentes_nopCommerce.md`.
-- Requiere Node ≥ 18 y `npm install` en `mcp/`; el servidor se arranca con `node mcp/index.js` (transporte stdio) o `npm run start:http` (HTTP, requiere `MCP_TOKEN`).
-- **Remoto (Fase 2)**: Codespace `nopdev-docs-jr56wvw95pg6hpx65`, endpoint público `https://nopdev-docs-jr56wvw95pg6hpx65-8787.app.github.dev/mcp` con auth `Bearer <MCP_TOKEN>`. El arranque completo (codespace + servidor + puerto público) se hace con `D:\Programacion\Proyectos_nopCommerce\arrancar-mcp-remoto.ps1` (el `postStart` del devcontainer solo corre al crear el codespace y el puerto vuelve a `private` en cada arranque).
-- **El token nunca se commitea**: vive en `Proyectos_nopCommerce\.mcp_token` (fuera de git), en el codespace secret `MCP_TOKEN` y en `~/.nopdev-docs.env` dentro del container. No escribirlo en ningún fichero de este repo.
+- Requiere Node ≥ 18 y `npm install` en `mcp/`; el servidor se arranca con `node mcp/index.js` (transporte stdio). El modo HTTP (`npm run start:http`, `mcp/http.js`) existe en el código pero **no está en uso**.
+- **Remoto retirado (26/10/2026)**: hubo una Fase 2 con endpoint en GitHub Codespaces, eliminada por decisión del usuario (MCP solo local); el repo es ahora **público**. El código de esa fase (`mcp/http.js`, `mcp/start-server.sh`, `.devcontainer/`) se conserva y los pasos de reactivación están en el README.
+- **Si algún día se reactiva el remoto, el token nunca se commitea**: debe vivir fuera de git (workspace `Proyectos_nopCommerce`, codespace secret). No escribir ningún token en este repo.
 
 ---
 
