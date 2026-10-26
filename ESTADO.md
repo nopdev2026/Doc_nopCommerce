@@ -1,7 +1,35 @@
 # ESTADO.md — Proyecto Doc_nopCommerce
 
-> **Estado del proyecto a 2026-10-24.** La fuente de verdad del conocimiento es `MEMORIA_PROYECTO.md`;
+> **Estado del proyecto a 2026-10-26.** La fuente de verdad del conocimiento es `MEMORIA_PROYECTO.md`;
 > este fichero refleja el estado operativo y los próximos pasos.
+
+## Cambios 2026-10-26 (MCP remoto vía GitHub Codespaces — Fase 2)
+
+- **MCP remoto operativo**: el servidor `nopdev-docs` se expone en HTTPS público desde un Codespace
+  del repo privado. Codespace `nopdev-docs-jr56wvw95pg6hpx65` (WestEurope, `basicLinux32gb`,
+  idle 30 min); endpoint `https://nopdev-docs-jr56wvw95pg6hpx65-8787.app.github.dev/mcp` y salud
+  en `/health`.
+- **Refactor del servidor**: `mcp/server.js` (núcleo compartido: parser + 4 tools), `mcp/index.js`
+  (stdio, local) y `mcp/http.js` (Streamable HTTP stateless en :8787, auth `Bearer MCP_TOKEN` o
+  `?token=`, CORS, `enableJsonResponse`). Script `npm run start:http`.
+- **Pruebas locales y públicas superadas**: health 200 · sin token 401 · `initialize` 200 ·
+  `tools/list` con las 4 tools · `toc` 3.020 chars · `get_chapter` usuario «RGPD» 3.338 chars
+  (Capítulo 9) — contra la URL pública. `opencode mcp list` → `nopdev-docs-remote connected`.
+- **devcontainer** (`.devcontainer/devcontainer.json`): imagen node-22, feature `sshd` (necesaria
+  para `gh codespace ssh/logs`), `postCreate` con `npm ci`, puerto 8787. Hallazgos: GitHub **no
+  inyecta** los codespaces secrets en los scripts de ciclo de vida (token en `~/.nopdev-docs.env`),
+  el `postStart` **solo corre al crear** el codespace (no en arranques posteriores) y el puerto
+  **vuelve a `private` en cada arranque**.
+- **Workflow de arranque** en un solo comando: `D:\Programacion\Proyectos_nopCommerce\arrancar-mcp-remoto.ps1`
+  (escribe el env-file, ejecuta `mcp/start-server.sh` con `setsid`, pone el puerto en `public` y
+  verifica `/health` → 200). La config remota de OpenCode (`nopdev-docs-remote`, cabecera Bearer,
+  `oauth: false`) está en el `opencode.json` de ese workspace, **fuera de git**.
+- **Token**: 43 caracteres en `Proyectos_nopCommerce\.mcp_token` + codespace secret de usuario
+  `MCP_TOKEN` (restringido al repo). **Nunca commiteado.**
+- **Pendiente cerrado**: el renombrado `Proyectos_nopCommerde` → `Proyectos_nopCommerce` (anotado
+  el 2026-10-24) ya está hecho.
+- **Pendiente (Fase 3)**: decisión de licencia/derechos antes de publicar el endpoint propio
+  (Cloudflare Worker + `mcp.nopdev.es`).
 
 ## Cambios 2026-10-24 (limpieza, MCP y coherencia)
 

@@ -48,7 +48,8 @@ Doc_nopCommerce/
 ├── MEMORIA_PROYECTO.md                         Memoria técnica del proyecto
 ├── Fuentes_nopCommerce.md                      Fuentes de referencia con fechas de consulta
 ├── opencode.json                               Configuración de OpenCode (MCP `nopdev-docs` + `learn`)
-├── mcp/                                        Servidor MCP local «nopdev-docs» (Node, stdio)
+├── .devcontainer/devcontainer.json             Codespaces: imagen node-22, sshd, puerto 8787 público
+├── mcp/                                        Servidor MCP «nopdev-docs» (Node: stdio local + HTTP con token; Fase 2)
 ├── cover_Desarrollador.png                  Portada del manual de desarrollo (1024×1536, 2:3)
 ├── cover_usuarios.png                       Portada del manual de usuario (1024×1536, 2:3)
 ├── header_pdf.tex                              fontspec + fuente de respaldo
@@ -148,13 +149,65 @@ Uso y configuración:
 ```powershell
 # Arranque directo (transporte stdio)
 node mcp/index.js
+
+# Servidor HTTP (Streamable, auth por token) — misma carpeta mcp/
+npm run start:http   # necesita la variable MCP_TOKEN; puerto 8787, endpoint /mcp y /health
 ```
+
+### MCP remoto vía GitHub Codespaces (Fase 2)
+
+El mismo servidor corre de forma remota en un **Codespace** del repo privado, con endpoint HTTPS
+público y autenticación por token:
+
+| Dato | Valor |
+|---|---|
+| Codespace | `nopdev-docs-jr56wvw95pg6hpx65` (repo `nopdev2026/Doc_nopCommerce`, `WestEurope`, `basicLinux32gb`) |
+| Endpoint MCP | `https://nopdev-docs-jr56wvw95pg6hpx65-8787.app.github.dev/mcp` |
+| Salud | `…/health` → `{"ok":true,…}` |
+| Auth | cabecera `Authorization: Bearer <MCP_TOKEN>` (o `?token=`); sin token → 401 |
+| Paro automático | 30 min de inactividad (idle timeout) |
+| Cuota | plan gratuito ≈ 120 core-h/mes → **≈ 60 h/mes** con esta máquina de 2 núcleos (verificar en tu plan de GitHub) |
+
+**Arranque (workflow)** — GitHub NO ejecuta el `postStart` del devcontainer salvo al *crear* el
+codespace, y el puerto vuelve a `private` en cada arranque, así que todo se deja en un único
+script local (en el workspace, fuera de git):
+
+```powershell
+cd D:\Programacion\Proyectos_nopCommerce
+.\arrancar-mcp-remoto.ps1
+```
+
+El script: (1) arranca el codespace si está parado (vía `gh codespace ssh`, que lo auto-arranca),
+(2) escribe el token en `~/.nopdev-docs.env` dentro del container, (3) arranca el servidor con
+`mcp/start-server.sh` (idempotente: si ya responde no hace nada) y (4) pone el puerto 8787 en
+`public` y verifica `200` en `/health`.
+
+Operación útil:
+
+```powershell
+gh codespace list                                   # estado
+gh codespace stop -c nopdev-docs-jr56wvw95pg6hpx65   # ahorrar cuota cuando no se use
+gh codespace ssh -c nopdev-docs-jr56wvw95pg6hpx65 -- tail -20 '$HOME/nopdev-docs-http.log'
+```
+
+> **Seguridad**: el token es un valor de 43 caracteres generado localmente en
+> `D:\Programacion\Proyectos_nopCommerce\.mcp_token` y replicado como *codespace secret* de
+> usuario (`gh secret set MCP_TOKEN --app codespaces --user --repos nopdev2026/Doc_nopCommerce`).
+> **Nunca se commitea**: ni en este repo (copyright «todos los derechos reservados») ni en ningún
+> otro. Si se filtra: `gh secret set MCP_TOKEN … --body <nuevo>` + regenerar `.mcp_token` + volver
+> a ejecutar el script de arranque.
 
 Para usarlo desde OpenCode hay dos `opencode.json` ya preparados (uno en la raíz de este repo y
 otro en el workspace `D:\Programacion\Proyectos_nopCommerce`), ambos con:
 
 - `nopdev-docs`: servidor local que ejecuta `node <ruta>\mcp\index.js`.
 - `learn`: MCP remoto de Microsoft Learn (`https://learn.microsoft.com/api/mcp`) para .NET.
+
+Y solo el del workspace añade:
+
+- `nopdev-docs-remote`: el servidor **remoto** de la Fase 2 (ver arriba) contra la URL pública del
+  Codespace, con cabecera `Authorization: Bearer <token>` y `oauth: false`. Ese workspace **no es
+  un repo git**, así que el token nunca se commitea.
 
 Instalación de dependencias (una sola vez; `mcp/node_modules/` está excluido de git):
 
