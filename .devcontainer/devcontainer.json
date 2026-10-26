@@ -1,0 +1,14 @@
+{
+  "name": "nopdev-docs MCP",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
+  "forwardPorts": [8787],
+  "portsAttributes": {
+    "8787": {
+      "label": "nopdev-docs MCP",
+      "visibility": "public",
+      "onAutoForward": "ignore"
+    }
+  },
+  "postCreateCommand": "cd /workspaces/Doc_nopCommerce/mcp && npm ci --no-audit --no-fund",
+  "postStartCommand": "bash -c 'if [ -f \"$HOME/.nopdev-docs.env\" ]; then set -a; . \"$HOME/.nopdev-docs.env\"; set +a; fi; cd /workspaces/Doc_nopCommerce/mcp && nohup node http.js > \"$HOME/nopdev-docs-http.log\" 2>&1 &'"
+}
