@@ -47,7 +47,7 @@ Doc_nopCommerce/
 ├── ESTADO.md                                   Estado de entregables, árbol y hallazgos
 ├── MEMORIA_PROYECTO.md                         Memoria técnica del proyecto
 ├── Fuentes_nopCommerce.md                      Fuentes de referencia con fechas de consulta
-├── opencode.json                               Configuración de OpenCode (MCP `nopdev-docs` + `learn`)
+├── opencode.json                               Configuración de OpenCode (MCP `nopdev-docs` + `mcp.net`)
 ├── .devcontainer/devcontainer.json             Contenedor Codespaces (en desuso: MCP solo local)
 ├── mcp/                                        Servidor MCP «nopdev-docs» (Node: stdio local + HTTP con token; Fase 2)
 ├── cover_Desarrollador.png                  Portada del manual de desarrollo (1024×1536, 2:3)
@@ -186,7 +186,7 @@ Para usarlo desde OpenCode hay dos `opencode.json` ya preparados (uno en la raí
 otro en el workspace `D:\Programacion\Proyectos_nopCommerce`), ambos con:
 
 - `nopdev-docs`: servidor local que ejecuta `node <ruta>\mcp\index.js`.
-- `learn`: MCP remoto de Microsoft Learn (`https://learn.microsoft.com/api/mcp`) para .NET.
+- `mcp.net`: MCP remoto de Microsoft Learn (`https://learn.microsoft.com/api/mcp`) para .NET (antes llamado `learn`; el workspace `D:\Programacion\Proyectos_nopCommerce` expone también el comando `/mcp.net [pregunta]` vía `.opencode/commands/mcp.net.md`).
 
 Instalación de dependencias (una sola vez; `mcp/node_modules/` está excluido de git):
 

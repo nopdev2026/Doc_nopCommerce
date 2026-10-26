@@ -3,6 +3,15 @@
 > **Estado del proyecto a 2026-10-26.** La fuente de verdad del conocimiento es `MEMORIA_PROYECTO.md`;
 > este fichero refleja el estado operativo y los próximos pasos.
 
+## Cambios 2026-10-26 (renombrado del MCP de Microsoft Learn: `learn` → `mcp.net`)
+
+- El servidor MCP de Microsoft Learn pasa a llamarse **`mcp.net`** en ambos `opencode.json`
+  (repo y workspace `D:\Programacion\Proyectos_nopCommerce`) para más claridad; la URL remota
+  no cambia.
+- El workspace añade el comando **`/mcp.net [pregunta]`**
+  (`.opencode/commands/mcp.net.md`), que responde preguntas de C#/.NET usando este servidor y
+  citando el artículo oficial de Microsoft Learn.
+
 ## Cambios 2026-10-26 (retirada del MCP remoto y repo público)
 
 Decisión del usuario, tomada el mismo día tras implementar la Fase 2:

@@ -48,7 +48,7 @@ El comportamiento de nopCommerce se documenta a partir de su código fuente y de
 
 ## Microsoft Learn MCP (C#, .NET, ASP.NET Core, EF Core)
 
-Para cualquier concepto del lenguaje C# o de la plataforma .NET (incluidos ASP.NET Core, Entity Framework Core, LINQ, etc.), la fuente de verdad es el servidor MCP de Microsoft Learn configurado en `opencode.json` (nombre del servidor: `learn`).
+Para cualquier concepto del lenguaje C# o de la plataforma .NET (incluidos ASP.NET Core, Entity Framework Core, LINQ, etc.), la fuente de verdad es el servidor MCP de Microsoft Learn configurado en `opencode.json` (nombre del servidor: `mcp.net`; el workspace `D:\Programacion\Proyectos_nopCommerce` tiene además el comando `/mcp.net [pregunta]`, que responde con este servidor citando el artículo oficial).
 
 Reglas de uso:
 
@@ -58,7 +58,7 @@ Reglas de uso:
 - No documentar conceptos de C#/.NET basados en el conocimiento previo del modelo. Si el servidor no aporta la información, indicar «Información pendiente de verificar en Microsoft Learn».
 - Citar la fuente por apartado, no por cada frase: cada sección o capítulo que incluya conceptos de C#/.NET debe identificar el artículo oficial del que procede la información.
 - Recoger todas las citas en la sección «Referencias» del documento, con el título del artículo y la URL de Microsoft Learn.
-- El servidor MCP `learn` no contiene documentación de nopCommerce. Para nopCommerce, usar el código fuente, `Fuentes_nopCommerce.md` y el servidor `nopdev-docs` (ver abajo).
+- El servidor MCP `mcp.net` no contiene documentación de nopCommerce. Para nopCommerce, usar el código fuente, `Fuentes_nopCommerce.md` y el servidor `nopdev-docs` (ver abajo).
 - Fuente de verdad para linq2db: documentación oficial en `https://linq2db.github.io/`.
 
 ## MCP nopdev-docs (manuales de nopCommerce)

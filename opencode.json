@@ -6,7 +6,7 @@
         "type": "local",
         "command": ["node", "D:\\Programacion\\Documentacion\\Doc_nopCommerce\\mcp\\index.js"]
       },
-      "learn": {
+      "mcp.net": {
         "type": "remote",
         "url": "https://learn.microsoft.com/api/mcp"
       }
